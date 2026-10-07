@@ -458,7 +458,6 @@ export default function Overlay() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/wordmark.png" width={1200} height={224} alt="PACALIX" className="h-[18px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
         </button>
-        <a href="mailto:simon0021maxam@gmail.com" className="ml-auto mr-2 hidden text-[14px] font-bold underline decoration-2 underline-offset-4 xl:block" style={{ color: 'var(--hot)' }}>simon0021maxam@gmail.com</a>
         <nav aria-label="Primary" className="flex gap-5 text-[15px] font-bold sm:gap-9">
           {NAV.map((n) => {
             const on = SECTION_IDS[active] === n.id || (n.id === 'about' && SECTION_IDS[active] === 'credentials')
@@ -485,10 +484,12 @@ export default function Overlay() {
         <SoundControl />
         <div className="pointer-events-auto flex items-center gap-5 sm:gap-6">
           <Gyro />
+          <a href="/services" className="max-sm:hidden text-[14px] font-bold opacity-80 transition-opacity hover:opacity-100">Services</a>
           <button onClick={() => setGame(true)} data-hover="Play" className="max-sm:hidden text-[14px] font-bold opacity-80 transition-opacity hover:opacity-100">
             Play
           </button>
           <ThemePicker />
+          <a href="mailto:simon0021maxam@gmail.com" className="max-sm:hidden rounded-full px-4 py-2 text-[14px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>simon0021maxam@gmail.com</a>
         </div>
       </footer>
 

@@ -19,6 +19,7 @@ export default function Home() {
           visualization, real-time experiences and AI assistants for brands worldwide.
         </p>
         <AboutLocales />
+        <a href="/services">PACALIX services: web design and 3D experiences in Calgary</a>
       </section>
     </>
   )
