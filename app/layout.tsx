@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   icons: { icon: '/logo-panda.png', apple: '/logo-panda.png' },
 }
 
-const SAME_AS = ['https://www.instagram.com/noroyo.studio/', 'https://www.linkedin.com/in/simonmaxam/']
+const SAME_AS = ['https://www.instagram.com/pacalixhq/', 'https://www.linkedin.com/in/simonmaxam/']
 
 const jsonLd = {
   '@context': 'https://schema.org',
