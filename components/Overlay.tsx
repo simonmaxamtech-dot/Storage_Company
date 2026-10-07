@@ -456,7 +456,7 @@ export default function Overlay() {
           style={{ opacity: active === 0 ? 0 : 1, pointerEvents: active === 0 ? 'none' : 'auto' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/wordmark.png" alt="PACALIX" className="h-[18px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
+          <img src="/wordmark.png" width={1200} height={224} alt="PACALIX" className="h-[18px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
         </button>
         <a href="mailto:simon0021maxam@gmail.com" className="ml-auto mr-2 hidden text-[14px] font-bold underline decoration-2 underline-offset-4 xl:block" style={{ color: 'var(--hot)' }}>simon0021maxam@gmail.com</a>
         <nav aria-label="Primary" className="flex gap-5 text-[15px] font-bold sm:gap-9">
@@ -501,6 +501,8 @@ export default function Overlay() {
           <img
             id="wordmark-anchor"
             src="/wordmark.png"
+            width={1200}
+            height={224}
             alt="PACALIX"
             draggable={false}
             className="w-[min(78vw,620px)] select-none"

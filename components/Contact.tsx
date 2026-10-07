@@ -162,7 +162,7 @@ export default function Contact({ email }: { email: string }) {
           <span className="absolute inset-[42px] flex items-center justify-center rounded-full transition-colors duration-500" style={{ background: spin ? 'var(--hot)' : '#1a0b06' }}>
             {/* The logo is white on black: screen blending drops the black so only the panda shows. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/snake.png" alt="PACALIX particle snake" className="w-[80%] select-none transition-transform duration-500" draggable={false} style={{ mixBlendMode: 'screen', transform: spin ? 'scale(1.08) rotate(-6deg)' : 'none' }} />
+            <img src="/snake.png" width={1000} height={667} alt="PACALIX particle snake" className="w-[80%] select-none transition-transform duration-500" draggable={false} style={{ mixBlendMode: 'screen', transform: spin ? 'scale(1.08) rotate(-6deg)' : 'none' }} />
           </span>
         </button>
 
