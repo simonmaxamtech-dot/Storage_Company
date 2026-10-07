@@ -447,7 +447,7 @@ export default function Overlay() {
   }
 
   return (
-    <div className={`relative z-10 transition-opacity duration-[1600ms] ${ready ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`relative z-10 transition-opacity duration-[900ms] ${ready ? 'opacity-100' : 'opacity-0'}`}>
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-5 sm:px-10 sm:py-7">
         <button
           onClick={() => go('intro')}

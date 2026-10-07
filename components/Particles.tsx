@@ -751,7 +751,7 @@ export default function Particles() {
     } else st.sim += sdt * steps
 
     // The intro runs on simulation time so the wordmark never arrives before the snake has formed.
-    const introT = reduced ? 9 : st.sim / 2.2
+    const introT = reduced ? 9 : st.sim / 1.3
     const introVar = Math.round(smooth(0.95, 1.55, introT) * 50) / 50
     if (introVar !== st.lastIntroVar) {
       st.lastIntroVar = introVar
