@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Nunito, Space_Grotesk } from 'next/font/google'
 import './globals.css'
-import { DESCRIPTION, INSTAGRAM, LINKEDIN, OWNER, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
+import { DESCRIPTION, INSTAGRAM, LINKEDIN, LINKEDIN_COMPANY, OWNER, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
 
 const display = Nunito({ subsets: ['latin', 'latin-ext'], weight: ['800', '900'], variable: '--font-display', display: 'swap' })
 const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' })
@@ -39,7 +39,8 @@ export const metadata: Metadata = {
   icons: { icon: '/logo-panda.png', apple: '/logo-panda.png' },
 }
 
-const SAME_AS = [INSTAGRAM, LINKEDIN]
+const ORG_SAME_AS = [INSTAGRAM, LINKEDIN_COMPANY]
+const PERSON_SAME_AS = [LINKEDIN, LINKEDIN_COMPANY]
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -65,7 +66,7 @@ const jsonLd = {
       description: DESCRIPTION,
       email: 'simon0021maxam@gmail.com',
       contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'simon0021maxam@gmail.com', availableLanguage: ['en', 'fr'], areaServed: 'Worldwide' },
-      sameAs: SAME_AS,
+      sameAs: ORG_SAME_AS,
       founder: { '@id': `${SITE_URL}/#simon` },
       address: { '@type': 'PostalAddress', addressLocality: 'Calgary', addressRegion: 'AB', addressCountry: 'CA' },
       areaServed: 'Worldwide',
@@ -79,7 +80,7 @@ const jsonLd = {
       jobTitle: 'Founder and owner',
       alternateName: ['Simon Maxam Pacalix', 'Simon Maxam Calgary'],
       email: 'simon0021maxam@gmail.com',
-      sameAs: SAME_AS,
+      sameAs: PERSON_SAME_AS,
       worksFor: { '@id': `${SITE_URL}/#org` },
       homeLocation: { '@type': 'Place', name: 'Calgary, Alberta, Canada' },
       knowsAbout: ['3D', 'Web development', 'Architecture visualization', 'Artificial intelligence', 'Unreal Engine', 'Blender'],

@@ -13,3 +13,4 @@ export const EMAIL = 'simon0021maxam@gmail.com'
 
 export const INSTAGRAM = 'https://www.instagram.com/pacalixhq/'
 export const LINKEDIN = 'https://www.linkedin.com/in/simonmaxam/'
+export const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/pacalix/'

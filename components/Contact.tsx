@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { live } from '@/lib/store'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
-import { INSTAGRAM, LINKEDIN, PHONE, PHONE_HREF } from '@/lib/site'
+import { INSTAGRAM, LINKEDIN_COMPANY, PHONE, PHONE_HREF } from '@/lib/site'
 
 const KINDS = ['A website', '3D visuals', 'A product in 3D', 'A game', 'Architecture', 'Something strange']
 const RING = 'SAY HELLO · START A PROJECT · IDEAS BUILT IN 3D · PACALIX · '
@@ -204,7 +204,7 @@ export default function Contact({ email }: { email: string }) {
             </span>
             <a href={PHONE_HREF} className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>{PHONE}</a>
             <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>Instagram</a>
-            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>LinkedIn</a>
+            <a href={LINKEDIN_COMPANY} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>LinkedIn</a>
           </div>
           <p className="mt-6 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Clients worldwide · prices in CA$ · replies within a day</p>
         </div>
