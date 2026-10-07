@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { live } from '@/lib/store'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
-import { PHONE, PHONE_HREF } from '@/lib/site'
+import { INSTAGRAM, LINKEDIN, PHONE, PHONE_HREF } from '@/lib/site'
 
 const KINDS = ['A website', '3D visuals', 'A product in 3D', 'A game', 'Architecture', 'Something strange']
 const RING = 'SAY HELLO · START A PROJECT · IDEAS BUILT IN 3D · PACALIX · '
@@ -162,7 +162,7 @@ export default function Contact({ email }: { email: string }) {
           <span className="absolute inset-[42px] flex items-center justify-center rounded-full transition-colors duration-500" style={{ background: spin ? 'var(--hot)' : '#1a0b06' }}>
             {/* The logo is white on black: screen blending drops the black so only the panda shows. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/snake.png" alt="" className="w-[80%] select-none transition-transform duration-500" draggable={false} style={{ mixBlendMode: 'screen', transform: spin ? 'scale(1.08) rotate(-6deg)' : 'none' }} />
+            <img src="/snake.png" alt="PACALIX particle snake" className="w-[80%] select-none transition-transform duration-500" draggable={false} style={{ mixBlendMode: 'screen', transform: spin ? 'scale(1.08) rotate(-6deg)' : 'none' }} />
           </span>
         </button>
 
@@ -203,6 +203,8 @@ export default function Contact({ email }: { email: string }) {
               {email ? email : 'Direct email coming soon'}
             </span>
             <a href={PHONE_HREF} className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>{PHONE}</a>
+            <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>Instagram</a>
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>LinkedIn</a>
           </div>
           <p className="mt-6 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Clients worldwide · prices in CA$ · replies within a day</p>
         </div>

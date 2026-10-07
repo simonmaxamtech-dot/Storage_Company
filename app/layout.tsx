@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Nunito, Space_Grotesk } from 'next/font/google'
 import './globals.css'
-import { ABOUT_LANGS } from '@/components/AboutLocales'
-import { DESCRIPTION, OWNER, PHONE, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
+import { DESCRIPTION, INSTAGRAM, LINKEDIN, OWNER, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
 
 const display = Nunito({ subsets: ['latin', 'latin-ext'], weight: ['800', '900'], variable: '--font-display', display: 'swap' })
 const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' })
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
     'PACALIX', 'Pacalix studio', 'Pacalix Calgary', 'Pacalix web design', 'Pacalix Simon Maxam', 'Simon Maxam', 'Simon Maxam Pacalix', 'simon0021maxam', 'Simon Maxam Calgary', 'creative technology studio', 'Calgary web design',
     '3D product configurator', 'interactive website', 'architecture visualization', 'AI assistant', 'WebGL', 'Three.js', 'Alberta',
   ],
-  alternates: { canonical: '/', languages: Object.fromEntries(['x-default', 'en', ...ABOUT_LANGS].map((l) => [l, '/'])) },
+  alternates: { canonical: '/' },
   category: 'technology',
   robots: {
     index: true,
@@ -40,7 +39,7 @@ export const metadata: Metadata = {
   icons: { icon: '/logo-panda.png', apple: '/logo-panda.png' },
 }
 
-const SAME_AS = ['https://www.instagram.com/pacalixhq/', 'https://www.linkedin.com/in/simonmaxam/']
+const SAME_AS = [INSTAGRAM, LINKEDIN]
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -65,8 +64,7 @@ const jsonLd = {
       image: `${SITE_URL}/logo-panda.png`,
       description: DESCRIPTION,
       email: 'simon0021maxam@gmail.com',
-      telephone: PHONE,
-      contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'simon0021maxam@gmail.com', telephone: PHONE, availableLanguage: ['en', 'fr'], areaServed: 'Worldwide' },
+      contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'simon0021maxam@gmail.com', availableLanguage: ['en', 'fr'], areaServed: 'Worldwide' },
       sameAs: SAME_AS,
       founder: { '@id': `${SITE_URL}/#simon` },
       address: { '@type': 'PostalAddress', addressLocality: 'Calgary', addressRegion: 'AB', addressCountry: 'CA' },
@@ -81,7 +79,6 @@ const jsonLd = {
       jobTitle: 'Founder and owner',
       alternateName: ['Simon Maxam Pacalix', 'Simon Maxam Calgary'],
       email: 'simon0021maxam@gmail.com',
-      telephone: PHONE,
       sameAs: SAME_AS,
       worksFor: { '@id': `${SITE_URL}/#org` },
       homeLocation: { '@type': 'Place', name: 'Calgary, Alberta, Canada' },
