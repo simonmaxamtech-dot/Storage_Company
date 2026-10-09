@@ -2,7 +2,7 @@
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://pacalix.com').replace(/\/$/, '')
 export const SITE_NAME = 'PACALIX'
 export const OWNER = 'Simon Maxam'
-export const TITLE = 'PACALIX — Creative studio by Simon Maxam | 3D & Web'
+export const TITLE = 'PACALIX | Websites | 3D Experiences | Brand | AI'
 export const DESCRIPTION =
   'PACALIX is a Calgary creative studio founded by Simon Maxam. Interactive websites, 3D experiences, brand identity and AI tools.'
 

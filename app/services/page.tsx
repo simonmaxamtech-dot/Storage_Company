@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { EMAIL, INSTAGRAM, LINKEDIN_COMPANY, SITE_URL } from '@/lib/site'
 
 const PATH = '/services'
-const PAGE_TITLE = 'Web Design & 3D Experiences in Calgary'
+const PAGE_TITLE = 'Services | Web Design | 3D | Brand | AI'
 const PAGE_DESC = 'PACALIX builds interactive websites, 3D product configurators, brand identities and AI assistants for businesses in Calgary and worldwide.'
 
 export const metadata: Metadata = {
