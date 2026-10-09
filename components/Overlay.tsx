@@ -498,23 +498,22 @@ export default function Overlay() {
         <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-24 lg:grid lg:grid-cols-2 lg:gap-10 lg:px-16">
           {/* Left: what we actually do, in plain words. */}
           <div className="order-2 w-full max-w-[640px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
-            <p className="text-[12px] font-bold uppercase tracking-[0.16em] sm:text-[13px]" style={{ color: 'var(--muted)' }}>
-              Calgary · Websites · 3D · Brand · AI
+            <p className="text-[12px] font-bold uppercase tracking-[0.22em] sm:text-[14px]" style={{ color: 'var(--muted)' }}>
+              Creative studio · Calgary
             </p>
-            <h1 className="mt-4 font-display text-[clamp(40px,min(6.4vw,10.5vh),104px)] leading-[0.95] tracking-[-0.025em]" style={{ color: 'var(--hot)' }}>
+            <h1 className="mt-4 font-display uppercase text-[clamp(38px,min(6vw,10vh),100px)] leading-[0.94] tracking-[-0.02em]">
               <span className="sr-only">PACALIX, by Simon Maxam. </span>
-              Websites people remember.
+              We build<br />digital<br />
+              <span aria-hidden className="wave-word">{'WORLDS.'.split('').map((c, i) => <span key={i} style={{ animationDelay: `${i * 0.09}s` }}>{c}</span>)}</span>
+              <span className="sr-only">worlds.</span>
             </h1>
-            <p className="mt-5 max-w-[520px] text-[clamp(16px,1.35vw,20px)] font-semibold leading-snug max-lg:mx-auto" style={{ color: 'var(--muted)' }}>
-              We design and build interactive websites, 3D experiences, brand identities and AI tools for businesses that want to be noticed.
+            <p className="mt-5 text-[clamp(15px,1.3vw,19px)] font-bold" style={{ color: 'var(--muted)' }}>
+              Interactive websites · 3D experiences · Brand · AI
             </p>
-            <div className="mt-6 flex flex-wrap gap-3 max-lg:justify-center">
-              <button onClick={() => go('work')} className="rounded-full px-6 py-3 text-[15px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>
-                See our work
-              </button>
-              <a href="/services" className="rounded-full px-6 py-3 text-[15px] font-extrabold transition-transform hover:scale-105" style={{ border: '2px solid var(--ink)' }}>
-                Our services
-              </a>
+            <div className="mt-7 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center">
+              <a href="mailto:simon0021maxam@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>Let&apos;s talk ↗</a>
+              <button onClick={() => go('work')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">Our work</button>
+              <a href="/services" className="pb-1 opacity-70 transition-opacity hover:opacity-100">Services</a>
             </div>
           </div>
           {/* Right: the logo. The beaver is particles; the image holds the wordmark's place until the live version draws over it. */}

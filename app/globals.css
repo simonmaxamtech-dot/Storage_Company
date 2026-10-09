@@ -388,3 +388,16 @@ button {
 
 
 /* Phone tilt: the headlines lean in 3D with the phone (set per element by Gyro.tsx, only on screen). */
+
+/* Hero key word: the letters ride a slow wave. */
+.wave-word span {
+  display: inline-block;
+  animation: wave-letter 2.4s ease-in-out infinite;
+}
+@keyframes wave-letter {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-0.09em); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wave-word span { animation: none; }
+}
