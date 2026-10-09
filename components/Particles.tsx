@@ -338,19 +338,19 @@ interface Room {
 // Targets: 0 panda, 1 spaces (a pavilion; the snake's ring until it loads), 2 apple, 3 planet, 4 clouds, 5 galaxy, 6 tree, 7 portrait, 8 bamboo, 9 Newton's cradle, 10 Himalaya, 11 wireframe world.
 // Sections: intro, eden, newton, idea, form, work, studio, beyond, panda, play, pricing, about, credentials, contact.
 const ROOMS_DESKTOP: Room[] = [
-  { x: 0, y: 1.25, s: 0.8, rz: 0, dim: 1, target: 0 },
+  { x: 3.3, y: 1.0, s: 0.6, rz: 0, dim: 1, target: 0 },
   { x: 0, y: 1.0, s: 0.82, rz: 0, dim: 1, target: 6 },
   { x: 0, y: 1.15, s: 0.72, rz: 0, dim: 1, target: 9 },
   { x: 0, y: 0.8, s: 1, rz: 0, dim: 0.85, target: 4 },
   { x: 0, y: 1.25, s: 0.8, rz: 0, dim: 1, target: 0 },
-  { x: 0, y: 0.2, s: 1, rz: 0, dim: 0.3, target: 11 },
-  { x: 0, y: 0.25, s: 0.85, rz: 0, dim: 0.42, target: 1 },
+  { x: 0, y: 0.2, s: 1, rz: 0, dim: 0.12, target: 11 },
+  { x: 0, y: 0.25, s: 0.85, rz: 0, dim: 0.2, target: 1 },
   { x: 0, y: 0.45, s: 0.9, rz: 0, dim: 0.9, target: 5 },
   { x: 3.3, y: 0.2, s: 0.85, rz: 0, dim: 1, target: 8 },
   { x: 3.3, y: 0.2, s: 0.95, rz: 0, dim: 0.45, target: 8 },
   { x: 3.5, y: 0.1, s: 0.8, rz: 0, dim: 1, target: 6 },
-  { x: 0, y: 0.8, s: 1.1, rz: 0, dim: 1, target: 7 },
-  { x: 0, y: 0.4, s: 1.15, rz: 0, dim: 0.08, target: 4 },
+  { x: 0, y: 0.8, s: 1.1, rz: 0, dim: 0.5, target: 7 },
+  { x: 0, y: 0.4, s: 1.15, rz: 0, dim: 0.05, target: 4 },
   { x: 0, y: 0.9, s: 0.95, rz: 0, dim: 0.85, target: 10 },
 ]
 const ROOMS_STACKED: Room[] = [
@@ -359,7 +359,7 @@ const ROOMS_STACKED: Room[] = [
   { x: 0, y: 1.5, s: 1.3, rz: 0, dim: 0.9, target: 9 },
   { x: 0, y: 1.5, s: 1.1, rz: 0, dim: 0.5, target: 4 },
   { x: 0, y: 1.1, s: 1.0, rz: 0, dim: 1, target: 0 },
-  { x: 0, y: 1.4, s: 1.1, rz: 0, dim: 0.3, target: 11 },
+  { x: 0, y: 1.4, s: 1.1, rz: 0, dim: 0.12, target: 11 },
   { x: 0, y: 1.2, s: 0.72, rz: 0, dim: 0.4, target: 1 },
   { x: 0, y: 1.2, s: 1.15, rz: 0, dim: 0.5, target: 5 },
   { x: 0, y: 1.9, s: 0.9, rz: 0, dim: 0.75, target: 8 },

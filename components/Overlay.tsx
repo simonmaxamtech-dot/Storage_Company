@@ -495,29 +495,51 @@ export default function Overlay() {
 
       <main>
         {/* INTRO: the wordmark is a live material; the snake does the moving. */}
-        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end px-6 pb-[15vh] max-sm:pb-40">
-          <h1 className="sr-only">PACALIX, by Simon Maxam. Ideas, built in 3D.</h1>
-          {/* The image holds the wordmark's place; once the live particle wordmark is running it draws over this spot. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            id="wordmark-anchor"
-            src="/wordmark.png"
-            width={1200}
-            height={224}
-            alt="PACALIX"
-            draggable={false}
-            className="w-[min(78vw,620px)] select-none"
-            style={{ opacity: liveWordmark ? 0 : 'var(--intro)', filter: 'var(--logo-filter)' }}
-            onPointerDown={() => {
-              pressTimer.current = window.setTimeout(() => setGame(true), 900)
-            }}
-            onPointerUp={() => window.clearTimeout(pressTimer.current)}
-            onPointerLeave={() => window.clearTimeout(pressTimer.current)}
-            onPointerCancel={() => window.clearTimeout(pressTimer.current)}
-          />
-          <p className="mt-6 text-[17px] font-semibold" style={{ color: 'var(--muted)', opacity: 'var(--intro)' }}>
-            by Simon Maxam
-          </p>
+        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-24 lg:grid lg:grid-cols-2 lg:gap-10 lg:px-16">
+          {/* Left: what we actually do, in plain words. */}
+          <div className="order-2 w-full max-w-[640px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
+            <p className="text-[12px] font-bold uppercase tracking-[0.16em] sm:text-[13px]" style={{ color: 'var(--muted)' }}>
+              Calgary · Websites · 3D · Brand · AI
+            </p>
+            <h1 className="mt-4 font-display text-[clamp(40px,min(6.4vw,10.5vh),104px)] leading-[0.95] tracking-[-0.025em]" style={{ color: 'var(--hot)' }}>
+              <span className="sr-only">PACALIX, by Simon Maxam. </span>
+              Websites people remember.
+            </h1>
+            <p className="mt-5 max-w-[520px] text-[clamp(16px,1.35vw,20px)] font-semibold leading-snug max-lg:mx-auto" style={{ color: 'var(--muted)' }}>
+              We design and build interactive websites, 3D experiences, brand identities and AI tools for businesses that want to be noticed.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3 max-lg:justify-center">
+              <button onClick={() => go('work')} className="rounded-full px-6 py-3 text-[15px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>
+                See our work
+              </button>
+              <a href="/services" className="rounded-full px-6 py-3 text-[15px] font-extrabold transition-transform hover:scale-105" style={{ border: '2px solid var(--ink)' }}>
+                Our services
+              </a>
+            </div>
+          </div>
+          {/* Right: the logo. The beaver is particles; the image holds the wordmark's place until the live version draws over it. */}
+          <div className="order-1 flex flex-col items-center lg:order-2 lg:self-end">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              id="wordmark-anchor"
+              src="/wordmark.png"
+              width={1200}
+              height={224}
+              alt="PACALIX"
+              draggable={false}
+              className="w-[min(70vw,520px)] select-none"
+              style={{ opacity: liveWordmark ? 0 : 'var(--intro)', filter: 'var(--logo-filter)' }}
+              onPointerDown={() => {
+                pressTimer.current = window.setTimeout(() => setGame(true), 900)
+              }}
+              onPointerUp={() => window.clearTimeout(pressTimer.current)}
+              onPointerLeave={() => window.clearTimeout(pressTimer.current)}
+              onPointerCancel={() => window.clearTimeout(pressTimer.current)}
+            />
+            <p className="mt-4 text-[16px] font-semibold" style={{ color: 'var(--muted)', opacity: 'var(--intro)' }}>
+              by Simon Maxam
+            </p>
+          </div>
         </section>
 
         {/* EDEN: the oldest story about an idea: a red panda, an apple, a tree. */}
@@ -698,9 +720,7 @@ export default function Overlay() {
               <div className="font-display text-[clamp(22px,3vw,32px)] leading-tight" style={{ color: 'var(--hot)' }}>Why PACALIX</div>
               <ul className="mt-4 space-y-3 text-[15px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
                 <li><span style={{ color: 'var(--fg, #fff)' }}>The inspiration.</span> PACALIX is our nod to Palaeocastor, an extinct beaver from the early days of the beaver family, some 25 to 30 million years ago, when North America was open plains.</li>
-                <li><span style={{ color: 'var(--fg, #fff)' }}>The builder.</span> Palaeocastor dug deep corkscrew burrows into the ground. Fossil spirals up to about two and a half metres deep are still found today, which is why early settlers called them "devil's corkscrews". Millions of years later, what it built is still there.</li>
-                <li><span style={{ color: 'var(--fg, #fff)' }}>The philosophy.</span> Make work that lasts. We chose the name, and the beaver as our symbol of Canada, to stand for patient, careful building: dig deep, build it right, leave something that stays standing.</li>
-                <li><span style={{ color: 'var(--fg, #fff)' }}>The name.</span> PACALIX is short, easy to say and easy to remember, the same in every language. Ancient builder, new experiences.</li>
+                <li><span style={{ color: 'var(--fg, #fff)' }}>The philosophy.</span> Make work that lasts: dig deep, build it right, leave something that stays standing.</li>
               </ul>
             </div>
             <div className="mt-10 grid grid-cols-3 gap-3 text-left">
