@@ -136,9 +136,11 @@ interface Props {
   start?: number
   onReady?: (ok: boolean) => void
   hideAnchor?: boolean
+  // How far from its letters the matter starts (0.1 = just loose, higher = visibly gathers).
+  spread?: number
 }
 
-export default function LiveMark({ anchor, size: S, load, start = 0, onReady, hideAnchor = false }: Props) {
+export default function LiveMark({ anchor, size: S, load, start = 0, onReady, hideAnchor = false, spread = 0.1 }: Props) {
   const groupRef = useRef<THREE.Group>(null)
   const engine = useRef<Engine | null>(null)
   const { camera, size, gl } = useThree()
@@ -188,7 +190,7 @@ export default function LiveMark({ anchor, size: S, load, start = 0, onReady, hi
       if (!reduced) {
         // Start close to the letters, just loose, so the text wakes up where it is instead of arriving from nowhere.
         const a = pos0.image.data as unknown as Float32Array
-        for (let i = 0; i < a.length; i++) a[i] += (data.scatter[i] - a[i]) * 0.1
+        for (let i = 0; i < a.length; i++) a[i] += (data.scatter[i] - a[i]) * spread
       }
       const pos = gpu.addVariable('tPos', POS_SHADER, pos0)
       const vel = gpu.addVariable('tVel', VEL_SHADER, gpu.createTexture())
@@ -256,7 +258,7 @@ export default function LiveMark({ anchor, size: S, load, start = 0, onReady, hi
       }
       engine.current = null
     }
-  }, [S, gl, material, reduced, halfFloat, anchor, load, start, onReady, hideAnchor])
+  }, [S, gl, material, reduced, halfFloat, anchor, load, start, onReady, hideAnchor, spread])
 
   useEffect(
     () => () => {
@@ -281,7 +283,10 @@ export default function LiveMark({ anchor, size: S, load, start = 0, onReady, hi
     const g = groupRef.current
     const e = engine.current
     if (!g || !e) return
-    if (start > 0 && !live.go) return
+    if (start > 0 && !live.go) {
+      g.visible = false
+      return
+    }
     const s = st.current
 
     // Sit exactly where the element sits in the page, so it scrolls and resizes with the layout.
@@ -353,7 +358,7 @@ export default function LiveMark({ anchor, size: S, load, start = 0, onReady, hi
   })
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} visible={false}>
       <points geometry={geometry} material={material} frustumCulled={false} />
     </group>
   )

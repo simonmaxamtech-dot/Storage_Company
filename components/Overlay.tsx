@@ -478,18 +478,13 @@ export default function Overlay() {
         <SoundControl />
         <div className="pointer-events-auto flex items-center gap-5 sm:gap-6">
           <Gyro />
-          <a href="/services" className="max-sm:hidden text-[14px] font-bold opacity-80 transition-opacity hover:opacity-100">Services</a>
-          <button onClick={() => setGame(true)} data-hover="Play" className="max-sm:hidden text-[14px] font-bold opacity-80 transition-opacity hover:opacity-100">
-            Play
-          </button>
-          <ThemePicker />
           <a href="mailto:simon0021maxam@gmail.com" className="max-sm:hidden rounded-full px-4 py-2 text-[14px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>simon0021maxam@gmail.com</a>
         </div>
       </footer>
 
       <main>
         {/* INTRO: the wordmark is a live material; the snake does the moving. */}
-        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-24 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw]">
+        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-24 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw] lg:pb-[7vh] lg:pt-[7vh]">
           {/* Left: what we actually do, in plain words. */}
           <div className="order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
             <p className="text-[12px] font-bold uppercase tracking-[0.22em] sm:text-[14px]" style={{ color: 'var(--muted)' }}>

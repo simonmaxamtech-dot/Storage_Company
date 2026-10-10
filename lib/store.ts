@@ -106,6 +106,8 @@ export const live = {
   blow: 0,
   // Start-up gate: the intro only begins once the snake and the wordmark are both built (wm), so it never runs through a hitch.
   wm: false,
+  // True while the live hero headline is still being built: the intro waits for it so text and beaver arrive together.
+  heroWait: false,
   go: false,
   // The blended theme on screen right now; every visual reads from this.
   theme: { ...THEMES.void } as Theme,

@@ -4,7 +4,11 @@ import { useEffect, useMemo, useState } from 'react'
 import { buildTextData } from '@/lib/livetype'
 import LiveMark from './LiveMark'
 import { lite, tier } from '@/lib/perf'
-import { useStore } from '@/lib/store'
+import { live, useStore } from '@/lib/store'
+
+const heroReady = () => {
+  live.heroWait = false
+}
 
 // Headlines marked with data-live become live type when they come near the screen,
 // and dissolve back to plain text (and free their GPU memory) when they're far away.
@@ -34,7 +38,7 @@ export default function LiveTypes() {
         if (performance.now() - lastScroll > 450) {
           const vh = window.innerHeight
           const next = [...active]
-            .filter((e) => !keep.has(e))
+            .filter((e) => !keep.has(e) && e.dataset.live !== 'hero')
             .sort((a, b) => Math.abs(a.getBoundingClientRect().top - vh * 0.4) - Math.abs(b.getBoundingClientRect().top - vh * 0.4))[0]
           if (next) {
             keep.add(next)
@@ -93,13 +97,27 @@ export default function LiveTypes() {
     }
   }, [els])
 
+  // The hero headline is built straight away, held invisible, and released on the same frame as the beaver.
+  const hero = els.find((el) => el.dataset.live === 'hero')
+  const heroOn = !!hero && !struggling && !lite()
+  useEffect(() => {
+    if (hero && !lite()) live.heroWait = true
+  }, [hero])
+  useEffect(() => {
+    if (struggling) live.heroWait = false
+  }, [struggling])
+
   return (
     <>
       {els
-        .filter((el) => armed && !struggling && !lite() && mounted.has(el))
-        .map((el, i) => (
-          <LiveMark key={el.dataset.live || i} anchor={el} size={size} load={buildTextData} hideAnchor />
-        ))}
+        .filter((el) => (el === hero ? heroOn && active.has(el) : armed && !struggling && !lite() && mounted.has(el)))
+        .map((el, i) =>
+          el === hero ? (
+            <LiveMark key="hero" anchor={el} size={size} load={buildTextData} hideAnchor start={0.02} spread={0.6} onReady={heroReady} />
+          ) : (
+            <LiveMark key={el.dataset.live || i} anchor={el} size={size} load={buildTextData} hideAnchor />
+          )
+        )}
     </>
   )
 }
