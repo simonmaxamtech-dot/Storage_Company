@@ -30,11 +30,13 @@ function Shell({
   sub,
   big,
   clear,
+  model,
   children,
 }: {
   id: string
   big?: boolean
   clear?: boolean
+  model?: boolean
   kicker: string
   title: ReactNode
   sub?: ReactNode
@@ -42,7 +44,7 @@ function Shell({
 }) {
   return (
     <section data-section id={id} className="relative">
-      <div className={`flex flex-col pb-8 pt-28 sm:pb-12 ${big ? 'min-h-[60svh] justify-end sm:min-h-[84svh] sm:justify-center' : 'min-h-[26svh] justify-end sm:min-h-[36svh]'} ${pad}`}>
+      <div className={`flex flex-col pb-8 pt-28 sm:pb-12 ${model ? 'max-lg:pt-[300px]' : ''} ${big ? 'min-h-[60svh] justify-end sm:min-h-[84svh] sm:justify-center' : 'min-h-[26svh] justify-end sm:min-h-[36svh]'} ${pad}`}>
         <Reveal className="mx-auto w-full max-w-[1100px]">
           <Kicker>{kicker}</Kicker>
           <h2 data-react data-live={id} className={big ? 'mt-5 font-pacalix text-[clamp(56px,7.4vw,150px)] leading-[0.92] tracking-[0.015em]' : 'mt-4 font-pacalix text-[clamp(30px,4.8vw,70px)] leading-[1.02] tracking-[0.015em] lg:max-w-[60%]'}>
@@ -97,7 +99,7 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
     haptic(h)
   }
   return (
-    <Shell id="credentials" kicker="Credentials" title={<>Certified by <span style={{ color: 'var(--hot)' }}>the best.</span></>} sub={`${TOTAL} certificates from the companies that build the internet.`}>
+    <Shell id="credentials" model kicker="Credentials" title={<>Certified by <span style={{ color: 'var(--hot)' }}>the best.</span></>} sub={`${TOTAL} certificates from the companies that build the internet.`}>
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
         {PROFESSIONAL.map((c) => (
           <button
@@ -246,7 +248,7 @@ export function CleanWork({ projects, demos }: { projects: Project[]; demos: Dem
     return () => mq.removeEventListener('change', set)
   }, [])
   return (
-    <Shell id="work" clear kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Three real projects, designed and built end to end, running right now.">
+    <Shell id="work" clear model kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Three real projects, designed and built end to end, running right now.">
       <div className="work-list flex flex-col gap-14 sm:gap-24">
         {projects.map((p, i) => (
           <Reveal key={p.name}>
@@ -447,7 +449,7 @@ export function CleanContact({ email }: { email: string }) {
     window.location.href = `mailto:${email}?subject=${encodeURIComponent('New project')}&body=${encodeURIComponent(brief)}`
   }
   return (
-    <Shell id="contact" clear kicker="Contact" title={<>Reach <span style={{ color: 'var(--hot)' }}>us.</span></>}>
+    <Shell id="contact" clear model kicker="Contact" title={<>Reach <span style={{ color: 'var(--hot)' }}>us.</span></>}>
       <div className="clean-card lg:max-w-[50%] lg:-ml-[6vw]" style={{ ['--brand' as string]: 'var(--hot)', padding: 'clamp(24px,3.4vw,48px)' } as CSSProperties}>
         <p className="font-pacalix text-[clamp(34px,7vw,56px)] leading-[0.98] lg:text-[clamp(36px,3.6vw,58px)]">
           Let&apos;s build<br />it <span style={{ color: 'var(--hot)' }}>together.</span>
