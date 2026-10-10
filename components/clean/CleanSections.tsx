@@ -246,7 +246,7 @@ export function CleanWork({ projects, demos }: { projects: Project[]; demos: Dem
     return () => mq.removeEventListener('change', set)
   }, [])
   return (
-    <Shell id="work" kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Three real projects, designed and built end to end, running right now.">
+    <Shell id="work" clear kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Three real projects, designed and built end to end, running right now.">
       <div className="work-list flex flex-col gap-14 sm:gap-24">
         {projects.map((p, i) => (
           <Reveal key={p.name}>
@@ -359,7 +359,7 @@ export function CleanPricing() {
     }
   }, [])
   return (
-    <Shell id="pricing" kicker="Pricing" title={<>Fixed prices. <span style={{ color: 'var(--hot)' }}>No surprises.</span></>} sub="Every project is quoted in writing before we start. Find the one closest to yours.">
+    <Shell id="pricing" clear kicker="Pricing" title={<>Fixed prices. <span style={{ color: 'var(--hot)' }}>No surprises.</span></>} sub="Every project is quoted in writing before we start. Find the one closest to yours.">
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
           {PLANS.map((p) => {
             const star = !!p.badge
