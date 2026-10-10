@@ -442,10 +442,10 @@ export default function Overlay() {
           onClick={() => go('intro')}
           aria-label="PACALIX, back to top"
           className="transition-opacity duration-700"
-          style={{ opacity: active === 0 ? 0 : 1, pointerEvents: active === 0 ? 'none' : 'auto' }}
+          style={{ opacity: 1 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/wordmark.png" width={1200} height={224} alt="PACALIX" className="h-[18px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
+          <img src="/wordmark.png" width={1200} height={224} alt="PACALIX" className="h-[28px] sm:h-[40px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
         </button>
         <nav aria-label="Primary" className="flex gap-5 text-[15px] font-bold sm:gap-9">
           {NAV.map((n) => {
