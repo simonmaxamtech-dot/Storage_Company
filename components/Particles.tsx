@@ -374,7 +374,7 @@ const ROOMS_STACKED: Room[] = [
 const CLEAN_DESKTOP: Room[] = [
   { x: 3.1, y: 0.1, s: 0.8, rz: 0, dim: 1, target: 0 },
   { x: 3.3, y: 0.5, s: 0.95, rz: 0, dim: 0.9, target: 7 },
-  { x: 3.9, y: 1.4, s: 0.26, rz: 0, dim: 0.02, target: 4 },
+  { x: 3.5, y: 0.5, s: 0.6, rz: 0, dim: 0.9, target: 5 },
   { x: 3.9, y: -1.0, s: 0.2, rz: 0, dim: 0.02, target: 3 },
   { x: 4.0, y: 1.7, s: 0.22, rz: 0, dim: 0.02, target: 3 },
   { x: 3.7, y: 1.1, s: 0.58, rz: 0, dim: 1, target: 0 },
@@ -382,7 +382,7 @@ const CLEAN_DESKTOP: Room[] = [
 const CLEAN_STACKED: Room[] = [
   { x: 0, y: 1.7, s: 0.9, rz: 0, dim: 1, target: 0 },
   { x: 0, y: 2.4, s: 1.05, rz: 0, dim: 0.9, target: 7 },
-  { x: 0, y: 3.0, s: 0.3, rz: 0, dim: 0.02, target: 4 },
+  { x: 0, y: 2.7, s: 0.55, rz: 0, dim: 0.8, target: 5 },
   { x: 0, y: 3.0, s: 0.24, rz: 0, dim: 0.02, target: 3 },
   { x: 0, y: 3.2, s: 0.24, rz: 0, dim: 0.02, target: 3 },
   { x: 0, y: 2.8, s: 0.7, rz: 0, dim: 1, target: 0 },
@@ -796,7 +796,8 @@ export default function Particles() {
     else st.idle += dt
     st.lastS = s
     st.settle += ((st.idle > 0.12 ? 1 : 0) - st.settle) * (1 - Math.exp(-dt * 5))
-    const tRaw = smooth(0.05, 0.2, s - i)
+    // Clean: a room's model stays for the whole section and changes only as the next section comes up.
+    const tRaw = clean ? smooth(0.55, 0.88, s - i) : smooth(0.05, 0.2, s - i)
     const t = tRaw + (Math.round(tRaw) - tRaw) * st.settle
     const A = i === priceRoom ? { ...rooms[i], target: PLAN_TARGET[live.plan] } : rooms[i]
     const B = j === priceRoom ? { ...rooms[j], target: PLAN_TARGET[live.plan] } : rooms[j]
