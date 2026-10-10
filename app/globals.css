@@ -401,3 +401,27 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .wave-word span { animation: none; }
 }
+
+/* Clean design */
+.clean-tile {
+  background: color-mix(in srgb, var(--tile, var(--hot)) 9%, var(--bg));
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--tile, var(--hot)) 28%, transparent);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s, background 0.35s;
+}
+.clean-tile:hover,
+.clean-tile:focus-visible {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--tile, var(--hot)) 16%, var(--bg));
+  box-shadow: inset 0 0 0 1.5px var(--tile, var(--hot));
+}
+.clean-go {
+  background: transparent;
+  color: var(--hot);
+  box-shadow: inset 0 0 0 1.5px var(--hot);
+  transition: background 0.3s, color 0.3s;
+}
+.clean-row:hover .clean-go,
+.clean-row:focus-visible .clean-go {
+  background: var(--hot);
+  color: #1a0a05;
+}

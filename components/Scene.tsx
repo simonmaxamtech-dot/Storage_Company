@@ -7,7 +7,7 @@ import Particles from './Particles'
 import SpotField from './SpotField'
 import LiveTypes from './LiveTypes'
 import { lite, tier } from '@/lib/perf'
-import { useStore } from '@/lib/store'
+import { live, useStore } from '@/lib/store'
 
 // Development only: with ?step in the URL the scene runs on a manual clock, so it can be inspected frame by frame.
 // When even the lowest resolution can't hold a smooth frame rate, render at a steady 30 fps instead of fighting for 60.
@@ -57,7 +57,10 @@ function Throttle({ slow }: { slow: boolean }) {
     const gap = slow ? 31 : 12
     const loop = (t: number) => {
       raf = requestAnimationFrame(loop)
-      if (document.hidden || t - last < gap) return
+      if (document.hidden || live.paused || t - last < gap) {
+        if (live.paused) last = 0
+        return
+      }
       // Step the scene's own clock forward. (Passing the rAF timestamp mixed two clocks: on some browsers it gave
       // one huge negative frame that turned the whole particle sim into NaN, freezing or blanking every shape.)
       const step = last ? Math.min(0.1, Math.max(0.001, (t - last) / 1000)) : 1 / 30

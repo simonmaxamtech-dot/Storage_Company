@@ -55,6 +55,8 @@ export default function LiveTypes() {
   }, [armed, active])
   const size = useMemo(() => (typeof window !== 'undefined' && window.innerWidth < 768 ? 88 : tier() === 'low' ? 112 : 144), [])
 
+  // The page's headlines change when the design is switched, so look again.
+  const clean = useStore((s) => s.clean)
   useEffect(() => {
     let raf = 0
     let tries = 0
@@ -65,7 +67,7 @@ export default function LiveTypes() {
     }
     find()
     return () => cancelAnimationFrame(raf)
-  }, [])
+  }, [clean])
 
   // Active = within about half a screen of the viewport. Checked on scroll and resize; cheap for a handful of headlines.
   useEffect(() => {

@@ -16,6 +16,7 @@ import CertObject, { type ObjKind } from './CertObject'
 import MountainLife from './MountainLife'
 import HoverWords from './HoverWords'
 import Pricing from './Pricing'
+import { CleanCerts, CleanContact, CleanPricing, CleanWork } from './clean/CleanSections'
 import SnakeGame from './SnakeGame'
 import { WordDemo, GravityDemo, DaylightDemo } from './demos/Playground'
 import PizzaShowcase from './demos/Pizza'
@@ -26,6 +27,7 @@ import { ConfiguratorDemo, DashboardDemo, OrderDemo, GlobeDemo, AssistantDemo } 
 import { PHONE, PHONE_HREF } from '@/lib/site'
 const CONTACT_EMAIL = 'simon0021maxam@gmail.com'
 
+const CLEAN_IDS = ['intro', 'credentials', 'work', 'pricing', 'contact']
 const SECTION_IDS = ['intro', 'eden', 'newton', 'idea', 'form', 'work', 'studio', 'beyond', 'panda', 'play', 'pricing', 'about', 'credentials', 'contact']
 // Left edge, wide screens only: my name runs down the side and fills with the theme colour as you scroll. A fully coloured name means you have reached the end.
 function ScrollLine() {
@@ -71,6 +73,13 @@ const NAV = [
   { label: 'Pricing', id: 'pricing' },
   { label: 'About', id: 'about' },
   { label: 'Contact', id: 'contact' },
+]
+
+const CLEAN_NAV = [
+  { label: 'Certificates', id: 'credentials', phone: false },
+  { label: 'Work', id: 'work', phone: false },
+  { label: 'Prices', id: 'pricing', phone: true },
+  { label: 'Contact', id: 'contact', phone: true },
 ]
 
 const PROJECTS = [
@@ -236,6 +245,37 @@ function ThemePicker() {
   )
 }
 
+// Clean / Classic: the same site in two designs. The choice is remembered.
+function DesignSwitch() {
+  const clean = useStore((s) => s.clean)
+  const setClean = useStore((s) => s.setClean)
+  const pick = (v: boolean) => {
+    if (v === clean) return
+    setClean(v)
+    window.scrollTo(0, 0)
+    live.section = 0
+    sound.pluck(hashText(v ? 'clean' : 'classic'))
+  }
+  return (
+    <div role="group" aria-label="Design" className="pointer-events-auto flex items-center rounded-full p-[3px] text-[12px] font-extrabold backdrop-blur-md sm:text-[13px]" style={{ boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 28%, transparent)', background: 'color-mix(in srgb, var(--bg) 55%, transparent)' }}>
+      {[
+        { v: true, label: 'Clean' },
+        { v: false, label: 'Classic' },
+      ].map((o) => (
+        <button
+          key={o.label}
+          aria-pressed={clean === o.v}
+          onClick={() => pick(o.v)}
+          className="rounded-full px-3 py-1.5 transition-colors duration-300 sm:px-3.5"
+          style={{ background: clean === o.v ? 'var(--ink)' : 'transparent', color: clean === o.v ? 'var(--bg)' : 'var(--ink)', opacity: clean === o.v ? 1 : 0.75 }}
+        >
+          {o.label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
 function SoundControl() {
   const { soundOn, setSoundOn, track, setTrack } = useStore()
   useEffect(() => {
@@ -305,11 +345,14 @@ function SoundControl() {
 }
 
 export default function Overlay() {
-  const { ready, game, setGame, soundOn, setSoundOn, setTrack } = useStore()
+  const { ready, game, setGame, soundOn, setSoundOn, setTrack, clean } = useStore()
+  const ids = clean ? CLEAN_IDS : SECTION_IDS
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState<number | null>(null)
   const [cert, setCert] = useState<Cert | null>(null)
   const activeRef = useRef(0)
+  const idsRef = useRef(ids)
+  idsRef.current = ids
   const pressTimer = useRef<number | undefined>(undefined)
 
   useEffect(() => restoreMode(), [])
@@ -365,7 +408,7 @@ export default function Overlay() {
       last = now
       live.scrollVel *= Math.exp(-dt * 3)
       live.shake *= Math.exp(-dt * 4)
-      if (stepTheme(SECTION_IDS, dt) || force) {
+      if (stepTheme(idsRef.current, dt) || force) {
         force = false
         const m = live.theme
         const r = document.documentElement.style
@@ -399,6 +442,11 @@ export default function Overlay() {
       })
       const nxt = els[j + 1]
       live.section = j + (nxt ? Math.min(1, Math.max(0, (top - els[j].offsetTop) / Math.max(1, nxt.offsetTop - els[j].offsetTop))) : 0)
+      if (clean) {
+        // The clean design keeps the hero's beaver and nothing else; the sections after it cover the scene completely.
+        live.section = 0
+        live.paused = !!els[1] && top > els[1].offsetTop + 160
+      } else live.paused = false
       if (activeRef.current !== i) {
         activeRef.current = i
         setActive(i)
@@ -428,8 +476,9 @@ export default function Overlay() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', update)
       io.disconnect()
+      live.paused = false
     }
-  }, [])
+  }, [clean])
 
   const go = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
@@ -453,14 +502,14 @@ export default function Overlay() {
           <img src="/wordmark.png" width={1200} height={224} alt="PACALIX" className="h-[28px] sm:h-[40px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
         </button>
         <nav aria-label="Primary" className="flex gap-5 text-[15px] font-bold sm:gap-9">
-          {NAV.map((n) => {
-            const on = SECTION_IDS[active] === n.id || (n.id === 'about' && SECTION_IDS[active] === 'credentials')
+          {(clean ? CLEAN_NAV : NAV.map((n) => ({ ...n, phone: n.id !== 'play' }))).map((n) => {
+            const on = ids[active] === n.id || (!clean && n.id === 'about' && ids[active] === 'credentials')
             return (
               <button
                 key={n.id}
                 onClick={() => go(n.id)}
                 aria-current={on ? 'true' : undefined}
-                className={`relative py-1 transition-opacity hover:opacity-100 focus-visible:opacity-100 ${n.id === 'play' ? 'max-sm:hidden' : ''} ${n.id === 'pricing' ? 'max-lg:hidden' : ''}`}
+                className={`relative py-1 transition-opacity hover:opacity-100 focus-visible:opacity-100 ${clean ? (n.phone ? '' : 'max-sm:hidden') : `${n.id === 'play' ? 'max-sm:hidden' : ''} ${n.id === 'pricing' ? 'max-lg:hidden' : ''}`}`}
                 style={{ opacity: on ? 1 : 0.6 }}
               >
                 {n.label}
@@ -476,7 +525,8 @@ export default function Overlay() {
 
       <footer className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex items-end justify-between gap-4 px-5 py-5 sm:px-10 sm:py-7">
         <SoundControl />
-        <div className="pointer-events-auto flex items-center gap-5 sm:gap-6">
+        <div className="pointer-events-auto flex items-center gap-3 sm:gap-6">
+          <DesignSwitch />
           <Gyro />
           <a href="mailto:simon0021maxam@gmail.com" className="max-sm:hidden rounded-full px-4 py-2 text-[14px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>simon0021maxam@gmail.com</a>
         </div>
@@ -498,14 +548,32 @@ export default function Overlay() {
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center">
               <a href="mailto:simon0021maxam@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>Let&apos;s talk ↗</a>
-              <button onClick={() => go('work')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">Our work</button>
-              <a href="/services" className="pb-1 opacity-70 transition-opacity hover:opacity-100">Services</a>
+              {clean ? (
+                <>
+                  <button onClick={() => go('credentials')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">Certificates</button>
+                  <button onClick={() => go('pricing')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">Prices</button>
+                </>
+              ) : (
+                <>
+                  <button onClick={() => go('work')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">Our work</button>
+                  <a href="/services" className="pb-1 opacity-70 transition-opacity hover:opacity-100">Services</a>
+                </>
+              )}
             </div>
           </div>
           {/* Right: the beaver, drawn by the particle scene behind the page. This column just holds its place. */}
           <div aria-hidden className="order-1 h-[34svh] lg:order-2 lg:h-auto" />
         </section>
 
+        {clean ? (
+          <>
+            <CleanCerts onOpen={setCert} />
+            <CleanWork projects={PROJECTS} />
+            <CleanPricing />
+            <CleanContact email={CONTACT_EMAIL} />
+          </>
+        ) : (
+          <>
         {/* EDEN: the oldest story about an idea: a red panda, an apple, a tree. */}
         <section data-section id="eden" className="flex min-h-[88svh] flex-col items-center justify-end px-6 pb-[12vh] max-sm:pb-52 text-center">
           <div className="reveal">
@@ -738,11 +806,13 @@ export default function Overlay() {
             <Contact email={CONTACT_EMAIL} />
           </div>
         </section>
+          </>
+        )}
       </main>
 
       <Lightbox cert={cert} onClose={() => setCert(null)} />
-      <EdenLife />
-      <MountainLife />
+      {!clean && <EdenLife />}
+      {!clean && <MountainLife />}
       <HoverWords />
       {game && <SnakeGame onClose={() => setGame(false)} />}
     </div>

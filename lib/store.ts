@@ -41,7 +41,22 @@ function savedMode(): ModeChoice {
   return 'auto'
 }
 
+// Which design the site opens in the first time. Flip this one word to 'classic' to make the old design the default.
+export const DEFAULT_DESIGN: 'clean' | 'classic' = 'clean'
+
+function savedDesign(): boolean {
+  try {
+    const d = localStorage.getItem('pacalix-design')
+    if (d === 'clean' || d === 'classic') return d === 'clean'
+  } catch {
+    // storage unavailable
+  }
+  return DEFAULT_DESIGN === 'clean'
+}
+
 interface State {
+  clean: boolean
+  setClean: (v: boolean) => void
   mode: ModeChoice
   setMode: (m: ModeChoice) => void
   ready: boolean
@@ -62,6 +77,15 @@ interface State {
 }
 
 export const useStore = create<State>((set) => ({
+  clean: DEFAULT_DESIGN === 'clean',
+  setClean: (clean) => {
+    try {
+      localStorage.setItem('pacalix-design', clean ? 'clean' : 'classic')
+    } catch {
+      // storage unavailable
+    }
+    set({ clean })
+  },
   mode: 'auto',
   setMode: (mode) => {
     try {
@@ -88,7 +112,7 @@ export const useStore = create<State>((set) => ({
 }))
 
 export function restoreMode() {
-  useStore.setState({ mode: savedMode() })
+  useStore.setState({ mode: savedMode(), clean: savedDesign() })
 }
 
 // High-frequency values live outside React state.
@@ -109,6 +133,8 @@ export const live = {
   // True while the live hero headline is still being built: the intro waits for it so text and beaver arrive together.
   heroWait: false,
   go: false,
+  // True in the clean design once the hero has scrolled away: the particle scene is fully covered, so it stops drawing.
+  paused: false,
   // The blended theme on screen right now; every visual reads from this.
   theme: { ...THEMES.void } as Theme,
 }

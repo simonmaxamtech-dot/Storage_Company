@@ -16,7 +16,7 @@ interface Plan {
   options: { team: string; price: number }[]
 }
 
-const PLANS: Plan[] = [
+export const PLANS: Plan[] = [
   {
     name: 'Independent',
     form: 'an idea',
@@ -60,10 +60,10 @@ const PLANS: Plan[] = [
   },
 ]
 
-const fmt = (n: number) => Math.round(n).toLocaleString('en-CA')
+export const fmt = (n: number) => Math.round(n).toLocaleString('en-CA')
 
 // The number counts to its new value instead of jumping.
-function useCount(target: number) {
+export function useCount(target: number) {
   const [v, setV] = useState(target)
   const cur = useRef(target)
   useEffect(() => {

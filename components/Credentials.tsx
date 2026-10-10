@@ -20,9 +20,9 @@ const OBJ: Record<string, ObjKind> = {
 // No certificate images sit on the page: each issuer is drawn in its own colours and type,
 // and the real document only appears when you open one.
 
-type IssuerId = 'aws' | 'ibm' | 'google' | 'microsoft' | 'adobe' | 'siemens' | 'github' | 'linkedin' | 'london'
+export type IssuerId = 'aws' | 'ibm' | 'google' | 'microsoft' | 'adobe' | 'siemens' | 'github' | 'linkedin' | 'london'
 
-const ISSUER: Record<IssuerId, { name: string; color: string; line: string }> = {
+export const ISSUER: Record<IssuerId, { name: string; color: string; line: string }> = {
   aws: { name: 'Amazon Web Services', color: '#ffb11f', line: 'Cloud and generative AI' },
   ibm: { name: 'IBM', color: '#5c8dff', line: 'AI engineering' },
   google: { name: 'Google', color: '#3ddc84', line: 'Automation and data' },
@@ -49,7 +49,7 @@ export interface Cert {
   look?: 'code' | 'biz'
 }
 
-const PROFESSIONAL: Cert[] = [
+export const PROFESSIONAL: Cert[] = [
   {
     issuer: 'aws',
     title: 'AWS Cloud Solutions Architect',
@@ -94,7 +94,7 @@ const PROFESSIONAL: Cert[] = [
   },
 ]
 
-const COURSES: Cert[] = [
+export const COURSES: Cert[] = [
   { issuer: 'aws', short: 'Amazon Bedrock', title: 'Amazon Bedrock Customization, Optimization & Automation', date: 'Sep 2026', img: 'amazon-bedrock' },
   { issuer: 'aws', short: 'Solutions Architect exam prep', title: 'Exam Prep: AWS Certified Solutions Architect – Associate', date: 'Sep 2026', img: 'aws-solutions-architect-prep' },
   { issuer: 'adobe', short: 'Photoshop', title: 'Essential Skills in Adobe Photoshop 2025', date: 'Aug 2026', img: 'adobe-photoshop' },
@@ -120,14 +120,14 @@ const COURSES: Cert[] = [
   { issuer: 'linkedin', short: 'Solution sales', title: 'Solution Sales', date: 'Aug 2026', img: 'solution-sales' },
 ]
 
-const RECOGNITION = [
+export const RECOGNITION = [
   { title: 'TÜBİTAK', place: '3rd', line: '3rd place nationwide in Türkiye, 1st in the province', year: '2024' },
   { title: 'Waterloo Newtonian Medal', place: 'Medal', line: 'University of Waterloo, Centre for Education in Mathematics and Computing', year: '' },
 ]
 
 const ORDER: IssuerId[] = ['london', 'siemens', 'github', 'microsoft', 'aws', 'adobe', 'linkedin']
 const FIRST = 4 // issuer groups shown before "Show more"
-const TOTAL = PROFESSIONAL.length + COURSES.length
+export const TOTAL = PROFESSIONAL.length + COURSES.length
 const HIDDEN = ORDER.slice(FIRST).reduce((n, id) => n + COURSES.filter((c) => c.issuer === id).length, 0)
 
 // Counts up once the number scrolls into view.
