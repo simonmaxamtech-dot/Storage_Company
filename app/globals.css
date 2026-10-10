@@ -441,7 +441,7 @@ button {
   .work-row {
     transition: opacity 0.5s ease;
   }
-  .work-list:hover .work-row:not(:hover) {
+  .work-list:has(.work-row:hover) .work-row:not(:hover) {
     opacity: 0.35;
   }
   .work-row:hover .work-glow {
