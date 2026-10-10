@@ -5,58 +5,57 @@ import { live } from '@/lib/store'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
 
-// Prices are in Canadian dollars. Edit this list to change the plans: the section builds itself from it.
-// Each plan has a form that grows with it: an apple, a tree, a planet, a galaxy.
-interface Plan {
+// Prices are in Canadian dollars, before tax. Edit this list to change the plans: the section builds itself from it.
+// "from" is the starting price of a fixed quote; null means "scoped together". Each plan has a form that grows with it:
+// an idea, a tree, a world, a universe.
+export interface Plan {
   name: string
   form: string
   badge?: string
   blurb: string
+  who: string
+  time: string
+  from: number | null
   includes: string[]
-  options: { team: string; price: number }[]
 }
 
 export const PLANS: Plan[] = [
   {
-    name: 'Independent',
+    name: 'Launch',
     form: 'an idea',
-    blurb: 'For independent creators and founders.',
-    includes: ['A focused one-page site', 'Mobile-first design', 'Light interactive 3D', 'Source files and handover'],
-    options: [{ team: '1 person', price: 169 }],
+    blurb: 'A sharp, fast site that makes you look like the real thing from day one.',
+    who: 'Founders, creators and local businesses',
+    time: '1 to 2 weeks',
+    from: 1500,
+    includes: ['One custom-designed page', 'Mobile-first and fast', 'One light 3D moment', 'Contact form and basic SEO', 'Source files and handover'],
   },
   {
     name: 'Studio',
     form: 'a tree',
-    badge: 'Most selected',
-    blurb: 'Built for growing studios and agencies.',
-    includes: ['Everything in Independent', 'Multi-page site', 'Custom 3D models and visualization', 'Phone motion and touch features'],
-    options: [
-      { team: 'Up to 5 people', price: 349 },
-      { team: 'Up to 25 people', price: 549 },
-      { team: 'Up to 75 people', price: 949 },
-    ],
+    badge: 'Most chosen',
+    blurb: 'A full site with real 3D, built to win clients.',
+    who: 'Studios, agencies and growing brands',
+    time: '3 to 5 weeks',
+    from: 3900,
+    includes: ['Everything in Launch', 'Up to 6 custom pages', 'A custom 3D model or scene', 'Motion, touch and sound design', 'Analytics and speed tuning', '30 days of support'],
   },
   {
-    name: 'Company',
+    name: 'Brand',
     form: 'a world',
-    blurb: 'The one-stop plan for growing companies.',
-    includes: ['Everything in Studio', 'Product and brand experiences', 'Real-time 3D scenes', 'SEO and performance tuning', 'Ongoing support'],
-    options: [
-      { team: 'Up to 150 people', price: 1599 },
-      { team: 'Up to 500 people', price: 2999 },
-      { team: 'Up to 1,500 people', price: 5999 },
-    ],
+    blurb: 'A whole brand world: identity, site and 3D from one team.',
+    who: 'Companies launching or relaunching',
+    time: '6 to 10 weeks',
+    from: 9500,
+    includes: ['Everything in Studio', 'Brand identity and custom typeface', 'A real-time 3D product or world', 'Content and SEO plan', 'An editor your team can use', '90 days of support'],
   },
   {
-    name: 'Enterprise',
+    name: 'Custom',
     form: 'a universe',
-    blurb: 'For global brands operating at scale.',
-    includes: ['Everything in Company', 'Worldwide, multi-language rollout', 'Unreal Engine and XR options', 'Procurement and legal support', 'A dedicated team'],
-    options: [
-      { team: 'Up to 2,500 people', price: 8999 },
-      { team: 'Up to 5,000 people', price: 14999 },
-      { team: 'Up to 7,500 people', price: 18999 },
-    ],
+    blurb: 'Large, multi-language or unusual builds, scoped together with you.',
+    who: 'Large brands and ambitious ideas',
+    time: 'Scoped together',
+    from: null,
+    includes: ['Everything in Brand', 'Multi-language rollout', 'Unreal Engine, XR and apps', 'Procurement and legal support', 'A dedicated team'],
   },
 ]
 
@@ -85,10 +84,8 @@ export function useCount(target: number) {
 
 export default function Pricing() {
   const [pi, setPi] = useState(1)
-  const [oi, setOi] = useState(1)
   const plan = PLANS[pi]
-  const picked = plan.options[Math.min(oi, plan.options.length - 1)]
-  const shown = useCount(picked.price)
+  const shown = useCount(plan.from ?? 0)
 
   // The 3D form on the other side of the screen follows the plan.
   useEffect(() => {
@@ -100,7 +97,6 @@ export default function Pricing() {
 
   const choose = (i: number) => {
     setPi(i)
-    setOi(i === 1 ? 1 : 0)
     haptic(10)
     sound.pluck(hashText(PLANS[i].name))
   }
@@ -145,43 +141,23 @@ export default function Pricing() {
             </li>
           ))}
         </ul>
-
-        <p className="mt-8 text-[14px] font-bold" style={{ color: 'var(--muted)' }}>Made for teams of</p>
-        <div className="mt-2.5 flex flex-wrap gap-2">
-          {plan.options.map((o, i) => {
-            const on = i === Math.min(oi, plan.options.length - 1)
-            return (
-              <button
-                key={o.team}
-                data-hover="Select"
-                aria-pressed={on}
-                onClick={() => {
-                  setOi(i)
-                  haptic(8)
-                  sound.pluck(hashText(o.team))
-                }}
-                className="rounded-full px-4 py-2.5 text-[14px] font-bold transition-colors duration-300"
-                style={{
-                  background: on ? 'var(--ink)' : 'transparent',
-                  color: on ? 'var(--bg)' : 'var(--ink)',
-                  boxShadow: on ? 'none' : 'inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 50%, transparent)',
-                }}
-              >
-                {o.team}
-              </button>
-            )
-          })}
-        </div>
+        <p className="mt-6 text-[14px] font-bold" style={{ color: 'var(--muted)' }}>Made for {plan.who.toLowerCase()}. Delivery: {plan.time.toLowerCase()}.</p>
       </div>
 
       <div className="mt-9 flex flex-wrap items-end gap-x-8 gap-y-5">
         <div>
           <p className="font-display text-[clamp(52px,8vw,104px)] leading-[0.95] tracking-[-0.02em]">
-            <span className="text-[0.5em] align-top">CA$</span>
-            {fmt(shown)}
+            {plan.from === null ? (
+              'Let’s talk'
+            ) : (
+              <>
+                <span className="text-[0.32em] align-top">From CA$</span>
+                {fmt(shown)}
+              </>
+            )}
           </p>
           <p className="mt-1 text-[14px] font-bold" style={{ color: 'var(--muted)' }}>
-            {plan.name} · {picked.team} · Canadian dollars
+            {plan.name} · fixed quote in writing · Canadian dollars
           </p>
         </div>
         <button

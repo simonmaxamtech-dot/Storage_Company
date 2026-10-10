@@ -235,31 +235,45 @@ function DemoLab({ demos }: { demos: Demo[] }) {
 }
 
 export function CleanWork({ projects, demos }: { projects: Project[]; demos: Demo[] }) {
+  const [obj, setObj] = useState(250)
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const set = () => setObj(mq.matches ? 400 : 250)
+    set()
+    mq.addEventListener('change', set)
+    return () => mq.removeEventListener('change', set)
+  }, [])
   return (
-    <Shell id="work" kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Real sites, running right now.">
-      <div className="[scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0">
-        {projects.map((p) => (
-          <a
-            key={p.name}
-            href={p.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-hover="Visit"
-            className="clean-card group relative flex min-h-[470px] w-[76vw] shrink-0 snap-center flex-col justify-between sm:min-h-[520px] sm:w-auto"
-            style={{ ['--brand' as string]: p.color } as CSSProperties}
-          >
-            <div className="-mt-2 flex justify-center">
-              <CertObject kind={p.obj} size={230} />
-            </div>
-            <div>
-              <span className="pill-o px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]">
-                Live · {p.kind}
-              </span>
-              <span className="mt-3.5 block font-display text-[clamp(26px,2.6vw,40px)] leading-[0.98]">{p.name.replace('Ō', 'O')}</span>
-              <p className="mt-2.5 text-[14px] font-semibold leading-snug sm:text-[15px]" style={{ color: 'var(--muted)' }}>{p.text}</p>
-              <span className="work-go mt-5 inline-block rounded-full px-4 py-2 text-[13px] font-extrabold" style={{ color: 'var(--brand)', boxShadow: 'inset 0 0 0 1.5px var(--brand)' }}>Visit site ↗</span>
-            </div>
-          </a>
+    <Shell id="work" kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Three real projects, designed and built end to end, running right now.">
+      <div className="work-list flex flex-col gap-14 sm:gap-24">
+        {projects.map((p, i) => (
+          <Reveal key={p.name}>
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-hover="Visit"
+              className="work-row group relative grid items-center gap-2 sm:gap-6 lg:grid-cols-2 lg:gap-10"
+              style={{ ['--brand' as string]: p.color } as CSSProperties}
+            >
+              <div className={`work-stage relative mx-auto flex items-center justify-center ${i % 2 ? 'lg:order-2' : ''}`} style={{ width: obj, height: obj }}>
+                <span aria-hidden className="work-glow" />
+                <span className="work-obj relative block">
+                  <CertObject kind={p.obj} size={obj} />
+                </span>
+              </div>
+              <div className="relative text-center lg:text-left">
+                <p className="text-[12px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--brand)' }}>
+                  0{i + 1} <span style={{ color: 'var(--muted)' }}>/ 0{projects.length} · {p.kind}</span>
+                </p>
+                <span className="mt-3 block font-display text-[clamp(44px,7vw,104px)] leading-[0.95]">{p.name.replace('Ō', 'O')}</span>
+                <p className="mx-auto mt-4 max-w-[480px] text-[16px] font-bold leading-snug sm:text-[19px] lg:mx-0" style={{ color: 'var(--muted)' }}>{p.text}</p>
+                <span className="work-go mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-extrabold" style={{ background: 'var(--brand)', color: '#14080a' }}>
+                  Visit {p.host} ↗
+                </span>
+              </div>
+            </a>
+          </Reveal>
         ))}
       </div>
 
@@ -356,20 +370,29 @@ export function CleanAbout() {
 }
 
 /* ── Pricing ─────────────────────────────────────────────────────────────── */
+const STEPS = [
+  { n: '01', h: 'Talk', t: 'A free first call. You get a fixed quote in writing, usually within a day.' },
+  { n: '02', h: 'Build', t: '50% to start. You see a live preview link at every step, not just at the end.' },
+  { n: '03', h: 'Launch', t: '50% when you approve. You own the source, the design and the domain.' },
+]
+
 export function CleanPricing() {
   const [pi, setPi] = useState(1)
-  const [oi, setOi] = useState(0)
   const plan = PLANS[pi]
-  const picked = plan.options[Math.min(oi, plan.options.length - 1)]
-  const shown = useCount(picked.price)
+  const shown = useCount(plan.from ?? 0)
+  useEffect(() => {
+    live.plan = pi
+    return () => {
+      live.plan = 1
+    }
+  }, [pi])
   const choose = (i: number) => {
     setPi(i)
-    setOi(0)
     haptic(10)
     sound.pluck(hashText(PLANS[i].name))
   }
   return (
-    <Shell id="pricing" kicker="Pricing" title={<>Clear <span style={{ color: 'var(--hot)' }}>prices.</span></>} sub="Pick a plan and watch the form change.">
+    <Shell id="pricing" kicker="Pricing" title={<>Fixed prices. <span style={{ color: 'var(--hot)' }}>No surprises.</span></>} sub="Every project is quoted in writing before we start. Pick the one closest to yours.">
         <div role="tablist" aria-label="Plans" className="grid grid-cols-4 gap-1.5 rounded-full p-1.5 sm:inline-grid sm:grid-cols-[repeat(4,auto)]" style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)' }}>
           {PLANS.map((p, i) => {
             const on = i === pi
@@ -389,55 +412,71 @@ export function CleanPricing() {
           })}
         </div>
 
-        <div key={plan.name} className="plan-in mt-7 grid gap-8 rounded-[24px] p-6 sm:p-9 lg:grid-cols-[1.1fr_1fr] lg:gap-14" style={{ background: 'color-mix(in srgb, var(--hot) 7%, var(--bg))', boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--hot) 24%, transparent)' }}>
-          <div>
-            <p className="text-[15px] font-bold" style={{ color: 'var(--muted)' }}>{plan.blurb}</p>
-            <p className="mt-3 font-pacalix text-[clamp(44px,8vw,104px)] leading-[0.95]">
-              <span className="align-top text-[0.42em]">CA$</span>
-              {fmt(shown)}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2 max-sm:hidden">
-              {plan.options.map((o, i) => {
-                const on = i === Math.min(oi, plan.options.length - 1)
-                return (
-                  <button
-                    key={o.team}
-                    aria-pressed={on}
-                    data-hover="Select"
-                    onClick={() => {
-                      setOi(i)
-                      haptic(8)
-                      sound.pluck(hashText(o.team))
-                    }}
-                    className="rounded-full px-3.5 py-2 text-[13px] font-bold transition-colors duration-300"
-                    style={{ background: on ? 'var(--hot)' : 'transparent', color: on ? 'var(--bg)' : 'var(--ink)', boxShadow: on ? 'none' : 'inset 0 0 0 1.5px var(--line)' }}
-                  >
-                    {o.team}
-                  </button>
-                )
-              })}
+        <div key={plan.name} className="plan-in mt-7 grid gap-8 rounded-[24px] p-6 sm:p-9 lg:grid-cols-[1.1fr_1fr] lg:gap-14" style={{ background: 'color-mix(in srgb, var(--bg) 70%, var(--hot) 8%)', boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--hot) 24%, transparent)' }}>
+          <div className="flex flex-col">
+            {plan.badge && (
+              <span className="pill-o mb-3 self-start px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ ['--brand' as string]: 'var(--hot)' } as CSSProperties}>{plan.badge}</span>
+            )}
+            <p className="text-[16px] font-bold leading-snug sm:text-[18px]" style={{ color: 'var(--muted)' }}>{plan.blurb}</p>
+            <div className="mt-4">
+              {plan.from === null ? (
+                <p className="font-pacalix text-[clamp(44px,7vw,92px)] leading-[0.95]">Let&rsquo;s talk</p>
+              ) : (
+                <>
+                  <p className="text-[12px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--muted)' }}>Starting from</p>
+                  <p className="mt-1 font-pacalix text-[clamp(44px,8vw,104px)] leading-[0.95]">
+                    <span className="align-top text-[0.42em]">CA$</span>
+                    {fmt(shown)}
+                  </p>
+                </>
+              )}
             </div>
+            <dl className="mt-6 grid grid-cols-2 gap-5">
+              <div>
+                <dt className="text-[11px] font-extrabold uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>Delivery</dt>
+                <dd className="mt-1 text-[16px] font-extrabold">{plan.time}</dd>
+              </div>
+              <div>
+                <dt className="text-[11px] font-extrabold uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>Best for</dt>
+                <dd className="mt-1 text-[16px] font-extrabold leading-snug">{plan.who}</dd>
+              </div>
+            </dl>
           </div>
           <div className="flex flex-col justify-between gap-6">
             <ul className="space-y-2.5">
-              {plan.includes.slice(0, 4).map((t) => (
+              {plan.includes.map((t) => (
                 <li key={t} className="flex gap-3 text-[15px] font-bold leading-snug sm:text-[16px]">
                   <span aria-hidden className="mt-[3px] shrink-0 font-display text-[16px]" style={{ color: 'var(--hot)' }}>✓</span>
                   {t}
                 </li>
               ))}
             </ul>
-            <button
-              data-hover="Start"
-              onClick={() => go('contact')}
-              className="self-start rounded-full px-7 py-3.5 text-[16px] font-extrabold transition-transform hover:scale-105"
-              style={{ background: 'var(--hot)', color: 'var(--bg)' }}
-            >
-              Start a project
-            </button>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              <button
+                data-hover="Start"
+                onClick={() => go('contact')}
+                className="rounded-full px-7 py-3.5 text-[16px] font-extrabold transition-transform hover:scale-105"
+                style={{ background: 'var(--hot)', color: 'var(--bg)' }}
+              >
+                {plan.from === null ? 'Tell us the idea' : 'Get my fixed quote'}
+              </button>
+              <span className="text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Free call. No obligation.</span>
+            </div>
           </div>
         </div>
-        <p className="mt-4 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Canadian dollars. Every project is talked through before a price is fixed.</p>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-3 sm:gap-8">
+          {STEPS.map((s, i) => (
+            <Reveal key={s.n} delay={i * 110}>
+              <div className="pt-4" style={{ borderTop: '1.5px solid color-mix(in srgb, var(--hot) 45%, transparent)' }}>
+                <p className="text-[12px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>{s.n}</p>
+                <p className="mt-1.5 font-display text-[26px] leading-none sm:text-[30px]">{s.h}</p>
+                <p className="mt-2.5 text-[14.5px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>{s.t}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <p className="mt-8 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Canadian dollars, before tax. Hosting and your domain are paid at cost. Not sure which fits? Email us and we will tell you honestly.</p>
     </Shell>
   )
 }
