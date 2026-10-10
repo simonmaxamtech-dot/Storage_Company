@@ -476,9 +476,12 @@ export function CleanFooter() {
         </p>
         <p className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 pt-4 text-[13px] font-bold" style={{ borderTop: '1.5px solid var(--line)', color: 'var(--muted)' }}>
           <span>© {year} PACALIX. All rights reserved.</span>
-          <span className="flex flex-wrap gap-x-5">
-            <a href="/privacy" className="foot-link">Privacy and cookies</a>
-            <span>No tracking. Ever.</span>
+          <span className="flex flex-wrap gap-x-5 gap-y-1">
+            <a href="/privacy" className="foot-link">Privacy Policy</a>
+            <a href="/privacy#cookies" className="foot-link">Use of Cookies</a>
+            <a href="/terms" className="foot-link">Terms of Use</a>
+            <a href="/legal" className="foot-link">Legal</a>
+            <a href="/site-map" className="foot-link">Site Map</a>
           </span>
         </p>
       </div>

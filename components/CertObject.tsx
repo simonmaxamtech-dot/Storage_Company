@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { tier } from '@/lib/perf'
 
 // A small turning object made of points for a certificate: the cloud for AWS, a neural net for AI, and so on.
 // It follows the site's grain: the same dots, the same rust, and it spins faster when you reach for it.
@@ -362,7 +363,7 @@ export default function CertObject({ kind, size = 160 }: { kind: ObjKind; size?:
     const ctx = cv.getContext('2d')
     if (!ctx) return
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const dpr = Math.min(2, window.devicePixelRatio || 1)
+    const dpr = Math.min(tier() === 'high' ? 2 : 1.25, window.devicePixelRatio || 1)
     cv.width = size * dpr
     cv.height = size * dpr
     const pts = build(kind)
@@ -377,7 +378,14 @@ export default function CertObject({ kind, size = 160 }: { kind: ObjKind; size?:
     let frame = 0
     let col = '#fff'
     let hot = '#f60'
-    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting))
+    // Off-screen objects do not even wake up: the loop starts and stops with visibility.
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting
+      if (visible && !raf) {
+        last = performance.now()
+        raf = requestAnimationFrame(draw)
+      }
+    })
     io.observe(cv)
     const over = () => (hover = true)
     const out = () => (hover = false)
@@ -391,7 +399,11 @@ export default function CertObject({ kind, size = 160 }: { kind: ObjKind; size?:
     const draw = (now: number) => {
       const dt = Math.min(0.05, (now - last) / 1000)
       last = now
-      if (visible) {
+      if (!visible) {
+        raf = 0
+        return
+      }
+      {
         spin += ((hover ? 2.4 : 0.5) - spin) * Math.min(1, dt * 4)
         if (!reduced) rot += dt * spin
         if (frame++ % 30 === 0) {

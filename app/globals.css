@@ -441,10 +441,10 @@ button {
   overflow: hidden;
   border-radius: 28px;
   padding: 24px 24px 26px;
-  background: color-mix(in srgb, var(--bg) 58%, transparent);
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
   box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 34%, transparent);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 520px;
   transform: perspective(900px) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
   transition: translate 0.5s cubic-bezier(0.2, 0.9, 0.2, 1.2), box-shadow 0.4s ease;
 }
@@ -464,6 +464,10 @@ button {
 }
 @keyframes card-dots {
   to { transform: translate(14px, 14px); }
+}
+/* Phones: the dots stay, they just stop drifting. Saves a lot of battery and frames. */
+@media (hover: none) {
+  .clean-card::before { animation: none; }
 }
 .pill-o {
   display: inline-flex;
