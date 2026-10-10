@@ -8,6 +8,7 @@ import { hashText, sound, TRACKS } from '@/lib/sound'
 import Contact from './Contact'
 import Credentials, { type Cert } from './Credentials'
 import Gyro from './Gyro'
+import Inspect from './Inspect'
 import EdenLife from './EdenLife'
 import AboutSides from './AboutSides'
 import HStrip from './HStrip'
@@ -524,6 +525,7 @@ export default function Overlay() {
       <footer className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex items-end justify-between gap-4 px-5 py-5 sm:px-10 sm:py-7">
         <SoundControl />
         <div className="pointer-events-auto flex items-center gap-3 sm:gap-6">
+          <Inspect />
           <DesignSwitch />
           <Gyro />
           <a href="mailto:simon0021maxam@gmail.com" className="max-sm:hidden rounded-full px-4 py-2 text-[14px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>simon0021maxam@gmail.com</a>
