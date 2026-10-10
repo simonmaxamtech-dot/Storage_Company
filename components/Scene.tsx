@@ -4,7 +4,6 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { PerformanceMonitor } from '@react-three/drei'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Particles from './Particles'
-import Wordmark3D from './Wordmark3D'
 import SpotField from './SpotField'
 import LiveTypes from './LiveTypes'
 import { lite, tier } from '@/lib/perf'
@@ -213,7 +212,6 @@ export default function Scene() {
         {!step && <Beat restart={restart} />}
         <SpotField />
         <Particles />
-        <Wordmark3D />
         <LiveTypes />
         {step && <Stepper />}
         {!step && <Throttle slow={slow} />}

@@ -338,7 +338,7 @@ interface Room {
 // Targets: 0 panda, 1 spaces (a pavilion; the snake's ring until it loads), 2 apple, 3 planet, 4 clouds, 5 galaxy, 6 tree, 7 portrait, 8 bamboo, 9 Newton's cradle, 10 Himalaya, 11 wireframe world.
 // Sections: intro, eden, newton, idea, form, work, studio, beyond, panda, play, pricing, about, credentials, contact.
 const ROOMS_DESKTOP: Room[] = [
-  { x: 3.3, y: 1.0, s: 0.6, rz: 0, dim: 1, target: 0 },
+  { x: 3.3, y: 0.15, s: 0.82, rz: 0, dim: 1, target: 0 },
   { x: 0, y: 1.0, s: 0.82, rz: 0, dim: 1, target: 6 },
   { x: 0, y: 1.15, s: 0.72, rz: 0, dim: 1, target: 9 },
   { x: 0, y: 0.8, s: 1, rz: 0, dim: 0.85, target: 4 },
@@ -744,7 +744,7 @@ export default function Particles() {
     // Hold the intro until the wordmark is built too (or 3.5 s have passed), then start both on the same frame.
     if (!live.go) {
       const waited = performance.now() - (e.since ?? performance.now())
-      if (reduced || (live.wm && waited > 400) || waited > 3500) {
+      if (reduced || waited > 400) {
         live.go = true
         useStore.getState().setReady(true)
       }

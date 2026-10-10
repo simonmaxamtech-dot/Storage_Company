@@ -305,7 +305,7 @@ function SoundControl() {
 }
 
 export default function Overlay() {
-  const { ready, liveWordmark, game, setGame, soundOn, setSoundOn, setTrack } = useStore()
+  const { ready, game, setGame, soundOn, setSoundOn, setTrack } = useStore()
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState<number | null>(null)
   const [cert, setCert] = useState<Cert | null>(null)
@@ -442,7 +442,12 @@ export default function Overlay() {
           onClick={() => go('intro')}
           aria-label="PACALIX, back to top"
           className="transition-opacity duration-700"
-          style={{ opacity: 1 }}
+          onPointerDown={() => {
+            pressTimer.current = window.setTimeout(() => setGame(true), 900)
+          }}
+          onPointerUp={() => window.clearTimeout(pressTimer.current)}
+          onPointerLeave={() => window.clearTimeout(pressTimer.current)}
+          onPointerCancel={() => window.clearTimeout(pressTimer.current)}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/wordmark.png" width={1200} height={224} alt="PACALIX" className="h-[28px] sm:h-[40px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
@@ -488,12 +493,12 @@ export default function Overlay() {
           {/* Left: what we actually do, in plain words. */}
           <div className="order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
             <p className="text-[12px] font-bold uppercase tracking-[0.22em] sm:text-[14px]" style={{ color: 'var(--muted)' }}>
-              Creative studio · Calgary
+              Creative studio · by Simon Maxam · Calgary
             </p>
             <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We build digital worlds." className="mt-8 font-display text-[clamp(40px,min(7.4vw,12.5vh),128px)] leading-[0.98] tracking-[0.01em]">
               WE BUILD<br />DIGITAL<br />WORLDS.
             </h1>
-            <p className="mt-5 text-[clamp(15px,1.3vw,19px)] font-bold" style={{ color: 'var(--muted)' }}>
+            <p className="mt-6 text-[clamp(17px,1.5vw,23px)] font-extrabold" style={{ color: "var(--ink)", opacity: 0.85 }}>
               Interactive websites · 3D experiences · Brand · AI
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center">
@@ -502,29 +507,8 @@ export default function Overlay() {
               <a href="/services" className="pb-1 opacity-70 transition-opacity hover:opacity-100">Services</a>
             </div>
           </div>
-          {/* Right: the logo. The beaver is particles; the image holds the wordmark's place until the live version draws over it. */}
-          <div className="order-1 flex flex-col items-center lg:order-2 lg:self-end">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              id="wordmark-anchor"
-              src="/wordmark.png"
-              width={1200}
-              height={224}
-              alt="PACALIX"
-              draggable={false}
-              className="w-[min(70vw,520px)] select-none"
-              style={{ opacity: liveWordmark ? 0 : 'var(--intro)', filter: 'var(--logo-filter)' }}
-              onPointerDown={() => {
-                pressTimer.current = window.setTimeout(() => setGame(true), 900)
-              }}
-              onPointerUp={() => window.clearTimeout(pressTimer.current)}
-              onPointerLeave={() => window.clearTimeout(pressTimer.current)}
-              onPointerCancel={() => window.clearTimeout(pressTimer.current)}
-            />
-            <p className="mt-4 text-[16px] font-semibold" style={{ color: 'var(--muted)', opacity: 'var(--intro)' }}>
-              by Simon Maxam
-            </p>
-          </div>
+          {/* Right: the beaver, drawn by the particle scene behind the page. This column just holds its place. */}
+          <div aria-hidden className="order-1 h-[34svh] lg:order-2 lg:h-auto" />
         </section>
 
         {/* EDEN: the oldest story about an idea: a red panda, an apple, a tree. */}
