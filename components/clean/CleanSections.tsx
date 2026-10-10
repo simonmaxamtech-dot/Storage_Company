@@ -7,6 +7,7 @@ import { hashText, sound } from '@/lib/sound'
 import { INSTAGRAM, LINKEDIN_COMPANY, PHONE, PHONE_HREF } from '@/lib/site'
 import { ISSUER, Mark, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
 import { PLANS, fmt, useCount } from '../Pricing'
+import CertObject, { type ObjKind } from '../CertObject'
 
 // The Clean design: short sections, one accent colour each. Every section opens with a "stage" where the particle
 // scene shows its own form (a mountain, a pavilion, the chosen plan...), then the content sits on a soft scrim.
@@ -145,6 +146,7 @@ export interface Project {
   kind: string
   host: string
   color: string
+  obj: ObjKind
   url: string
   text: string
 }
@@ -160,27 +162,34 @@ export interface Demo {
 export function CleanWork({ projects, demos }: { projects: Project[]; demos: Demo[] }) {
   return (
     <Shell id="work" kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Real sites, running right now.">
-      <ul style={rule}>
+      <div className="[scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0">
         {projects.map((p, i) => (
-          <li key={p.name} style={{ borderBottom: '1.5px solid var(--line)' }}>
-            <a href={p.url} target="_blank" rel="noopener noreferrer" data-hover="Visit" className="clean-row group flex items-center gap-4 py-5 sm:gap-8 sm:py-7">
-              <span aria-hidden className="w-9 font-display text-[22px] leading-none sm:w-14 sm:text-[34px]" style={{ color: 'var(--hot)' }}>
-                {String(i + 1).padStart(2, '0')}
+          <a
+            key={p.name}
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-hover="Visit"
+            className="clean-card group relative flex min-h-[380px] w-[76vw] shrink-0 snap-center flex-col justify-between sm:min-h-[420px] sm:w-auto"
+            style={{ ['--brand' as string]: p.color } as CSSProperties}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <span className="work-num font-display text-[clamp(70px,7vw,110px)] leading-[0.85]" aria-hidden>{String(i + 1).padStart(2, '0')}</span>
+              <CertObject kind={p.obj} size={140} />
+            </div>
+            <div>
+              <span className="inline-block rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ background: 'var(--brand)', color: '#14080a' }}>
+                Live · {p.kind}
               </span>
-              <span className="min-w-0 flex-1">
-                <span className="block font-display text-[clamp(26px,4vw,52px)] leading-[1]">{p.name}</span>
-                <span className="mt-1 block text-[13px] font-bold sm:text-[15px]" style={{ color: 'var(--muted)' }}>
-                  <span className="max-sm:hidden">{p.text}</span>
-                  <span className="sm:hidden">{p.kind}</span>
-                </span>
-              </span>
-              <span className="clean-go shrink-0 rounded-full px-4 py-2 text-[13px] font-extrabold sm:px-5 sm:text-[14px]">Visit ↗</span>
-            </a>
-          </li>
+              <span className="mt-3.5 block font-display text-[clamp(32px,3.2vw,48px)] leading-[0.98]">{p.name}</span>
+              <p className="mt-2.5 text-[14px] font-semibold leading-snug sm:text-[15px]" style={{ color: 'var(--muted)' }}>{p.text}</p>
+              <span className="work-go mt-5 inline-block rounded-full px-4 py-2 text-[13px] font-extrabold" style={{ background: 'var(--brand)', color: '#14080a' }}>Visit site ↗</span>
+            </div>
+          </a>
         ))}
-      </ul>
+      </div>
 
-      <p className="mt-12 text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>Try it, they are live</p>
+      <p className="mt-14 text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>Try it, they are live</p>
       <div className="[scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-6 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
         {demos.map((d) => (
           <div key={d.title} className="flex w-[74vw] shrink-0 snap-center flex-col sm:w-auto">

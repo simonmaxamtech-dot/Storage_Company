@@ -387,6 +387,33 @@ button {
 }
 
 
+/* Clean: work project boxes */
+.clean-card {
+  border-radius: 28px;
+  padding: 24px 24px 26px;
+  background: color-mix(in srgb, var(--brand) 14%, var(--bg));
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 38%, transparent);
+  transition: translate 0.5s cubic-bezier(0.2, 0.9, 0.2, 1.2), box-shadow 0.4s ease, background 0.4s ease;
+}
+.clean-card .work-num {
+  -webkit-text-stroke: 2px var(--brand);
+}
+@media (hover: hover) {
+  .clean-card:hover {
+    translate: 0 -10px;
+    background: color-mix(in srgb, var(--brand) 22%, var(--bg));
+    box-shadow: inset 0 0 0 2px var(--brand), 0 26px 60px rgba(0, 0, 0, 0.4);
+  }
+  .clean-card:hover .work-num {
+    color: var(--brand);
+    transform: scale(1.08) rotate(-3deg);
+  }
+  .clean-card:hover .work-go {
+    translate: 4px -3px;
+    filter: brightness(1.12);
+  }
+}
+
 /* Phone tilt: the headlines lean in 3D with the phone (set per element by Gyro.tsx, only on screen). */
 
 /* Hero key word: the letters ride a slow wave. */
