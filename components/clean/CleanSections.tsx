@@ -43,7 +43,7 @@ function Shell({
   return (
     <section data-section id={id} className="relative">
       <div className={`flex flex-col pb-8 pt-28 sm:pb-12 ${big ? 'min-h-[60svh] justify-end sm:min-h-[84svh] sm:justify-center' : 'min-h-[26svh] justify-end sm:min-h-[36svh]'} ${pad}`}>
-        <div className="mx-auto w-full max-w-[1100px]">
+        <Reveal className="mx-auto w-full max-w-[1100px]">
           <Kicker>{kicker}</Kicker>
           <h2 data-react data-live={id} className={big ? 'mt-5 font-pacalix text-[clamp(56px,7.4vw,150px)] leading-[0.92] tracking-[0.015em]' : 'mt-4 font-pacalix text-[clamp(30px,4.8vw,70px)] leading-[1.02] tracking-[0.015em] lg:max-w-[60%]'}>
             {title}
@@ -53,10 +53,10 @@ function Shell({
               {sub}
             </p>
           )}
-        </div>
+        </Reveal>
       </div>
       {children && (
-        <div className={`pb-14 pt-10 sm:pb-20 sm:pt-14 ${pad}`} style={clear ? undefined : { background: 'linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 62%, transparent) 50px, color-mix(in srgb, var(--bg) 62%, transparent) calc(100% - 60px), transparent 100%)' }}>
+        <div className={`pb-14 pt-10 sm:pb-20 sm:pt-14 ${pad}`}>
           <div className="mx-auto w-full max-w-[1100px]">{children}</div>
         </div>
       )}
