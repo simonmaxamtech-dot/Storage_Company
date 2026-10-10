@@ -29,12 +29,14 @@ function Shell({
   title,
   sub,
   big,
+  wide,
   clear,
   model,
   children,
 }: {
   id: string
   big?: boolean
+  wide?: boolean
   clear?: boolean
   model?: boolean
   kicker: string
@@ -45,13 +47,13 @@ function Shell({
   return (
     <section data-section id={id} className="relative">
       <div className={`flex flex-col pb-8 pt-28 sm:pb-12 ${model ? 'max-lg:pt-[300px]' : ''} ${big ? 'min-h-[60svh] justify-end sm:min-h-[84svh] sm:justify-center' : 'min-h-[26svh] justify-end sm:min-h-[36svh]'} ${pad}`}>
-        <Reveal className="mx-auto w-full max-w-[1100px]">
+        <Reveal className={`mx-auto w-full ${wide ? 'max-w-[1500px]' : 'max-w-[1100px]'}`}>
           <Kicker>{kicker}</Kicker>
-          <h2 data-react data-live={id} className={big ? 'mt-5 font-pacalix text-[clamp(56px,7.4vw,150px)] leading-[0.92] tracking-[0.015em]' : 'mt-4 font-pacalix text-[clamp(30px,4.8vw,70px)] leading-[1.02] tracking-[0.015em] lg:max-w-[60%]'}>
+          <h2 data-react data-live={id} className={wide ? 'mt-4 font-pacalix text-[clamp(38px,9vw,190px)] leading-[0.98] tracking-[0.015em]' : big ? 'mt-5 font-pacalix text-[clamp(56px,7.4vw,150px)] leading-[0.92] tracking-[0.015em]' : 'mt-4 font-pacalix text-[clamp(30px,4.8vw,70px)] leading-[1.02] tracking-[0.015em] lg:max-w-[60%]'}>
             {title}
           </h2>
           {sub && (
-            <p className={`max-w-[560px] text-[16px] font-bold leading-snug sm:text-[18px] lg:max-w-[46%] ${big ? 'mt-6' : 'mt-3'}`} style={{ color: 'var(--muted)' }}>
+            <p className={`text-[16px] font-bold leading-snug sm:text-[18px] ${wide ? 'mt-6 max-w-[760px] sm:text-[22px]' : `max-w-[560px] lg:max-w-[46%] ${big ? 'mt-6' : 'mt-3'}`}`} style={{ color: 'var(--muted)' }}>
               {sub}
             </p>
           )}
@@ -361,7 +363,7 @@ export function CleanPricing() {
     }
   }, [])
   return (
-    <Shell id="pricing" clear kicker="Pricing" title={<>Fixed prices. <span style={{ color: 'var(--hot)' }}>No surprises.</span></>} sub="Every project is quoted in writing before we start. Find the one closest to yours.">
+    <Shell id="pricing" clear wide kicker="Pricing" title={<>Fixed prices. <br /><span style={{ color: 'var(--hot)' }}>No surprises.</span></>} sub="Every project is quoted in writing before we start. Find the one closest to yours.">
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
           {PLANS.map((p) => {
             const star = !!p.badge
