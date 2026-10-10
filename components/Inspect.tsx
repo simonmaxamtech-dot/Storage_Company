@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from 'react'
 
 // "Inspect": a designer's x-ray. Hover anything and see its box, size, position, type size and colour,
-// the same way design tools do. Off by default so it never confuses a first-time visitor. Press I to toggle.
-const PICK = 'h1,h2,h3,h4,p,a,button,img,li,.clean-card,.pill-o,.cert-chip,input,textarea,section'
+// the same way design tools do. On by default, for the small reading text only (not our own Pacalix lettering). Press I to toggle.
+const PICK = 'p,a,button,li,dt,dd,label,span,.pill-o,.cert-chip,input,textarea'
+const OWN_FONT = /pacalix/i
 
 const KIND = (el: Element) => {
   const t = el.tagName.toLowerCase()
@@ -15,15 +16,16 @@ const KIND = (el: Element) => {
 }
 
 const hex = (c: string) => {
-  const m = c.match(/rgba?\(([^)]+)\)/)
-  if (!m) return c
-  const p = m[1].split(/[ ,/]+/).filter(Boolean).map(Number)
+  const m = c.match(/rgba?\(([^)]+)\)/) || c.match(/color\(srgb ([^)]+)\)/)
+  if (!m) return ''
+  const scale = c.startsWith('color(') ? 255 : 1
+  const p = m[1].split(/[ ,/]+/).filter(Boolean).map((n, k) => (k < 3 ? Number(n) * scale : Number(n)))
   if (p.length > 3 && p[3] === 0) return ''
   return '#' + p.slice(0, 3).map((n) => Math.round(n).toString(16).padStart(2, '0')).join('')
 }
 
 export default function Inspect() {
-  const [on, setOn] = useState(false)
+  const [on, setOn] = useState(true)
   const [hoverOk, setHoverOk] = useState(false)
   const box = useRef<HTMLDivElement>(null)
   const l1 = useRef<HTMLDivElement>(null)
@@ -48,10 +50,12 @@ export default function Inspect() {
     const b = box.current
     if (!on || !b) return
     let cur: Element | null = null
+    let tagged = 0
     let px = 0
     let py = 0
     let raf = 0
-    const hide = () => { b.style.opacity = '0' }
+    let shown = false
+    const hide = () => { b.style.opacity = '0'; shown = false }
     const paint = () => {
       raf = 0
       if (!cur || !cur.isConnected) return hide()
@@ -59,9 +63,27 @@ export default function Inspect() {
       if (r.width < 4 || r.height < 4) return hide()
       const cs = getComputedStyle(cur)
       const fs = parseFloat(cs.fontSize)
+      // Only the small reading text: skip our own lettering and anything display-sized.
+      if (OWN_FONT.test(cs.fontFamily) || fs > 30) return hide()
       const lh = cs.lineHeight === 'normal' ? Math.round(fs * 1.2) : Math.round(parseFloat(cs.lineHeight))
-      const isText = cur.textContent?.trim() && !(cur instanceof HTMLImageElement) && !cur.classList.contains('clean-card') && cur.tagName !== 'SECTION'
+      const isText = !!cur.textContent?.trim()
       const col = hex(cs.color)
+      // First sight of a target: appear in place; after that, glide from box to box.
+      if (!shown) {
+        b.style.transition = 'opacity .2s ease'
+        b.style.transform = `translate(${r.left}px,${r.top}px)`
+        b.style.width = r.width + 'px'
+        b.style.height = r.height + 'px'
+        void b.offsetWidth
+        b.style.transition = ''
+        shown = true
+      }
+      if (b.dataset.id !== String(tagged)) {
+        b.dataset.id = String(tagged)
+        b.classList.remove('inspect-pop')
+        void b.offsetWidth
+        b.classList.add('inspect-pop')
+      }
       b.style.opacity = '1'
       b.style.transform = `translate(${r.left}px,${r.top}px)`
       b.style.width = r.width + 'px'
@@ -69,7 +91,7 @@ export default function Inspect() {
       if (l1.current) l1.current.textContent = `${KIND(cur)}  ${Math.round(r.width)}×${Math.round(r.height)}`
       if (l2.current) {
         const pos = `x ${Math.round(r.left)}  y ${Math.round(r.top + window.scrollY)}`
-        l2.current.textContent = isText ? `${Math.round(fs)}/${lh} px  ${col || cs.fontFamily.split(',')[0].replace(/["']/g, '')}  ·  ${pos}` : pos
+        l2.current.textContent = isText ? `${cs.fontFamily.split(',')[0].replace(/["']/g, '').replace(/^__|_[a-z0-9]+$/gi, '').replace(/_/g, ' ')}  ${Math.round(fs)}/${lh}  ${col}  ·  ${pos}` : pos
         l2.current.style.setProperty('--sw', col || 'transparent')
       }
       b.dataset.low = r.top < 56 ? '1' : '0'
@@ -85,6 +107,7 @@ export default function Inspect() {
       if (!el) { const s = document.elementFromPoint(px, py); el = s?.closest(PICK) || null }
       if (el === cur) return queue()
       cur = el
+      tagged++
       el ? queue() : hide()
     }
     window.addEventListener('pointermove', move, { passive: true })
@@ -97,7 +120,7 @@ export default function Inspect() {
       cancelAnimationFrame(raf)
       hide()
     }
-  }, [on])
+  }, [on, hoverOk])
 
   if (!hoverOk) return null
   return (
@@ -121,8 +144,8 @@ export default function Inspect() {
         ref={box}
         aria-hidden
         data-no-inspect
-        className="pointer-events-none fixed left-0 top-0 z-[90] opacity-0 transition-[opacity] duration-150"
-        style={{ outline: '1.5px solid var(--hot)', outlineOffset: 0, willChange: 'transform,width,height' }}
+        className="inspect-box pointer-events-none fixed left-0 top-0 z-[90] opacity-0"
+        style={{ willChange: 'transform,width,height' }}
       >
         {[0, 1, 2, 3].map((i) => (
           <i
