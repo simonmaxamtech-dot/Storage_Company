@@ -6,7 +6,7 @@ import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
 import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
 import { ISSUER, Mark, OBJ, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
-import { PLANS, fmt } from '../Pricing'
+import QuoteChat from './QuoteChat'
 import CertObject, { type ObjKind } from '../CertObject'
 
 // The Clean design: short sections, one accent colour each. Every section opens with a "stage" where the particle
@@ -329,12 +329,12 @@ export function CleanAbout() {
       sub="I build interactive 3D websites, products and games, and play guitar the same way I code: patient, then suddenly fast."
     >
       <Reveal>
-        <p className="text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>Independent digital studio</p>
+        <p className="text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>Creative and marketing agency</p>
         <p className="mt-5 font-pacalix text-[clamp(44px,8.4vw,132px)] leading-[0.95] tracking-[0.015em]">
-          The future<br />isn&rsquo;t <span style={{ color: 'var(--hot)' }}>flat.</span>
+          Get found.<br />Get <span style={{ color: 'var(--hot)' }}>chosen.</span>
         </p>
         <p className="mt-8 max-w-[560px] text-[17px] font-bold leading-snug sm:text-[20px]" style={{ color: 'var(--muted)' }}>
-          We create immersive websites, 3D worlds and brands where design, technology and imagination meet.
+          We build websites, 3D and brands that people find, remember and pick over everyone else.
         </p>
       </Reveal>
 
@@ -366,66 +366,10 @@ export function CleanPricing() {
     }
   }, [])
   return (
-    <Shell id="pricing" clear wide kicker="Pricing" title={<>Fixed prices. <br /><span style={{ color: 'var(--hot)' }}>No surprises.</span></>} sub="Every project is quoted in writing before we start. Find the one closest to yours.">
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
-          {PLANS.map((p) => {
-            const star = !!p.badge
-            return (
-              <div
-                key={p.name}
-                className="flex flex-col rounded-[24px] p-6 sm:p-8"
-                style={{
-                  background: 'color-mix(in srgb, var(--bg) 72%, transparent)',
-                  boxShadow: star ? 'inset 0 0 0 2.5px var(--hot)' : 'inset 0 0 0 1.5px var(--line)',
-                }}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <p className="font-display text-[30px] leading-none sm:text-[38px]">{p.name}</p>
-                  {star && (
-                    <span className="rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em]" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>{p.badge}</span>
-                  )}
-                </div>
-                <p className="mt-3 text-[15px] font-bold leading-snug sm:text-[16px]" style={{ color: 'var(--muted)' }}>{p.blurb}</p>
+    <Shell id="pricing" clear wide kicker="Get a quote" title={<>Get your price <br /><span style={{ color: 'var(--hot)' }}>in one minute.</span></>} sub="Answer a few quick questions. Simon calls you back with a fixed price, in writing.">
+        <QuoteChat />
 
-                <div className="mt-6">
-                  {p.from === null ? (
-                    <p className="font-pacalix text-[clamp(44px,5vw,68px)] leading-[0.95]">Let&rsquo;s talk</p>
-                  ) : (
-                    <p className="font-pacalix text-[clamp(44px,5vw,68px)] leading-[0.95]">
-                      <span className="mr-2 align-top text-[0.3em]" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body, inherit)' }}>from CA$</span>
-                      {fmt(p.from)}
-                    </p>
-                  )}
-                  <p className="mt-2 text-[16px] font-extrabold">Ready in {p.time.toLowerCase()}</p>
-                </div>
-
-                <ul className="mt-6 space-y-2.5">
-                  {p.includes.slice(0, 5).map((t) => (
-                    <li key={t} className="flex gap-3 text-[15px] font-bold leading-snug sm:text-[16px]">
-                      <span aria-hidden className="mt-[3px] shrink-0 font-display text-[16px]" style={{ color: 'var(--hot)' }}>✓</span>
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  data-hover="Start"
-                  onClick={() => {
-                    haptic(10)
-                    sound.pluck(hashText(p.name))
-                    go('contact')
-                  }}
-                  className="mt-7 self-start rounded-full px-7 py-3.5 text-[16px] font-extrabold transition-transform hover:scale-105 sm:mt-auto"
-                  style={star ? { background: 'var(--hot)', color: 'var(--bg)' } : { color: 'var(--ink)', boxShadow: 'inset 0 0 0 1.5px var(--ink)' }}
-                >
-                  {p.from === null ? 'Tell us the idea' : 'Get my fixed quote'}
-                </button>
-              </div>
-            )
-          })}
-        </div>
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-3 sm:gap-8">
+        <div className="mt-14 grid gap-6 sm:grid-cols-3 sm:gap-8">
           {STEPS.map((s, i) => (
             <Reveal key={s.n} delay={i * 110}>
               <div className="pt-4" style={{ borderTop: '1.5px solid color-mix(in srgb, var(--hot) 45%, transparent)' }}>
@@ -436,7 +380,7 @@ export function CleanPricing() {
             </Reveal>
           ))}
         </div>
-        <p className="mt-8 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Canadian dollars, before tax. Hosting and your domain are paid at cost. Not sure which fits? Email us and we will tell you honestly.</p>
+        <p className="mt-8 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Canadian dollars, before tax. Hosting and your domain are paid at cost. No pressure: if we are not the right fit, we will tell you honestly.</p>
     </Shell>
   )
 }
