@@ -5,7 +5,7 @@ import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
 import CertObject, { type ObjKind } from './CertObject'
 
-const OBJ: Record<string, ObjKind> = {
+export const OBJ: Record<string, ObjKind> = {
   'aws-cloud-solutions-architect': 'cloud',
   'ibm-ai-engineering': 'neural',
   'google-it-automation-python': 'python',

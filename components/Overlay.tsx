@@ -538,7 +538,7 @@ export default function Overlay() {
             <p className="text-[12px] font-bold uppercase tracking-[0.22em] sm:text-[14px]" style={{ color: 'var(--muted)' }}>
               Creative studio · by Simon Maxam · Calgary
             </p>
-            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We build digital worlds." className="mt-8 font-display text-[clamp(40px,min(7.4vw,12.5vh),128px)] leading-[0.98] tracking-[0.01em]">
+            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We build digital worlds." className="mt-8 font-pacalix text-[clamp(38px,min(6.9vw,12vh),124px)] leading-[1] tracking-[0.015em]">
               WE BUILD<br />DIGITAL<br />WORLDS.
             </h1>
             <p className="mt-6 text-[clamp(17px,1.5vw,23px)] font-extrabold" style={{ color: "var(--ink)", opacity: 0.85 }}>

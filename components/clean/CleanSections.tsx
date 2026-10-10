@@ -5,7 +5,7 @@ import { live, useStore } from '@/lib/store'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
 import { INSTAGRAM, LINKEDIN_COMPANY, PHONE, PHONE_HREF } from '@/lib/site'
-import { ISSUER, Mark, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
+import { ISSUER, Mark, OBJ, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
 import { PLANS, fmt, useCount } from '../Pricing'
 import CertObject, { type ObjKind } from '../CertObject'
 
@@ -43,7 +43,7 @@ function Shell({
       <div className={`flex flex-col pb-8 pt-28 sm:pb-12 ${big ? 'min-h-[72svh] justify-end sm:min-h-[100svh] sm:justify-center' : 'min-h-[44svh] justify-end sm:min-h-[58svh]'} ${pad}`}>
         <div className="mx-auto w-full max-w-[1100px]">
           <Kicker>{kicker}</Kicker>
-          <h2 data-react data-live={id} className={big ? 'mt-5 font-pacalix text-[clamp(56px,7.4vw,150px)] leading-[0.92] tracking-[0.015em]' : 'mt-4 font-display text-[clamp(38px,6.2vw,88px)] leading-[0.98] tracking-[-0.02em] lg:max-w-[52%]'}>
+          <h2 data-react data-live={id} className={big ? 'mt-5 font-pacalix text-[clamp(56px,7.4vw,150px)] leading-[0.92] tracking-[0.015em]' : 'mt-4 font-pacalix text-[clamp(30px,4.8vw,70px)] leading-[1.02] tracking-[0.015em] lg:max-w-[60%]'}>
             {title}
           </h2>
           {sub && (
@@ -62,82 +62,105 @@ function Shell({
 
 const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
-/* ── Certificates: the "wow" ─────────────────────────────────────────────── */
-const ORDER: IssuerId[] = ['microsoft', 'aws', 'adobe', 'siemens', 'github', 'london', 'linkedin']
-const LOGOS: IssuerId[] = ['google', 'microsoft', 'aws', 'ibm', 'adobe', 'siemens']
+/* ── Certificates: one coloured card per program and per issuer ──────────── */
+const ORDER: IssuerId[] = ['london', 'siemens', 'github', 'microsoft', 'aws', 'adobe', 'linkedin']
+
+function Chips({ c }: { c: Cert }) {
+  const s = c.skills ?? []
+  if (c.look === 'code')
+    return (
+      <span className="inline-block rounded-lg px-3 py-2 font-mono text-[13px] font-bold" style={{ background: 'color-mix(in srgb, var(--brand) 18%, transparent)' }}>
+        <span style={{ color: 'var(--muted)' }}>&gt;&gt;&gt; </span>
+        <span style={{ color: 'var(--brand2)' }}>import</span> {s.map((k) => k.toLowerCase()).join(', ')}
+        <span className="code-caret" style={{ color: 'var(--brand2)' }}>▍</span>
+      </span>
+    )
+  return (
+    <span className="flex flex-wrap gap-2">
+      {s.map((k, i) => (
+        <span key={k} className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[12px] font-extrabold" style={{ boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 55%, transparent)' }}>
+          <span className="inline-block h-[9px] w-[3px] rounded-sm" style={{ background: i % 2 && c.brand2 ? 'var(--brand2)' : 'var(--brand)' }} />
+          {k}
+        </span>
+      ))}
+    </span>
+  )
+}
 
 export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
-  const [all, setAll] = useState(false)
-  const list = [...COURSES].sort((a, b) => ORDER.indexOf(a.issuer) - ORDER.indexOf(b.issuer))
+  const open = (c: Cert, h = 8) => {
+    onOpen(c)
+    haptic(h)
+  }
   return (
     <Shell id="credentials" kicker="Credentials" title={<>Certified by <span style={{ color: 'var(--hot)' }}>the best.</span></>} sub={`${TOTAL} certificates from the companies that build the internet.`}>
-        <div className="mb-8 flex flex-wrap items-center gap-x-6 gap-y-3 sm:gap-x-9">
-          {LOGOS.map((id) => (
-            <Mark key={id} id={id} size={22} />
-          ))}
-        </div>
-
-        <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          {PROFESSIONAL.map((c) => (
-            <li key={c.img}>
-              <button
-                onClick={() => {
-                  onOpen(c)
-                  haptic(10)
-                }}
-                onPointerEnter={() => sound.pluck(hashText(c.title))}
-                data-hover="Open"
-                className="clean-tile group flex h-full min-h-[148px] w-full flex-col items-start justify-between gap-6 rounded-[18px] p-4 text-left sm:min-h-[190px] sm:p-5"
-                style={{ ['--tile' as string]: c.brand ?? ISSUER[c.issuer].color } as CSSProperties}
-              >
-                <Mark id={c.issuer} size={24} />
-                <span className="block font-display text-[clamp(17px,1.9vw,24px)] leading-[1.08]">{c.title.replace(/^(Google|IBM|AWS) /, '')}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-5 flex flex-wrap gap-x-6 gap-y-1 text-[13px] font-bold sm:text-[14px]" style={{ color: 'var(--muted)' }}>
-          <span>★ TÜBİTAK · 3rd place in Türkiye</span>
-          <span>★ Waterloo Newtonian Medal</span>
-        </p>
-
-        <div className="mt-8 pt-6" style={rule}>
+      <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+        {PROFESSIONAL.map((c) => (
           <button
-            onClick={() => {
-              setAll(!all)
-              sound.pluck(hashText(all ? 'less' : 'more'))
-            }}
-            aria-expanded={all}
-            className="rounded-full px-5 py-2.5 text-[14px] font-extrabold transition-transform hover:scale-105"
-            style={{ background: 'var(--hot)', color: 'var(--bg)' }}
+            key={c.img}
+            onClick={() => open(c, 10)}
+            onPointerEnter={() => sound.pluck(hashText(c.title))}
+            data-hover="Open"
+            className="clean-card issuer-pop group flex min-h-[300px] flex-col items-start gap-4 text-left"
+            style={{ ['--brand' as string]: c.brand ?? ISSUER[c.issuer].color, ['--brand2' as string]: c.brand2 } as CSSProperties}
           >
-            {all ? 'Hide the rest' : `See all ${TOTAL}`}
+            <span className="flex w-full items-start justify-between gap-3">
+              <span>
+                <Mark id={c.issuer} size={44} />
+                <span className="mt-2.5 block text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--muted)' }}>
+                  {c.courses} courses · {c.date}
+                </span>
+              </span>
+              {OBJ[c.img] && <CertObject kind={OBJ[c.img]} size={96} />}
+            </span>
+            <span className="inline-block rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ background: 'var(--brand)', color: '#14080a' }}>
+              ★ Professional Certificate
+            </span>
+            <span className="block font-display text-[clamp(25px,2.5vw,36px)] leading-[1.02]">{c.title}</span>
+            <span className="block max-w-[44ch] text-[15px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>{c.text}</span>
+            <Chips c={c} />
+            <span className="work-go mt-auto text-[14px] font-extrabold" style={{ color: 'var(--brand)' }}>See certificate ↗</span>
           </button>
-          {all && (
-            <ul className="plan-in mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {list.map((c) => (
-                <li key={c.img}>
+        ))}
+      </div>
+
+      <p className="mb-5 mt-14 text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>More certificates</p>
+      <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+        {ORDER.map((id) => {
+          const list = COURSES.filter((c) => c.issuer === id)
+          return (
+            <div
+              key={id}
+              className={`clean-card issuer-pop flex flex-col gap-4 ${list.length > 4 ? 'sm:col-span-2 lg:col-span-3' : ''}`}
+              style={{ ['--brand' as string]: ISSUER[id].color } as CSSProperties}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <Mark id={id} size={44} />
+                <span className="font-display text-[clamp(34px,3.4vw,52px)] leading-[0.85]" style={{ color: 'var(--brand)' }}>{String(list.length).padStart(2, '0')}</span>
+              </div>
+              <p className="text-[13px] font-bold uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>{ISSUER[id].line}</p>
+              <div className="mt-auto flex flex-wrap gap-2">
+                {list.map((c) => (
                   <button
-                    onClick={() => {
-                      onOpen(c)
-                      haptic(8)
-                    }}
+                    key={c.img}
+                    onClick={() => open(c)}
+                    onPointerEnter={() => sound.pluck(hashText(c.title))}
                     data-hover="Open"
-                    className="clean-tile flex w-full items-center gap-3 rounded-[12px] px-3.5 py-3 text-left"
-                    style={{ ['--tile' as string]: ISSUER[c.issuer].color } as CSSProperties}
+                    className="cert-chip rounded-full px-3.5 py-1.5 text-[13px] font-bold"
                   >
-                    <span aria-hidden className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: ISSUER[c.issuer].color }} />
-                    <span className="min-w-0 text-[15px] font-bold leading-tight">
-                      {c.short}
-                      <span className="block text-[12px] font-bold" style={{ color: 'var(--muted)' }}>{ISSUER[c.issuer].name}</span>
-                    </span>
+                    {c.short}
                   </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      <p className="mt-8 flex flex-wrap gap-x-6 gap-y-1 text-[13px] font-bold sm:text-[14px]" style={{ color: 'var(--muted)' }}>
+        <span>★ TÜBİTAK · 3rd place in Türkiye</span>
+        <span>★ Waterloo Newtonian Medal</span>
+      </p>
     </Shell>
   )
 }
