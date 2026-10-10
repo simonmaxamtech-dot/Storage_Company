@@ -13,6 +13,8 @@ import CertObject, { type ObjKind } from '../CertObject'
 // scene shows its own form (a mountain, a pavilion, the chosen plan...), then the content sits on a soft scrim.
 const rule: CSSProperties = { borderTop: '1.5px solid var(--line)' }
 const pad = 'px-6 sm:px-10 lg:pl-[8vw] lg:pr-[6vw]'
+// On phones a long list becomes one swipeable row, so the page doesn't have to be scrolled through card by card.
+const SWIPE = 'max-sm:-mx-6 max-sm:flex max-sm:snap-x max-sm:snap-mandatory max-sm:gap-3 max-sm:overflow-x-auto max-sm:px-6 max-sm:pb-2 max-sm:[scrollbar-width:none] max-sm:[&::-webkit-scrollbar]:hidden'
 
 function Kicker({ children }: { children: string }) {
   return (
@@ -102,14 +104,14 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
   }
   return (
     <Shell id="credentials" model kicker="Credentials" title={<>Certified by <span style={{ color: 'var(--hot)' }}>the best.</span></>} sub={`${TOTAL} certificates from the companies that build the internet.`}>
-      <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+      <div className={`grid gap-4 sm:grid-cols-2 sm:gap-5 ${SWIPE}`}>
         {PROFESSIONAL.map((c) => (
           <button
             key={c.img}
             onClick={() => open(c, 10)}
             onPointerEnter={() => sound.pluck(hashText(c.title))}
             data-hover="Open"
-            className="clean-card issuer-pop group flex flex-col items-start gap-4 text-left sm:min-h-[300px] max-sm:gap-2.5"
+            className="clean-card issuer-pop group flex flex-col items-start gap-4 text-left sm:min-h-[300px] max-sm:w-[78vw] max-sm:shrink-0 max-sm:snap-center max-sm:gap-2.5"
             style={{ ['--brand' as string]: c.brand ?? ISSUER[c.issuer].color, ['--brand2' as string]: c.brand2 } as CSSProperties}
           >
             <span className="flex w-full items-start justify-between gap-3">
@@ -132,14 +134,15 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
         ))}
       </div>
 
-      <p className="mb-5 mt-14 text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>More certificates</p>
-      <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+      <p className="mt-1 text-[12px] font-extrabold uppercase tracking-[0.18em] sm:hidden" style={{ color: 'var(--muted)' }}>Swipe for more →</p>
+      <p className="mb-5 mt-14 text-[13px] font-extrabold uppercase tracking-[0.2em] max-sm:mt-8 max-sm:mb-3" style={{ color: 'var(--hot)' }}>More certificates</p>
+      <div className={`grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 ${SWIPE}`}>
         {ORDER.map((id) => {
           const list = COURSES.filter((c) => c.issuer === id)
           return (
             <div
               key={id}
-              className={`clean-card issuer-pop flex flex-col gap-4 ${list.length > 4 ? 'sm:col-span-2 lg:col-span-3' : ''}`}
+              className={`clean-card issuer-pop flex flex-col gap-4 max-sm:w-[84vw] max-sm:shrink-0 max-sm:snap-center max-sm:gap-3 ${list.length > 4 ? 'sm:col-span-2 lg:col-span-3' : ''}`}
               style={{ ['--brand' as string]: ISSUER[id].color } as CSSProperties}
             >
               <div className="flex items-start justify-between gap-3">

@@ -537,9 +537,12 @@ export default function Overlay() {
         <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-32 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw] lg:pb-[7vh] lg:pt-[7vh]">
           {/* Left: what we actually do, in plain words. */}
           <div className="order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
-            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We make the web feel alive." className="font-pacalix text-[clamp(38px,min(6.9vw,12vh),124px)] max-sm:mt-0 max-sm:text-[clamp(44px,13.2vw,80px)] leading-[1] tracking-[0.015em]">
-              WE MAKE<br />THE WEB<br />FEEL<br />ALIVE.
+            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. Websites and media made alive." className="font-pacalix text-[clamp(38px,min(6.4vw,11vh),118px)] max-sm:mt-0 max-sm:text-[clamp(42px,12.4vw,76px)] leading-[1] tracking-[0.015em]">
+              WEBSITES<br />&amp; MEDIA<br />MADE<br />ALIVE.
             </h1>
+            <p className="mt-6 max-w-[480px] text-[16px] font-bold leading-snug sm:text-[19px] max-lg:mx-auto" style={{ color: 'var(--muted)' }}>
+              A creative agency in Calgary. We build your website and the media around it: 3D, video, brand and AI.
+            </p>
             <div className="mt-10 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center max-sm:hidden">
               <a href="mailto:simon0021maxam@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>Let&apos;s talk ↗</a>
               {clean ? (
