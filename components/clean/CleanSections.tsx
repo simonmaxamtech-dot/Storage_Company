@@ -490,7 +490,7 @@ export function CleanContact({ email }: { email: string }) {
 export function CleanFooter() {
   const year = new Date().getFullYear()
   return (
-    <footer className="relative px-6 pb-28 pt-20 sm:px-10 sm:pb-32 lg:pl-[8vw] lg:pr-[6vw]" style={{ background: 'linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 92%, transparent) 120px)' }}>
+    <footer className="relative px-6 pb-28 pt-20 sm:px-10 sm:pb-32 lg:pl-[8vw] lg:pr-[6vw]">
       <div className="mx-auto w-full max-w-[1100px]">
         <div className="flex flex-wrap items-center justify-between gap-4 pb-8" style={{ borderBottom: '1.5px solid var(--line)' }}>
           <p className="max-w-[420px] text-[15px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
