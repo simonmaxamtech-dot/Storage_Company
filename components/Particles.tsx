@@ -374,8 +374,8 @@ const ROOMS_STACKED: Room[] = [
 const CLEAN_DESKTOP: Room[] = [
   { x: 3.1, y: 0.1, s: 0.8, rz: 0, dim: 1, target: 0 },
   { x: 3.3, y: 0.5, s: 0.95, rz: 0, dim: 0.9, target: 7 },
-  { x: 3.4, y: -0.05, s: 0.72, rz: 0, dim: 1, target: 5 },
-  { x: 3.2, y: -0.1, s: 0.5, rz: 0, dim: 1, target: 11 },
+  { x: 3.4, y: 1.7, s: 0.72, rz: 0, dim: 1, target: 5 },
+  { x: 3.2, y: 1.8, s: 0.5, rz: 0, dim: 1, target: 11 },
   { x: 4.0, y: 1.7, s: 0.22, rz: 0, dim: 0.02, target: 3 },
   { x: 2.9, y: 0.3, s: 0.55, rz: 0, dim: 1, target: 0 },
 ]

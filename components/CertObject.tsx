@@ -275,7 +275,7 @@ function build(kind: ObjKind): P[] {
       const t = (u + 0.75) / 1.1
       return Math.sqrt(Math.max(0, Math.sin(t * Math.PI))) * (0.5 - 0.13 * Math.exp(-Math.pow((t - 0.55) / 0.12, 2)) - 0.1 * t)
     }
-    for (let i = 0; i < 900; i++) {
+    for (let i = 0; i < 1900; i++) {
       const u = rnd(-0.75, 0.35)
       const w = half(u)
       const face = Math.random()
@@ -293,18 +293,18 @@ function build(kind: ObjKind): P[] {
     }
     box(place(-0.48, 0, 0.12) as P, 0.06, 0.32, 0.03, 30, out)
     // Neck and frets.
-    for (let i = 0; i < 160; i++) out.push(place(rnd(0.3, 1.25), rnd(-0.055, 0.055), rnd(0.06, 0.11)))
+    for (let i = 0; i < 360; i++) out.push(place(rnd(0.3, 1.25), rnd(-0.055, 0.055), rnd(0.06, 0.11)))
     for (let k = 0; k < 12; k++) {
       const u = 0.36 + Math.pow(k / 12, 0.8) * 0.86
       for (let i = 0; i < 6; i++) out.push(place(u, -0.055 + (i / 5) * 0.11, 0.115, 1))
     }
     // Headstock and pegs.
-    for (let i = 0; i < 70; i++) out.push(place(rnd(1.25, 1.5), rnd(-0.08, 0.08), rnd(0.06, 0.1)))
+    for (let i = 0; i < 160; i++) out.push(place(rnd(1.25, 1.5), rnd(-0.08, 0.08), rnd(0.06, 0.1)))
     for (let k = 0; k < 3; k++) for (const sd of [-1, 1]) ball(place(1.3 + k * 0.08, sd * 0.12, 0.08) as P, 0.025, 6, out)
     // Strings.
     for (let k = 0; k < 6; k++) {
       const v = -0.045 + k * 0.018
-      for (let i = 0; i < 70; i++) out.push(place(-0.48 + (i / 69) * 1.75, v, 0.13))
+      for (let i = 0; i < 130; i++) out.push(place(-0.48 + (i / 129) * 1.75, v, 0.13))
     }
   } else if (kind === 'brain') {
     // Two lobes of dots, wired across the middle.
@@ -419,7 +419,7 @@ export default function CertObject({ kind, size = 160 }: { kind: ObjKind; size?:
         const sr = Math.sin(ang)
         const ct = Math.cos(tilt)
         const st = Math.sin(tilt)
-        const scale = size * 0.3
+        const scale = size * (kind === 'guitar' ? 0.4 : 0.3)
         const grow = Math.max(1, size / 220)
         for (const [x, y, z, tone] of pts) {
           const x1 = x * cr + z * sr
@@ -430,7 +430,9 @@ export default function CertObject({ kind, size = 160 }: { kind: ObjKind; size?:
           const r = (0.9 + f * 0.9) * grow
           ctx.globalAlpha = Math.max(0.45, Math.min(1, 0.7 + z2 * 0.4))
           ctx.fillStyle = tone ? hot : col
-          ctx.fillRect(size / 2 + x1 * scale * f - r / 2, size / 2 - y2 * scale * f - r / 2, r, r)
+          ctx.beginPath()
+          ctx.arc(size / 2 + x1 * scale * f, size / 2 - y2 * scale * f, r * 0.62, 0, 6.2832)
+          ctx.fill()
         }
         ctx.globalAlpha = 1
       }
