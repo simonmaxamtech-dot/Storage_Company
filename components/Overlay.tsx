@@ -16,7 +16,7 @@ import CertObject, { type ObjKind } from './CertObject'
 import MountainLife from './MountainLife'
 import HoverWords from './HoverWords'
 import Pricing from './Pricing'
-import { CleanAbout, CleanCerts, CleanContact, CleanPricing, CleanWork } from './clean/CleanSections'
+import { CleanAbout, CleanCerts, CleanContact, CleanFooter, CleanPricing, CleanWork } from './clean/CleanSections'
 import SnakeGame from './SnakeGame'
 import { WordDemo, GravityDemo, DaylightDemo } from './demos/Playground'
 import PizzaShowcase from './demos/Pizza'
@@ -570,6 +570,7 @@ export default function Overlay() {
             <CleanWork projects={PROJECTS} demos={[DEMOS[4], DEMOS[5], DEMOS[0]]} />
             <CleanPricing />
             <CleanContact email={CONTACT_EMAIL} />
+            <CleanFooter />
           </>
         ) : (
           <>

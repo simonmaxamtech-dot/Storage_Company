@@ -509,6 +509,32 @@ button {
   .clean-card::before, .pill-o::before { animation: none; }
 }
 
+/* Footer */
+.foot-word {
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+.foot-word span {
+  display: inline-block;
+  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1.5), color 0.3s ease;
+}
+@media (hover: hover) {
+  .foot-word span:hover {
+    transform: translateY(-0.12em) rotate(-4deg);
+    color: var(--ink);
+  }
+}
+.foot-link {
+  color: var(--ink);
+  opacity: 0.7;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.foot-link:hover {
+  opacity: 1;
+  color: var(--hot);
+}
+
 /* Demo lab tabs */
 .lab-tab {
   padding: 10px 14px;

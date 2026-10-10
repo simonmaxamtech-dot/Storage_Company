@@ -4,7 +4,7 @@ import { useState, type CSSProperties, type ReactNode } from 'react'
 import { live, useStore } from '@/lib/store'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
-import { INSTAGRAM, LINKEDIN_COMPANY, PHONE, PHONE_HREF } from '@/lib/site'
+import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
 import { ISSUER, Mark, OBJ, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
 import { PLANS, fmt, useCount } from '../Pricing'
 import CertObject, { type ObjKind } from '../CertObject'
@@ -414,8 +414,11 @@ export function CleanContact({ email }: { email: string }) {
   }
   return (
     <Shell id="contact" kicker="Contact" title={<>Reach <span style={{ color: 'var(--hot)' }}>us.</span></>}>
-        <p className="text-[15px] font-bold" style={{ color: 'var(--muted)' }}>What are we making?</p>
-        <div className="mt-3 flex flex-wrap gap-2">
+      <div className="clean-card" style={{ ['--brand' as string]: 'var(--hot)', padding: 'clamp(24px,4vw,56px)' } as CSSProperties}>
+        <p className="font-pacalix text-[clamp(34px,6.4vw,92px)] leading-[0.98]">
+          Let&apos;s build<br />it <span style={{ color: 'var(--hot)' }}>together.</span>
+        </p>
+        <div className="mt-7 flex flex-wrap gap-2">
           {KINDS.map((k) => {
             const on = picked.includes(k)
             return (
@@ -435,19 +438,50 @@ export function CleanContact({ email }: { email: string }) {
             )
           })}
         </div>
-        <p className="mt-6 max-w-[620px] font-display text-[clamp(22px,3vw,34px)] leading-[1.15]">“{brief}”</p>
-        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <button onClick={send} data-hover="Go" className="rounded-full px-7 py-3.5 text-[16px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>
-            Send it
+        <p className="mt-5 font-mono text-[13px] font-bold" style={{ color: 'var(--muted)' }}>
+          <span style={{ color: 'var(--hot)' }}>&gt; </span>{brief}<span className="code-caret" style={{ color: 'var(--hot)' }}>▍</span>
+        </p>
+        <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <button onClick={send} data-hover="Go" className="rounded-full px-8 py-4 text-[17px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>
+            Send it ↗
           </button>
           <a href={`mailto:${email}`} className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>{email}</a>
         </div>
-        <p className="mt-8 flex flex-wrap gap-x-6 gap-y-2 pt-6 text-[14px] font-bold" style={{ ...rule, color: 'var(--muted)' }}>
-          <a href={PHONE_HREF} className="hover:underline">{PHONE}</a>
-          <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a>
-          <a href={LINKEDIN_COMPANY} target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
-          <span>Clients worldwide · replies within a day</span>
-        </p>
+      </div>
     </Shell>
+  )
+}
+
+/* ── Footer: the wordmark at full width, each letter lifts as you pass over it ── */
+export function CleanFooter() {
+  const year = new Date().getFullYear()
+  return (
+    <footer className="relative px-6 pb-28 pt-20 sm:px-10 sm:pb-32 lg:pl-[8vw] lg:pr-[6vw]" style={{ background: 'linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 92%, transparent) 120px)' }}>
+      <div className="mx-auto w-full max-w-[1100px]">
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-8" style={{ borderBottom: '1.5px solid var(--line)' }}>
+          <p className="max-w-[420px] text-[15px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
+            Made by hand in Calgary, Canada, for people everywhere.
+          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] font-extrabold">
+            <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="foot-link">Instagram</a>
+            <a href={LINKEDIN_COMPANY} target="_blank" rel="noopener noreferrer" className="foot-link">LinkedIn</a>
+            <a href="/services" className="foot-link">Services</a>
+            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} data-hover="Top" className="foot-link">Back to top ↑</button>
+          </div>
+        </div>
+        <p aria-label="PACALIX" className="foot-word select-none py-6 font-pacalix text-[clamp(56px,16.4vw,230px)] leading-[0.95]" style={{ color: 'var(--hot)' }}>
+          {'PACALIX'.split('').map((l, i) => (
+            <span key={i} aria-hidden>{l}</span>
+          ))}
+        </p>
+        <p className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 pt-4 text-[13px] font-bold" style={{ borderTop: '1.5px solid var(--line)', color: 'var(--muted)' }}>
+          <span>© {year} PACALIX. All rights reserved.</span>
+          <span className="flex flex-wrap gap-x-5">
+            <a href="/privacy" className="foot-link">Privacy and cookies</a>
+            <span>No tracking. Ever.</span>
+          </span>
+        </p>
+      </div>
+    </footer>
   )
 }
