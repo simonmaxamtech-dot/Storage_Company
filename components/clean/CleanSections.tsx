@@ -240,7 +240,7 @@ export function CleanWork({ projects, demos }: { projects: Project[]; demos: Dem
   const [obj, setObj] = useState(250)
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)')
-    const set = () => setObj(mq.matches ? 400 : 250)
+    const set = () => setObj(mq.matches ? 540 : 300)
     set()
     mq.addEventListener('change', set)
     return () => mq.removeEventListener('change', set)
