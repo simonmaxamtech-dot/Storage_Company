@@ -6,7 +6,7 @@ import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
 import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
 import { ISSUER, Mark, OBJ, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
-import { PLANS, fmt, useCount } from '../Pricing'
+import { PLANS, fmt } from '../Pricing'
 import CertObject, { type ObjKind } from '../CertObject'
 
 // The Clean design: short sections, one accent colour each. Every section opens with a "stage" where the particle
@@ -349,92 +349,71 @@ const STEPS = [
 ]
 
 export function CleanPricing() {
-  const [pi, setPi] = useState(1)
-  const plan = PLANS[pi]
-  const shown = useCount(plan.from ?? 0)
+  // The scene behind this section is always the floating cloud, whatever plan you look at.
   useEffect(() => {
-    live.plan = pi
+    live.plan = 3
     return () => {
       live.plan = 1
     }
-  }, [pi])
-  const choose = (i: number) => {
-    setPi(i)
-    haptic(10)
-    sound.pluck(hashText(PLANS[i].name))
-  }
+  }, [])
   return (
-    <Shell id="pricing" kicker="Pricing" title={<>Fixed prices. <span style={{ color: 'var(--hot)' }}>No surprises.</span></>} sub="Every project is quoted in writing before we start. Pick the one closest to yours.">
-        <div role="tablist" aria-label="Plans" className="grid grid-cols-4 gap-1.5 rounded-full p-1.5 sm:inline-grid sm:grid-cols-[repeat(4,auto)]" style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)' }}>
-          {PLANS.map((p, i) => {
-            const on = i === pi
+    <Shell id="pricing" kicker="Pricing" title={<>Fixed prices. <span style={{ color: 'var(--hot)' }}>No surprises.</span></>} sub="Every project is quoted in writing before we start. Find the one closest to yours.">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+          {PLANS.map((p) => {
+            const star = !!p.badge
             return (
-              <button
+              <div
                 key={p.name}
-                role="tab"
-                aria-selected={on}
-                data-hover={on ? '' : 'Show'}
-                onClick={() => choose(i)}
-                className="rounded-full px-1 py-2.5 text-[13px] font-extrabold transition-colors duration-300 sm:px-6 sm:text-[15px]"
-                style={{ background: on ? 'var(--ink)' : 'transparent', color: on ? 'var(--bg)' : 'var(--ink)' }}
+                className="flex flex-col rounded-[24px] p-6 sm:p-8"
+                style={{
+                  background: 'color-mix(in srgb, var(--bg) 72%, transparent)',
+                  boxShadow: star ? 'inset 0 0 0 2.5px var(--hot)' : 'inset 0 0 0 1.5px var(--line)',
+                }}
               >
-                {p.name}
-              </button>
+                <div className="flex items-center justify-between gap-3">
+                  <p className="font-display text-[30px] leading-none sm:text-[38px]">{p.name}</p>
+                  {star && (
+                    <span className="rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em]" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>{p.badge}</span>
+                  )}
+                </div>
+                <p className="mt-3 text-[15px] font-bold leading-snug sm:text-[16px]" style={{ color: 'var(--muted)' }}>{p.blurb}</p>
+
+                <div className="mt-6">
+                  {p.from === null ? (
+                    <p className="font-pacalix text-[clamp(44px,5vw,68px)] leading-[0.95]">Let&rsquo;s talk</p>
+                  ) : (
+                    <p className="font-pacalix text-[clamp(44px,5vw,68px)] leading-[0.95]">
+                      <span className="mr-2 align-top text-[0.3em]" style={{ color: 'var(--muted)', fontFamily: 'var(--font-body, inherit)' }}>from CA$</span>
+                      {fmt(p.from)}
+                    </p>
+                  )}
+                  <p className="mt-2 text-[16px] font-extrabold">Ready in {p.time.toLowerCase()}</p>
+                </div>
+
+                <ul className="mt-6 space-y-2.5">
+                  {p.includes.slice(0, 5).map((t) => (
+                    <li key={t} className="flex gap-3 text-[15px] font-bold leading-snug sm:text-[16px]">
+                      <span aria-hidden className="mt-[3px] shrink-0 font-display text-[16px]" style={{ color: 'var(--hot)' }}>✓</span>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  data-hover="Start"
+                  onClick={() => {
+                    haptic(10)
+                    sound.pluck(hashText(p.name))
+                    go('contact')
+                  }}
+                  className="mt-7 self-start rounded-full px-7 py-3.5 text-[16px] font-extrabold transition-transform hover:scale-105 sm:mt-auto"
+                  style={star ? { background: 'var(--hot)', color: 'var(--bg)' } : { color: 'var(--ink)', boxShadow: 'inset 0 0 0 1.5px var(--ink)' }}
+                >
+                  {p.from === null ? 'Tell us the idea' : 'Get my fixed quote'}
+                </button>
+              </div>
             )
           })}
-        </div>
-
-        <div key={plan.name} className="plan-in mt-7 grid gap-8 rounded-[24px] p-6 sm:p-9 lg:grid-cols-[1.1fr_1fr] lg:gap-14" style={{ background: 'color-mix(in srgb, var(--bg) 70%, var(--hot) 8%)', boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--hot) 24%, transparent)' }}>
-          <div className="flex flex-col">
-            {plan.badge && (
-              <span className="pill-o mb-3 self-start px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ ['--brand' as string]: 'var(--hot)' } as CSSProperties}>{plan.badge}</span>
-            )}
-            <p className="text-[16px] font-bold leading-snug sm:text-[18px]" style={{ color: 'var(--muted)' }}>{plan.blurb}</p>
-            <div className="mt-4">
-              {plan.from === null ? (
-                <p className="font-pacalix text-[clamp(44px,7vw,92px)] leading-[0.95]">Let&rsquo;s talk</p>
-              ) : (
-                <>
-                  <p className="text-[12px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--muted)' }}>Starting from</p>
-                  <p className="mt-1 font-pacalix text-[clamp(44px,8vw,104px)] leading-[0.95]">
-                    <span className="align-top text-[0.42em]">CA$</span>
-                    {fmt(shown)}
-                  </p>
-                </>
-              )}
-            </div>
-            <dl className="mt-6 grid grid-cols-2 gap-5">
-              <div>
-                <dt className="text-[11px] font-extrabold uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>Delivery</dt>
-                <dd className="mt-1 text-[16px] font-extrabold">{plan.time}</dd>
-              </div>
-              <div>
-                <dt className="text-[11px] font-extrabold uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>Best for</dt>
-                <dd className="mt-1 text-[16px] font-extrabold leading-snug">{plan.who}</dd>
-              </div>
-            </dl>
-          </div>
-          <div className="flex flex-col justify-between gap-6">
-            <ul className="space-y-2.5">
-              {plan.includes.map((t) => (
-                <li key={t} className="flex gap-3 text-[15px] font-bold leading-snug sm:text-[16px]">
-                  <span aria-hidden className="mt-[3px] shrink-0 font-display text-[16px]" style={{ color: 'var(--hot)' }}>✓</span>
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-              <button
-                data-hover="Start"
-                onClick={() => go('contact')}
-                className="rounded-full px-7 py-3.5 text-[16px] font-extrabold transition-transform hover:scale-105"
-                style={{ background: 'var(--hot)', color: 'var(--bg)' }}
-              >
-                {plan.from === null ? 'Tell us the idea' : 'Get my fixed quote'}
-              </button>
-              <span className="text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Free call. No obligation.</span>
-            </div>
-          </div>
         </div>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-3 sm:gap-8">
