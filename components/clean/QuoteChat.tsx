@@ -148,7 +148,7 @@ export default function QuoteChat() {
   return (
     <div className="clean-card max-w-[780px]" style={{ ['--brand' as string]: 'var(--hot)', padding: 'clamp(18px,3vw,36px)' } as CSSProperties}>
       <div className="flex flex-col gap-3.5" aria-live="polite">
-        <Bot>Hi, I&rsquo;m here for Simon. Answer 4 quick questions and he&rsquo;ll call you back with a fixed price. No forms, no waiting.</Bot>
+        <Bot>Hi! 4 quick questions, then Simon calls you back with a fixed price.</Bot>
 
         {(step > 0 || !typing) && <Bot>What do you need? Pick as many as you like.</Bot>}
         {step === 0 && !typing && (

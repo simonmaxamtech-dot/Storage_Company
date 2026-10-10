@@ -34,11 +34,14 @@ function Shell({
   wide,
   clear,
   model,
+  lean,
   children,
 }: {
   id: string
   big?: boolean
   wide?: boolean
+  // Phones: the heading is enough, the sub line is left out ("less is more").
+  lean?: boolean
   clear?: boolean
   model?: boolean
   kicker: string
@@ -55,7 +58,7 @@ function Shell({
             {title}
           </h2>
           {sub && (
-            <p className={`text-[16px] font-bold leading-snug sm:text-[18px] ${wide ? 'mt-6 max-w-[760px] sm:text-[22px]' : `max-w-[560px] lg:max-w-[46%] ${big ? 'mt-6' : 'mt-3'}`}`} style={{ color: 'var(--muted)' }}>
+            <p className={`text-[16px] font-bold leading-snug sm:text-[18px] ${lean ? 'max-sm:hidden ' : ''}${wide ? 'mt-6 max-w-[760px] sm:text-[22px]' : `max-w-[560px] lg:max-w-[46%] ${big ? 'mt-6' : 'mt-3'}`}`} style={{ color: 'var(--muted)' }}>
               {sub}
             </p>
           )}
@@ -98,12 +101,13 @@ function Chips({ c }: { c: Cert }) {
 }
 
 export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
+  const [more, setMore] = useState(false)
   const open = (c: Cert, h = 8) => {
     onOpen(c)
     haptic(h)
   }
   return (
-    <Shell id="credentials" model kicker="Credentials" title={<>Certified by <span style={{ color: 'var(--hot)' }}>the best.</span></>} sub={`${TOTAL} certificates from the companies that build the internet.`}>
+    <Shell id="credentials" model lean kicker="Credentials" title={<>Certified by <span style={{ color: 'var(--hot)' }}>the best.</span></>} sub={`${TOTAL} certificates from the companies that build the internet.`}>
       <div className={`grid gap-4 sm:grid-cols-2 sm:gap-5 ${SWIPE}`}>
         {PROFESSIONAL.map((c) => (
           <button
@@ -135,8 +139,14 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
       </div>
 
       <p className="mt-1 text-[12px] font-extrabold uppercase tracking-[0.18em] sm:hidden" style={{ color: 'var(--muted)' }}>Swipe for more →</p>
-      <p className="mb-5 mt-14 text-[13px] font-extrabold uppercase tracking-[0.2em] max-sm:mt-8 max-sm:mb-3" style={{ color: 'var(--hot)' }}>More certificates</p>
-      <div className={`grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 ${SWIPE}`}>
+      {/* Phones: the long list hides behind one button, so the page isn't a wall of badges. */}
+      {!more && (
+        <button onClick={() => setMore(true)} data-hover="Open" className="pill-o mt-6 px-5 py-2.5 text-[14px] font-extrabold sm:hidden">
+          All {TOTAL} certificates ↓
+        </button>
+      )}
+      <p className={`mb-5 mt-14 text-[13px] font-extrabold uppercase tracking-[0.2em] max-sm:mt-8 max-sm:mb-3 ${more ? '' : 'max-sm:hidden'}`} style={{ color: 'var(--hot)' }}>More certificates</p>
+      <div className={`grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 ${more ? '' : 'max-sm:hidden'} ${SWIPE}`}>
         {ORDER.map((id) => {
           const list = COURSES.filter((c) => c.issuer === id)
           return (
@@ -149,7 +159,7 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
                 <Mark id={id} size={44} />
                 <span className="font-pacalix text-[clamp(34px,3.4vw,52px)] leading-[0.85]" style={{ color: 'var(--brand)' }}>{String(list.length).padStart(2, '0')}</span>
               </div>
-              <p className="text-[13px] font-bold uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>{ISSUER[id].line}</p>
+              <p className="text-[13px] font-bold uppercase tracking-[0.14em] max-sm:hidden" style={{ color: 'var(--muted)' }}>{ISSUER[id].line}</p>
               <div className="mt-auto flex flex-wrap gap-2">
                 {list.map((c) => (
                   <button
@@ -168,7 +178,7 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
         })}
       </div>
 
-      <p className="mt-8 flex flex-wrap gap-x-6 gap-y-1 text-[13px] font-bold sm:text-[14px]" style={{ color: 'var(--muted)' }}>
+      <p className="mt-8 flex flex-wrap gap-x-6 gap-y-1 text-[13px] font-bold max-sm:mt-5 sm:text-[14px]" style={{ color: 'var(--muted)' }}>
         <span>★ TÜBİTAK · 3rd place in Türkiye</span>
         <span>★ Waterloo Newtonian Medal</span>
       </p>
@@ -247,14 +257,14 @@ export function CleanWork({ projects, demos }: { projects: Project[]; demos: Dem
   const [obj, setObj] = useState(250)
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)')
-    const set = () => setObj(mq.matches ? 540 : 300)
+    const set = () => setObj(mq.matches ? 540 : window.innerWidth < 640 ? 230 : 300)
     set()
     mq.addEventListener('change', set)
     return () => mq.removeEventListener('change', set)
   }, [])
   return (
-    <Shell id="work" clear model kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Three real projects, designed and built end to end, running right now.">
-      <div className="work-list flex flex-col gap-14 sm:gap-24">
+    <Shell id="work" clear model lean kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Three real projects, designed and built end to end, running right now.">
+      <div className="work-list flex flex-col gap-10 sm:gap-24">
         {projects.map((p, i) => (
           <Reveal key={p.name}>
             <a
@@ -276,7 +286,7 @@ export function CleanWork({ projects, demos }: { projects: Project[]; demos: Dem
                   0{i + 1} <span style={{ color: 'var(--muted)' }}>/ 0{projects.length} · {p.kind}</span>
                 </p>
                 <span className="mt-3 block font-display text-[clamp(44px,7vw,104px)] leading-[0.95]">{p.name.replace('Ō', 'O')}</span>
-                <p className="mx-auto mt-4 max-w-[480px] text-[16px] font-bold leading-snug sm:text-[19px] lg:mx-0" style={{ color: 'var(--muted)' }}>{p.text}</p>
+                <p className="mx-auto mt-4 max-w-[480px] max-sm:hidden text-[16px] font-bold leading-snug sm:text-[19px] lg:mx-0" style={{ color: 'var(--muted)' }}>{p.text}</p>
                 <span className="work-go mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-extrabold" style={{ background: 'var(--brand)', color: '#14080a' }}>
                   Visit {p.host} ↗
                 </span>
@@ -326,23 +336,28 @@ export function CleanAbout() {
       big
       kicker="Founder"
       title={<>Simon<br />Maxam</>}
-      sub="I build interactive 3D websites, products and games, and play guitar the same way I code: patient, then suddenly fast."
+      sub={
+        <>
+          <span className="sm:hidden">Websites, 3D and games, built by hand.</span>
+          <span className="max-sm:hidden">I build interactive 3D websites, products and games, and play guitar the same way I code: patient, then suddenly fast.</span>
+        </>
+      }
     >
       <Reveal>
         <p className="text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>Creative and marketing agency</p>
         <p className="mt-5 font-pacalix text-[clamp(44px,8.4vw,132px)] leading-[0.95] tracking-[0.015em]">
           Get found.<br />Get <span style={{ color: 'var(--hot)' }}>chosen.</span>
         </p>
-        <p className="mt-8 max-w-[560px] text-[17px] font-bold leading-snug sm:text-[20px]" style={{ color: 'var(--muted)' }}>
+        <p className="mt-8 max-w-[560px] text-[17px] font-bold leading-snug max-sm:hidden sm:text-[20px]" style={{ color: 'var(--muted)' }}>
           We build websites, 3D and brands that people find, remember and pick over everyone else.
         </p>
       </Reveal>
 
-      <Reveal className="mt-16">
-        <p className="max-w-[640px] text-[15px] font-bold leading-snug sm:text-[17px]" style={{ color: 'var(--muted)' }}>
+      <Reveal className="mt-16 max-sm:mt-8">
+        <p className="max-w-[640px] text-[15px] max-sm:hidden font-bold leading-snug sm:text-[17px]" style={{ color: 'var(--muted)' }}>
           <span style={{ color: 'var(--hot)' }}>Why PACALIX?</span> It nods to Palaeocastor, an early beaver from 25 million years ago. Dig deep, build it right, leave something that stays standing.
         </p>
-        <button onClick={() => go('work')} data-hover="Work" className="pill-o mt-6 px-5 py-2.5 text-[14px] font-extrabold transition-transform hover:scale-105">
+        <button onClick={() => go('work')} data-hover="Work" className="pill-o px-5 sm:mt-6 py-2.5 text-[14px] font-extrabold transition-transform hover:scale-105">
           See what we built ↓
         </button>
       </Reveal>
@@ -366,21 +381,23 @@ export function CleanPricing() {
     }
   }, [])
   return (
-    <Shell id="pricing" clear wide kicker="Get a quote" title={<>Get your price <br /><span style={{ color: 'var(--hot)' }}>in one minute.</span></>} sub="Answer a few quick questions. Simon calls you back with a fixed price, in writing.">
+    <Shell id="pricing" clear wide lean kicker="Get a quote" title={<>Get your price <br /><span style={{ color: 'var(--hot)' }}>in one minute.</span></>} sub="Answer a few quick questions. Simon calls you back with a fixed price, in writing.">
         <QuoteChat />
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-3 sm:gap-8">
+        <div className="mt-14 grid grid-cols-3 gap-4 max-sm:mt-10 sm:gap-8">
           {STEPS.map((s, i) => (
             <Reveal key={s.n} delay={i * 110}>
               <div className="pt-4" style={{ borderTop: '1.5px solid color-mix(in srgb, var(--hot) 45%, transparent)' }}>
                 <p className="text-[12px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>{s.n}</p>
                 <p className="mt-1.5 font-display text-[26px] leading-none sm:text-[30px]">{s.h}</p>
-                <p className="mt-2.5 text-[14.5px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>{s.t}</p>
+                <p className="mt-2.5 text-[14.5px] font-bold leading-snug max-sm:hidden" style={{ color: 'var(--muted)' }}>{s.t}</p>
               </div>
             </Reveal>
           ))}
         </div>
-        <p className="mt-8 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Canadian dollars, before tax. Hosting and your domain are paid at cost. No pressure: if we are not the right fit, we will tell you honestly.</p>
+        <p className="mt-8 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>
+          Canadian dollars, before tax.<span className="max-sm:hidden"> Hosting and your domain are paid at cost. No pressure: if we are not the right fit, we will tell you honestly.</span>
+        </p>
     </Shell>
   )
 }

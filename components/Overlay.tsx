@@ -541,7 +541,7 @@ export default function Overlay() {
               WEBSITES<br />THAT<br />GET YOU<br />NOTICED.
             </h1>
             <p className="mt-6 max-w-[480px] text-[16px] font-bold leading-snug sm:text-[19px] max-lg:mx-auto" style={{ color: 'var(--muted)' }}>
-              A creative and marketing agency in Calgary. We build the website, the look and the content that bring you customers.
+              A creative and marketing agency in Calgary.<span className="max-sm:hidden"> We build the website, the look and the content that bring you customers.</span>
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center max-sm:hidden">
               <a href="mailto:simon0021maxam@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>Let&apos;s talk ↗</a>
