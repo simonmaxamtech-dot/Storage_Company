@@ -420,14 +420,15 @@ export default function CertObject({ kind, size = 160 }: { kind: ObjKind; size?:
         const ct = Math.cos(tilt)
         const st = Math.sin(tilt)
         const scale = size * 0.3
+        const grow = Math.max(1, size / 220)
         for (const [x, y, z, tone] of pts) {
           const x1 = x * cr + z * sr
           const z1 = -x * sr + z * cr
           const y2 = y * ct - z1 * st
           const z2 = y * st + z1 * ct
           const f = 3.2 / (3.2 + z2)
-          const r = 0.9 + f * 0.9
-          ctx.globalAlpha = Math.max(0.25, Math.min(1, 0.55 + z2 * 0.5))
+          const r = (0.9 + f * 0.9) * grow
+          ctx.globalAlpha = Math.max(0.45, Math.min(1, 0.7 + z2 * 0.4))
           ctx.fillStyle = tone ? hot : col
           ctx.fillRect(size / 2 + x1 * scale * f - r / 2, size / 2 - y2 * scale * f - r / 2, r, r)
         }
