@@ -836,7 +836,13 @@ export default function Particles() {
 
     g.scale.setScalar(lerp(g.scale.x, lerp(A.s, B.s, t) * base, k))
     g.position.x += (lerp(A.x, B.x, t) * (viewport.width / 13.3) + tiltX * 1.1 * st.depth - g.position.x) * k
-    g.position.y += (lerp(A.y, B.y, t) - tiltY * 0.7 * st.depth - g.position.y) * k
+    // In the Clean design the last room is anchored to the page: once the contact section has reached the top, the logo scrolls away with it.
+    let lift = 0
+    if (clean && i === last) {
+      const c = document.getElementById('contact')
+      if (c) lift = Math.max(0, window.scrollY - c.offsetTop) * (viewport.height / size.height)
+    }
+    g.position.y += (lerp(A.y, B.y, t) + lift - tiltY * 0.7 * st.depth - g.position.y) * k
     g.rotation.z += (lerp(A.rz, B.rz, t) - g.rotation.z) * k
     if (!Number.isFinite(g.position.x + g.position.y + g.scale.x + g.rotation.x + g.rotation.y + g.rotation.z)) {
       g.position.set(0, 0, 0)
