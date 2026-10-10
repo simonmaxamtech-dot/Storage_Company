@@ -495,8 +495,8 @@ export function CleanContact({ email }: { email: string }) {
   }
   return (
     <Shell id="contact" kicker="Contact" title={<>Reach <span style={{ color: 'var(--hot)' }}>us.</span></>}>
-      <div className="clean-card" style={{ ['--brand' as string]: 'var(--hot)', padding: 'clamp(24px,4vw,56px)' } as CSSProperties}>
-        <p className="font-pacalix text-[clamp(34px,6.4vw,92px)] leading-[0.98]">
+      <div className="clean-card lg:max-w-[56%]" style={{ ['--brand' as string]: 'var(--hot)', padding: 'clamp(24px,3.4vw,48px)' } as CSSProperties}>
+        <p className="font-pacalix text-[clamp(34px,7vw,56px)] leading-[0.98] lg:text-[clamp(40px,4.4vw,72px)]">
           Let&apos;s build<br />it <span style={{ color: 'var(--hot)' }}>together.</span>
         </p>
         <div className="mt-7 flex flex-wrap gap-2">
