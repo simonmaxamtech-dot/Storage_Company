@@ -370,8 +370,27 @@ const ROOMS_STACKED: Room[] = [
   { x: 0, y: 1.6, s: 0.9, rz: 0, dim: 0.7, target: 10 },
 ]
 
+// The Clean design's rooms: hero, Simon's portrait, certificates (a mountain), work (a pavilion), pricing (the chosen plan), contact (the beaver again).
+const CLEAN_DESKTOP: Room[] = [
+  { x: 3.1, y: 0.1, s: 0.8, rz: 0, dim: 1, target: 0 },
+  { x: 3.3, y: 0.5, s: 0.95, rz: 0, dim: 0.9, target: 7 },
+  { x: 3.3, y: 0.3, s: 0.9, rz: 0, dim: 0.9, target: 10 },
+  { x: 3.3, y: -0.2, s: 0.6, rz: 0, dim: 0.85, target: 1 },
+  { x: 3.4, y: 0.15, s: 0.8, rz: 0, dim: 0.9, target: 3 },
+  { x: 3.1, y: 0.1, s: 0.8, rz: 0, dim: 1, target: 0 },
+]
+const CLEAN_STACKED: Room[] = [
+  { x: 0, y: 1.7, s: 0.9, rz: 0, dim: 1, target: 0 },
+  { x: 0, y: 2.4, s: 1.05, rz: 0, dim: 0.9, target: 7 },
+  { x: 0, y: 2.75, s: 0.65, rz: 0, dim: 0.9, target: 10 },
+  { x: 0, y: 2.5, s: 0.5, rz: 0, dim: 0.85, target: 1 },
+  { x: 0, y: 2.5, s: 0.6, rz: 0, dim: 0.9, target: 3 },
+  { x: 0, y: 1.7, s: 0.9, rz: 0, dim: 1, target: 0 },
+]
+
 // The pricing room shows the chosen plan: an apple, a tree, a planet, a galaxy.
 const PRICING_ROOM = 10
+const CLEAN_PRICING_ROOM = 4
 const PLAN_TARGET: Room['target'][] = [3, 11, 5, 4]
 // Which background-built formation each target needs (the snake and the wireframe need none).
 const TARGET_FORMATION: (FormationName | null)[] = [null, 'spaces', 'apple', 'orbit', 'cloud', 'galaxy', 'tree', 'portrait', 'bamboo', 'cradle', 'peaks', null]
@@ -764,7 +783,10 @@ export default function Particles() {
     const tiltY = live.tilt.y * still
 
     // Which room are we in, and how far toward the next one?
-    const rooms = size.width < 1000 ? ROOMS_STACKED : ROOMS_DESKTOP
+    const clean = useStore.getState().clean
+    const stacked = size.width < 1000
+    const rooms = clean ? (stacked ? CLEAN_STACKED : CLEAN_DESKTOP) : stacked ? ROOMS_STACKED : ROOMS_DESKTOP
+    const priceRoom = clean ? CLEAN_PRICING_ROOM : PRICING_ROOM
     const last = rooms.length - 1
     const s = live.section
     const i = Math.min(last, Math.floor(s))
@@ -776,8 +798,8 @@ export default function Particles() {
     st.settle += ((st.idle > 0.12 ? 1 : 0) - st.settle) * (1 - Math.exp(-dt * 5))
     const tRaw = smooth(0.05, 0.2, s - i)
     const t = tRaw + (Math.round(tRaw) - tRaw) * st.settle
-    const A = i === PRICING_ROOM ? { ...rooms[i], target: PLAN_TARGET[live.plan] } : rooms[i]
-    const B = j === PRICING_ROOM ? { ...rooms[j], target: PLAN_TARGET[live.plan] } : rooms[j]
+    const A = i === priceRoom ? { ...rooms[i], target: PLAN_TARGET[live.plan] } : rooms[i]
+    const B = j === priceRoom ? { ...rooms[j], target: PLAN_TARGET[live.plan] } : rooms[j]
     const base = Math.min(1.15, Math.max(0.28, viewport.width / 10.8))
     const k = 1 - Math.exp(-dt * 7)
 
@@ -805,7 +827,7 @@ export default function Particles() {
     if (st.need > 0.25 && need.current) {
       st.need = 0
       for (let r = i; r <= Math.min(last, i + 2); r++) {
-        const tg = r === PRICING_ROOM ? PLAN_TARGET[live.plan] : rooms[r].target
+        const tg = r === priceRoom ? PLAN_TARGET[live.plan] : rooms[r].target
         const nm = TARGET_FORMATION[tg]
         if (nm) need.current(nm)
       }
@@ -931,7 +953,7 @@ export default function Particles() {
     st.grow += (growT - st.grow) * (1 - Math.exp(-dt * 9))
     vu.uGrow.value = 1 - Math.pow(1 - st.grow, 2.2)
     // The wireframe builds as you scroll through it: building, product, room, world.
-    const wireTarget = Math.min(3, Math.max(0, (s - 4.6) * 1.5))
+    const wireTarget = clean ? 3 : Math.min(3, Math.max(0, (s - 4.6) * 1.5))
     st.wire += (wireTarget - st.wire) * (1 - Math.exp(-dt * 7))
     vu.uWire.value = st.wire
     ;(vu.uGrav.value as THREE.Vector2).set(reduced ? 0 : tiltX * (vu.uStiff.value / 95), reduced ? 0 : -tiltY * (vu.uStiff.value / 95))

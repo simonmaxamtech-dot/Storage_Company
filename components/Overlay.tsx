@@ -16,7 +16,7 @@ import CertObject, { type ObjKind } from './CertObject'
 import MountainLife from './MountainLife'
 import HoverWords from './HoverWords'
 import Pricing from './Pricing'
-import { CleanCerts, CleanContact, CleanPricing, CleanWork } from './clean/CleanSections'
+import { CleanAbout, CleanCerts, CleanContact, CleanPricing, CleanWork } from './clean/CleanSections'
 import SnakeGame from './SnakeGame'
 import { WordDemo, GravityDemo, DaylightDemo } from './demos/Playground'
 import PizzaShowcase from './demos/Pizza'
@@ -27,7 +27,7 @@ import { ConfiguratorDemo, DashboardDemo, OrderDemo, GlobeDemo, AssistantDemo } 
 import { PHONE, PHONE_HREF } from '@/lib/site'
 const CONTACT_EMAIL = 'simon0021maxam@gmail.com'
 
-const CLEAN_IDS = ['intro', 'credentials', 'work', 'pricing', 'contact']
+const CLEAN_IDS = ['intro', 'about', 'credentials', 'work', 'pricing', 'contact']
 const SECTION_IDS = ['intro', 'eden', 'newton', 'idea', 'form', 'work', 'studio', 'beyond', 'panda', 'play', 'pricing', 'about', 'credentials', 'contact']
 // Left edge, wide screens only: my name runs down the side and fills with the theme colour as you scroll. A fully coloured name means you have reached the end.
 function ScrollLine() {
@@ -76,6 +76,7 @@ const NAV = [
 ]
 
 const CLEAN_NAV = [
+  { label: 'About', id: 'about', phone: false },
   { label: 'Certificates', id: 'credentials', phone: false },
   { label: 'Work', id: 'work', phone: false },
   { label: 'Prices', id: 'pricing', phone: true },
@@ -442,11 +443,7 @@ export default function Overlay() {
       })
       const nxt = els[j + 1]
       live.section = j + (nxt ? Math.min(1, Math.max(0, (top - els[j].offsetTop) / Math.max(1, nxt.offsetTop - els[j].offsetTop))) : 0)
-      if (clean) {
-        // The clean design keeps the hero's beaver and nothing else; the sections after it cover the scene completely.
-        live.section = 0
-        live.paused = !!els[1] && top > els[1].offsetTop + 160
-      } else live.paused = false
+      live.paused = false
       if (activeRef.current !== i) {
         activeRef.current = i
         setActive(i)
@@ -567,8 +564,9 @@ export default function Overlay() {
 
         {clean ? (
           <>
+            <CleanAbout />
             <CleanCerts onOpen={setCert} />
-            <CleanWork projects={PROJECTS} />
+            <CleanWork projects={PROJECTS} demos={[DEMOS[4], DEMOS[5], DEMOS[0]]} />
             <CleanPricing />
             <CleanContact email={CONTACT_EMAIL} />
           </>
