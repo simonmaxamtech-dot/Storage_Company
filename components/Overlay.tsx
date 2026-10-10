@@ -27,11 +27,9 @@ import { PHONE, PHONE_HREF } from '@/lib/site'
 const CONTACT_EMAIL = 'simon0021maxam@gmail.com'
 
 const SECTION_IDS = ['intro', 'eden', 'newton', 'idea', 'form', 'work', 'studio', 'beyond', 'panda', 'play', 'pricing', 'about', 'credentials', 'contact']
-// Left edge, wide screens only: my name runs down the side and fills with the theme colour as you scroll, with a glowing
-// spark riding the edge of the fill. A fully coloured name means you have reached the end.
+// Left edge, wide screens only: my name runs down the side and fills with the theme colour as you scroll. A fully coloured name means you have reached the end.
 function ScrollLine() {
   const name = useRef<HTMLDivElement>(null)
-  const spark = useRef<HTMLSpanElement>(null)
   useEffect(() => {
     let raf = 0
     let p = 0
@@ -40,10 +38,6 @@ function ScrollLine() {
       const t = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0
       p += (t - p) * 0.12
       if (name.current) name.current.style.setProperty('--p', `${(p * 100).toFixed(2)}%`)
-      if (spark.current) {
-        spark.current.style.top = `${(p * 100).toFixed(2)}%`
-        spark.current.style.opacity = p > 0.005 && p < 0.995 ? '1' : '0'
-      }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
@@ -67,11 +61,6 @@ function ScrollLine() {
       >
         SIMONMAXAM
       </div>
-      <span
-        ref={spark}
-        className="absolute -left-[3px] h-[6px] w-[6px] -translate-y-1/2 rounded-full transition-opacity duration-300"
-        style={{ background: 'var(--ink)', boxShadow: '0 0 10px 3px var(--hot)', opacity: 0 }}
-      />
     </div>
   )
 }
@@ -495,17 +484,14 @@ export default function Overlay() {
 
       <main>
         {/* INTRO: the wordmark is a live material; the snake does the moving. */}
-        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-24 lg:grid lg:grid-cols-2 lg:gap-10 lg:px-16">
+        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-24 lg:grid lg:grid-cols-2 lg:gap-10 lg:pl-28 lg:pr-16">
           {/* Left: what we actually do, in plain words. */}
           <div className="order-2 w-full max-w-[640px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
             <p className="text-[12px] font-bold uppercase tracking-[0.22em] sm:text-[14px]" style={{ color: 'var(--muted)' }}>
               Creative studio · Calgary
             </p>
-            <h1 className="mt-4 font-display uppercase text-[clamp(38px,min(6vw,10vh),100px)] leading-[0.94] tracking-[-0.02em]">
-              <span className="sr-only">PACALIX, by Simon Maxam. </span>
-              We build<br />digital<br />
-              <span aria-hidden className="wave-word">{'WORLDS.'.split('').map((c, i) => <span key={i} style={{ animationDelay: `${i * 0.09}s` }}>{c}</span>)}</span>
-              <span className="sr-only">worlds.</span>
+            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We build digital worlds." className="mt-7 font-display text-[clamp(38px,min(6vw,10vh),100px)] leading-[0.98] tracking-[0.01em]">
+              WE BUILD<br />DIGITAL<br />WORLDS.
             </h1>
             <p className="mt-5 text-[clamp(15px,1.3vw,19px)] font-bold" style={{ color: 'var(--muted)' }}>
               Interactive websites · 3D experiences · Brand · AI

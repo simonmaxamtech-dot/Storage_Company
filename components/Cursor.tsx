@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-// The cursor is a bamboo cane drawn in grains; a panda made of the logo's grains comes and eats it in the panda section. It takes the live theme colour (--cur).
+// The cursor is the PACALIX beaver drawn in grains, nose on the pointer, facing the way it moves. It takes the live theme colour (--cur).
 
 export default function Cursor() {
   const cv = useRef<HTMLCanvasElement>(null)
@@ -45,6 +45,8 @@ export default function Cursor() {
     // The logo itself (the spotted red panda), sampled into grains. It comes and eats the cane.
     type PP = { lx: number; ly: number; c: number; s: number; x: number; y: number; d: number; vx: number; vy: number }
     const pandaPts: PP[] = []
+    const beaverPts: { lx: number; ly: number; s: number; c: boolean }[] = []
+    let face = 1
     const img = new Image()
     img.src = '/logo-panda.png'
     img.onload = () => {
@@ -65,6 +67,11 @@ export default function Cursor() {
           x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py)
         }
       }
+      const csc = 70 / (x1 - x0)
+      for (let i = 0; i < 620 && pts.length; i++) {
+        const [px, py] = pts[(Math.random() * pts.length) | 0]
+        beaverPts.push({ lx: (px - x1) * csc, ly: (py - (y0 + y1) / 2) * csc, s: 1.2 + Math.random() * 0.8, c: Math.random() < 0.22 })
+      }
       const sc = 132 / (x1 - x0)
       for (let i = 0; i < 1300 && pts.length; i++) {
         const [px, py] = pts[(Math.random() * pts.length) | 0]
@@ -83,7 +90,8 @@ export default function Cursor() {
     const motes = Array.from({ length: 220 }, () => ({ a: Math.random() * 6.283, r: Math.sqrt(Math.random()), va: (Math.random() - 0.5) * 0.5, ph: Math.random() * 6.283, s: 1.4 + Math.random() * 1.6 }))
     const crumbs: { x: number; y: number; vx: number; vy: number; life: number }[] = []
     let last = performance.now()
-    const pandaEl = document.getElementById('panda')
+    // The old panda-eats-the-cane event is retired: the cursor itself is the beaver now.
+    const pandaEl = null as HTMLElement | null
 
     const onMove = (e: PointerEvent) => {
       tx = e.clientX
@@ -227,18 +235,14 @@ export default function Cursor() {
           ctx.globalAlpha = 1
         }
 
-        // The cane: a column of grains that shimmer, denser at the nodes. Its end is the hotspot.
-        const ca = Math.cos(0.38)
-        const sa = Math.sin(0.38)
-        for (let i = 0; i < cane_pts.length; i++) {
-          const q = cane_pts[i]
-          if (q.t > cane) continue
-          const L = 46 * q.t * k
-          const lx = q.o + Math.sin(frame * 0.12 + i) * 0.7
-          const ly = -L + Math.cos(frame * 0.1 + i * 2) * 0.7
-          grain(x + lx * ca - ly * sa, y + lx * sa + ly * ca, q.s, q.n ? caneCol : caneInk, q.n ? 1 : 0.9)
+        // The beaver: grains of its spotted body, nose on the pointer, flipping to face the way you move.
+        if (Math.abs(tx - x) > 1.5) face += ((tx > x ? 1 : -1) - face) * 0.25
+        for (let i = 0; i < beaverPts.length; i++) {
+          const q = beaverPts[i]
+          const wob = Math.sin(frame * 0.12 + i) * 0.5
+          grain(x + (q.lx * face + wob) * k, y + (q.ly + Math.cos(frame * 0.1 + i * 2) * 0.5) * k, q.s, q.c ? caneCol : caneInk, 0.95)
         }
-        grain(x, y, 4 * k, caneCol)
+        grain(x, y, 3.5 * k, caneCol)
 
         // Warning above the cane while the panda is about to eat it.
         if (P.st === 'chase' || P.st === 'eat') {
