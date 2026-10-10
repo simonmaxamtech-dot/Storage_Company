@@ -72,11 +72,11 @@ export default function Cursor() {
       }
     }
     // A short log, like a cut stump: ridged bark down the sides, pale wood and growth rings on top.
-    const LW = 22
+    const LW = 12
     const LH = 30
     const bark: { lx: number; ly: number; s: number; c: string }[] = []
-    const barkCols = ['#4a2e1c', '#5e3b24', '#7a4f31', '#93653f', '#3a2314']
-    for (let i = 0; i < 360; i++) {
+    const barkCols = ['#8a8a8a', '#d6d6d6', '#ffffff', '#4a4a4a', '#111111']
+    for (let i = 0; i < 240; i++) {
       const lx = (Math.random() - 0.5) * LW
       const ly = Math.random() * LH
       const ridge = Math.sin(lx * 0.8 + Math.sin(ly * 0.25) * 1.6)
@@ -84,11 +84,11 @@ export default function Cursor() {
       bark.push({ lx, ly: ly - LH / 2, s: 1.6 + Math.random() * 0.8, c: barkCols[Math.random() < 0.08 ? 4 : ci] })
     }
     const top: { lx: number; ly: number; s: number; c: string }[] = []
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 50; i++) {
       const a = Math.random() * 6.283
       const r = Math.sqrt(Math.random())
       const ring = Math.sin(r * 11) > 0.55
-      top.push({ lx: Math.cos(a) * r * (LW / 2), ly: -LH / 2 + Math.sin(a) * r * 4.5, s: 1.5 + Math.random() * 0.6, c: ring ? '#b0804f' : '#e0b887' })
+      top.push({ lx: Math.cos(a) * r * (LW / 2), ly: -LH / 2 + Math.sin(a) * r * 4.5, s: 1.5 + Math.random() * 0.6, c: ring ? '#8a8a8a' : '#ffffff' })
     }
     const BITE = 0.85
     let cool = 2
@@ -278,7 +278,7 @@ export default function Cursor() {
             crumbs.splice(i, 1)
             continue
           }
-          grain(c2.x, c2.y, 3, '#c89a6a', c2.life)
+          grain(c2.x, c2.y, 3, '#ffffff', c2.life)
         }
         ctx.globalAlpha = 1
 
