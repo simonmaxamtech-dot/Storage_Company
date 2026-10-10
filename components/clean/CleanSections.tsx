@@ -29,10 +29,12 @@ function Shell({
   title,
   sub,
   big,
+  clear,
   children,
 }: {
   id: string
   big?: boolean
+  clear?: boolean
   kicker: string
   title: ReactNode
   sub?: ReactNode
@@ -54,7 +56,7 @@ function Shell({
         </div>
       </div>
       {children && (
-        <div className={`pb-14 pt-10 sm:pb-20 sm:pt-14 ${pad}`} style={{ background: 'linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 62%, transparent) 50px, color-mix(in srgb, var(--bg) 62%, transparent) calc(100% - 60px), transparent 100%)' }}>
+        <div className={`pb-14 pt-10 sm:pb-20 sm:pt-14 ${pad}`} style={clear ? undefined : { background: 'linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 62%, transparent) 50px, color-mix(in srgb, var(--bg) 62%, transparent) calc(100% - 60px), transparent 100%)' }}>
           <div className="mx-auto w-full max-w-[1100px]">{children}</div>
         </div>
       )}
@@ -445,9 +447,9 @@ export function CleanContact({ email }: { email: string }) {
     window.location.href = `mailto:${email}?subject=${encodeURIComponent('New project')}&body=${encodeURIComponent(brief)}`
   }
   return (
-    <Shell id="contact" kicker="Contact" title={<>Reach <span style={{ color: 'var(--hot)' }}>us.</span></>}>
-      <div className="clean-card lg:max-w-[56%]" style={{ ['--brand' as string]: 'var(--hot)', padding: 'clamp(24px,3.4vw,48px)' } as CSSProperties}>
-        <p className="font-pacalix text-[clamp(34px,7vw,56px)] leading-[0.98] lg:text-[clamp(40px,4.4vw,72px)]">
+    <Shell id="contact" clear kicker="Contact" title={<>Reach <span style={{ color: 'var(--hot)' }}>us.</span></>}>
+      <div className="clean-card lg:max-w-[50%] lg:-ml-[6vw]" style={{ ['--brand' as string]: 'var(--hot)', padding: 'clamp(24px,3.4vw,48px)' } as CSSProperties}>
+        <p className="font-pacalix text-[clamp(34px,7vw,56px)] leading-[0.98] lg:text-[clamp(36px,3.6vw,58px)]">
           Let&apos;s build<br />it <span style={{ color: 'var(--hot)' }}>together.</span>
         </p>
         <div className="mt-7 flex flex-wrap gap-2">
