@@ -373,7 +373,7 @@ const ROOMS_STACKED: Room[] = [
 // The Clean design's rooms: hero, Simon's portrait, certificates (a mountain), work (a pavilion), pricing (the chosen plan), contact (the beaver again).
 const CLEAN_DESKTOP: Room[] = [
   { x: 3.1, y: 0.1, s: 0.8, rz: 0, dim: 1, target: 0 },
-  { x: 3.8, y: 0.2, s: 0.5, rz: 0, dim: 1, target: 10 },
+  { x: 3.9, y: 1.4, s: 0.26, rz: 0, dim: 0.5, target: 4 },
   { x: 3.3, y: 0.3, s: 0.9, rz: 0, dim: 0.9, target: 10 },
   { x: 3.7, y: -0.7, s: 0.34, rz: 0, dim: 0.6, target: 4 },
   { x: 3.4, y: 0.15, s: 0.8, rz: 0, dim: 0.6, target: 3 },
@@ -381,7 +381,7 @@ const CLEAN_DESKTOP: Room[] = [
 ]
 const CLEAN_STACKED: Room[] = [
   { x: 0, y: 1.7, s: 0.9, rz: 0, dim: 1, target: 0 },
-  { x: 0, y: 2.4, s: 1.05, rz: 0, dim: 0.9, target: 7 },
+  { x: 0, y: 3.0, s: 0.3, rz: 0, dim: 0.5, target: 4 },
   { x: 0, y: 2.75, s: 0.65, rz: 0, dim: 0.9, target: 10 },
   { x: 0, y: 2.7, s: 0.4, rz: 0, dim: 0.6, target: 4 },
   { x: 0, y: 2.5, s: 0.6, rz: 0, dim: 0.9, target: 3 },
