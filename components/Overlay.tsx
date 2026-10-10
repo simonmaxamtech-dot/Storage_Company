@@ -49,7 +49,7 @@ function ScrollLine() {
     <div aria-hidden className="pointer-events-none fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 lg:block">
       <div
         ref={name}
-        className="font-display text-[26px] leading-none tracking-[0.18em]"
+        className="font-pacalix-solid text-[30px] leading-[1.05] tracking-[0.1em]"
         style={{
           writingMode: 'vertical-rl',
           textOrientation: 'upright',
@@ -61,7 +61,7 @@ function ScrollLine() {
           filter: 'drop-shadow(0 0 6px color-mix(in srgb, var(--hot) 45%, transparent))',
         }}
       >
-        SIMONMAXAM
+        SIMON MAXAM
       </div>
     </div>
   )
@@ -483,6 +483,7 @@ export default function Overlay() {
 
   return (
     <div className={`relative z-10 transition-opacity duration-[900ms] ${ready ? 'opacity-100' : 'opacity-0'}`}>
+      <div aria-hidden className="header-fade pointer-events-none fixed inset-x-0 top-0 z-30 h-[120px] sm:h-[140px]" />
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-5 sm:px-10 sm:py-7">
         <button
           onClick={() => go('intro')}

@@ -28,9 +28,11 @@ function Shell({
   kicker,
   title,
   sub,
+  big,
   children,
 }: {
   id: string
+  big?: boolean
   kicker: string
   title: ReactNode
   sub?: ReactNode
@@ -38,14 +40,14 @@ function Shell({
 }) {
   return (
     <section data-section id={id} className="relative">
-      <div className={`flex min-h-[44svh] flex-col justify-end pb-8 pt-28 sm:min-h-[58svh] sm:pb-12 ${pad}`}>
+      <div className={`flex flex-col pb-8 pt-28 sm:pb-12 ${big ? 'min-h-[72svh] justify-end sm:min-h-[100svh] sm:justify-center' : 'min-h-[44svh] justify-end sm:min-h-[58svh]'} ${pad}`}>
         <div className="mx-auto w-full max-w-[1100px]">
           <Kicker>{kicker}</Kicker>
-          <h2 data-react data-live={id} className="mt-4 font-display text-[clamp(38px,6.2vw,88px)] leading-[0.98] tracking-[-0.02em] lg:max-w-[52%]">
+          <h2 data-react data-live={id} className={big ? 'mt-5 font-pacalix text-[clamp(56px,7.4vw,150px)] leading-[0.92] tracking-[0.015em]' : 'mt-4 font-display text-[clamp(38px,6.2vw,88px)] leading-[0.98] tracking-[-0.02em] lg:max-w-[52%]'}>
             {title}
           </h2>
           {sub && (
-            <p className="mt-3 max-w-[560px] text-[16px] font-bold leading-snug sm:text-[18px] lg:max-w-[46%]" style={{ color: 'var(--muted)' }}>
+            <p className={`max-w-[560px] text-[16px] font-bold leading-snug sm:text-[18px] lg:max-w-[46%] ${big ? 'mt-6' : 'mt-3'}`} style={{ color: 'var(--muted)' }}>
               {sub}
             </p>
           )}
@@ -224,8 +226,9 @@ export function CleanAbout() {
   return (
     <Shell
       id="about"
+      big
       kicker="Founder"
-      title="Simon Maxam"
+      title={<>Simon<br />Maxam</>}
       sub="I build interactive 3D websites, products and games, and play guitar the same way I code: patient, then suddenly fast."
     >
       <div className="grid grid-cols-3 gap-3">
