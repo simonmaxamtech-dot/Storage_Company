@@ -540,8 +540,8 @@ export default function Overlay() {
             <p className="text-[12px] font-bold uppercase tracking-[0.22em] max-sm:hidden sm:text-[14px]" style={{ color: 'var(--muted)' }}>
               Creative studio · by Simon Maxam · Calgary
             </p>
-            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We build digital worlds." className="mt-8 font-pacalix text-[clamp(38px,min(6.9vw,12vh),124px)] max-sm:mt-0 max-sm:text-[clamp(44px,13.2vw,80px)] leading-[1] tracking-[0.015em]">
-              WE BUILD<br />DIGITAL<br />WORLDS.
+            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We make the web feel alive." className="mt-8 font-pacalix text-[clamp(38px,min(6.9vw,12vh),124px)] max-sm:mt-0 max-sm:text-[clamp(44px,13.2vw,80px)] leading-[1] tracking-[0.015em]">
+              WE MAKE<br />THE WEB<br />FEEL<br />ALIVE.
             </h1>
             <p className="mt-6 text-[clamp(17px,1.5vw,23px)] font-extrabold max-sm:hidden" style={{ color: "var(--ink)", opacity: 0.85 }}>
               Interactive websites · 3D experiences · Brand · AI

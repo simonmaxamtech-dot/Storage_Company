@@ -310,24 +310,6 @@ function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; 
   )
 }
 
-function Stat({ n, label, delay }: { n: number; label: string; delay: number }) {
-  const [ref, seen] = useSeen<HTMLDivElement>()
-  const v = useCount(seen ? n : 0)
-  return (
-    <div ref={ref} className={`rv ${seen ? 'rv-in' : ''} pt-5`} style={{ transitionDelay: `${delay}ms`, borderTop: '1.5px solid color-mix(in srgb, var(--hot) 45%, transparent)' }}>
-      <div className="font-pacalix text-[clamp(52px,8vw,120px)] leading-[0.9]" style={{ color: 'var(--hot)' }}>{Math.round(v)}</div>
-      <div className="mt-3 text-[14px] font-extrabold sm:text-[16px]" style={{ color: 'var(--ink)' }}>{label}</div>
-    </div>
-  )
-}
-
-const MAKE = [
-  { tag: 'Websites', line: 'Fast, clear and built to be found. Yours to own.' },
-  { tag: '3D experiences', line: 'Products and whole worlds people can turn, pull apart and play with.' },
-  { tag: 'Brand', line: 'A name, a typeface and a look that is unmistakably yours.' },
-  { tag: 'AI tools', line: 'Chat, search and helpers that do real work for your team.' },
-]
-
 export function CleanAbout() {
   return (
     <Shell
@@ -337,27 +319,17 @@ export function CleanAbout() {
       title={<>Simon<br />Maxam</>}
       sub="I build interactive 3D websites, products and games, and play guitar the same way I code: patient, then suddenly fast."
     >
-      <div className="grid grid-cols-3 gap-4 sm:gap-8">
-        <Stat n={27} label="certificates" delay={0} />
-        <Stat n={3} label="live sites" delay={120} />
-        <Stat n={5} label="disciplines" delay={240} />
-      </div>
-
-      <Reveal className="mt-20">
-        <p className="text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>What we make</p>
+      <Reveal>
+        <p className="text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>Independent digital studio</p>
+        <p className="mt-5 font-pacalix text-[clamp(44px,8.4vw,132px)] leading-[0.95] tracking-[0.015em]">
+          The future<br />isn&rsquo;t <span style={{ color: 'var(--hot)' }}>flat.</span>
+        </p>
+        <p className="mt-8 max-w-[560px] text-[17px] font-bold leading-snug sm:text-[20px]" style={{ color: 'var(--muted)' }}>
+          We create immersive websites, 3D worlds and brands where design, technology and imagination meet.
+        </p>
       </Reveal>
-      <div className="mt-5 grid gap-4 sm:grid-cols-2">
-        {MAKE.map((m, i) => (
-          <Reveal key={m.tag} delay={i * 110}>
-            <div className="clean-card flex min-h-[190px] flex-col items-start justify-between gap-6" style={{ ['--brand' as string]: 'var(--hot)' } as CSSProperties}>
-              <span className="pill-o px-3.5 py-1.5 text-[12px] font-extrabold uppercase tracking-[0.12em]">{m.tag}</span>
-              <p className="max-w-[420px] text-[19px] font-extrabold leading-snug sm:text-[22px]">{m.line}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
 
-      <Reveal className="mt-20">
+      <Reveal className="mt-16">
         <p className="max-w-[640px] text-[15px] font-bold leading-snug sm:text-[17px]" style={{ color: 'var(--muted)' }}>
           <span style={{ color: 'var(--hot)' }}>Why PACALIX?</span> It nods to Palaeocastor, an early beaver from 25 million years ago. Dig deep, build it right, leave something that stays standing.
         </p>
