@@ -377,7 +377,7 @@ const CLEAN_DESKTOP: Room[] = [
   { x: 3.4, y: -0.05, s: 0.72, rz: 0, dim: 1, target: 5 },
   { x: 3.2, y: -0.1, s: 0.5, rz: 0, dim: 1, target: 11 },
   { x: 4.0, y: 1.7, s: 0.22, rz: 0, dim: 0.02, target: 3 },
-  { x: 3.7, y: 1.1, s: 0.58, rz: 0, dim: 1, target: 0 },
+  { x: 2.9, y: 0.3, s: 0.55, rz: 0, dim: 1, target: 0 },
 ]
 const CLEAN_STACKED: Room[] = [
   { x: 0, y: 1.7, s: 0.9, rz: 0, dim: 1, target: 0 },
@@ -841,7 +841,7 @@ export default function Particles() {
     let lift = 0
     if (clean && i === last) {
       const c = document.getElementById('contact')
-      if (c) lift = Math.max(0, window.scrollY - c.offsetTop) * (viewport.height / size.height)
+      if (c) lift = Math.min(viewport.height * 0.5, Math.max(0, window.scrollY - c.offsetTop) * (viewport.height / size.height))
     }
     // The spirals in Certificates and Work are pinned beside their headings: they ride the page up and out, and rise into view from below.
     if (clean && i !== j) {
