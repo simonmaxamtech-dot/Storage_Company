@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type CSSProperties, type ReactNode } from 'react'
-import { live, useStore } from '@/lib/store'
+import { live } from '@/lib/store'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
 import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
@@ -36,7 +36,7 @@ function Shell({
   kicker: string
   title: ReactNode
   sub?: ReactNode
-  children: ReactNode
+  children?: ReactNode
 }) {
   return (
     <section data-section id={id} className="relative">
@@ -53,9 +53,11 @@ function Shell({
           )}
         </div>
       </div>
-      <div className={`pb-20 pt-24 sm:pb-28 ${pad}`} style={{ background: 'linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 90%, transparent) 90px, color-mix(in srgb, var(--bg) 90%, transparent) calc(100% - 110px), transparent 100%)' }}>
-        <div className="mx-auto w-full max-w-[1100px]">{children}</div>
-      </div>
+      {children && (
+        <div className={`pb-20 pt-24 sm:pb-28 ${pad}`} style={{ background: 'linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 90%, transparent) 90px, color-mix(in srgb, var(--bg) 90%, transparent) calc(100% - 110px), transparent 100%)' }}>
+          <div className="mx-auto w-full max-w-[1100px]">{children}</div>
+        </div>
+      )}
     </section>
   )
 }
@@ -267,21 +269,7 @@ export function CleanWork({ projects, demos }: { projects: Project[]; demos: Dem
 }
 
 /* ── About: Simon's face, made of particles, sits behind the heading ──────── */
-const STATS = [
-  ['27', 'certificates'],
-  ['5', 'disciplines'],
-  ['7', 'years of guitar'],
-]
-const SKILLS = ['3D', 'Architecture', 'Code', 'Design', 'Music']
-
 export function CleanAbout() {
-  const soundOn = useStore((s) => s.soundOn)
-  const listen = async () => {
-    if (soundOn) return
-    useStore.getState().setTrack(1)
-    await sound.enable(1)
-    useStore.getState().setSoundOn(true)
-  }
   return (
     <Shell
       id="about"
@@ -289,27 +277,7 @@ export function CleanAbout() {
       kicker="Founder"
       title={<>Simon<br />Maxam</>}
       sub="I build interactive 3D websites, products and games, and play guitar the same way I code: patient, then suddenly fast."
-    >
-      <div className="grid grid-cols-3 gap-3">
-        {STATS.map(([n, l]) => (
-          <div key={l} className="rounded-[18px] px-4 py-4 sm:px-5" style={{ background: 'color-mix(in srgb, var(--hot) 13%, var(--bg))' }}>
-            <div className="font-pacalix text-[clamp(34px,5vw,60px)] leading-none" style={{ color: 'var(--hot)' }}>{n}</div>
-            <div className="mt-1 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>{l}</div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-5 flex flex-wrap gap-2 max-sm:hidden">
-        {SKILLS.map((k) => (
-          <span key={k} className="rounded-full px-4 py-2 text-[14px] font-bold" style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)' }}>{k}</span>
-        ))}
-      </div>
-      <p className="mt-6 max-w-[640px] text-[15px] font-bold leading-snug max-sm:hidden" style={{ color: 'var(--muted)' }}>
-        PACALIX nods to Palaeocastor, an early beaver from 25 million years ago. Dig deep, build it right, leave something that stays standing.
-      </p>
-      <button onClick={listen} data-hover="Listen" className="mt-6 rounded-full px-6 py-3 text-[15px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>
-        {soundOn ? 'Playing: watch the particles' : 'Hear my music'}
-      </button>
-    </Shell>
+    />
   )
 }
 
