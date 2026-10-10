@@ -277,7 +277,7 @@ export function CleanWork({ projects, demos }: { projects: Project[]; demos: Dem
         ))}
       </div>
 
-      <DemoLab demos={demos} />
+      {/* Hidden for now: <DemoLab demos={demos} /> */}
     </Shell>
   )
 }
