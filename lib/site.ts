@@ -4,7 +4,7 @@ export const SITE_NAME = 'PACALIX'
 export const OWNER = 'Simon Maxam'
 export const TITLE = 'PACALIX | Websites | 3D Experiences | Brand | AI'
 export const DESCRIPTION =
-  'PACALIX is a Calgary creative studio founded by Simon Maxam. Interactive websites, 3D experiences, brand identity and AI tools.'
+  'PACALIX is a Calgary creative and marketing agency founded by Simon Maxam. Websites, media, 3D experiences, brand identity and AI tools.'
 
 // Placeholder number (555-01xx is reserved for fiction). Replace with the real one before launch.
 export const PHONE = '+1 403 555 0142'
