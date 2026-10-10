@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-// The cursor is the PACALIX beaver drawn in grains, nose on the pointer, facing the way it moves. It takes the live theme colour (--cur).
+// The cursor is a short log of bark, drawn in grains. In the beaver section the PACALIX beaver (made of the logo's grains) comes and eats it: beavers eat bark.
 
 export default function Cursor() {
   const cv = useRef<HTMLCanvasElement>(null)
@@ -45,8 +45,6 @@ export default function Cursor() {
     // The logo itself (the spotted red panda), sampled into grains. It comes and eats the cane.
     type PP = { lx: number; ly: number; c: number; s: number; x: number; y: number; d: number; vx: number; vy: number }
     const pandaPts: PP[] = []
-    const beaverPts: { lx: number; ly: number; s: number; c: boolean }[] = []
-    let face = 1
     const img = new Image()
     img.src = '/logo-panda.png'
     img.onload = () => {
@@ -67,20 +65,31 @@ export default function Cursor() {
           x0 = Math.min(x0, px); x1 = Math.max(x1, px); y0 = Math.min(y0, py); y1 = Math.max(y1, py)
         }
       }
-      const csc = 70 / (x1 - x0)
-      for (let i = 0; i < 620 && pts.length; i++) {
-        const [px, py] = pts[(Math.random() * pts.length) | 0]
-        beaverPts.push({ lx: (px - x1) * csc, ly: (py - (y0 + y1) / 2) * csc, s: 1.2 + Math.random() * 0.8, c: Math.random() < 0.22 })
-      }
       const sc = 132 / (x1 - x0)
       for (let i = 0; i < 1300 && pts.length; i++) {
         const [px, py] = pts[(Math.random() * pts.length) | 0]
         pandaPts.push({ lx: (px - (x0 + x1) / 2) * sc, ly: (py - (y0 + y1) / 2) * sc, c: Math.random() < 0.15 ? 0 : 1, s: 1.3 + Math.random() * 0.7, x: -9999, y: -9999, d: 0, vx: 0, vy: 0 })
       }
     }
-    const cane_pts: { t: number; o: number; s: number; n: boolean }[] = []
-    for (let i = 0; i < 110; i++) cane_pts.push({ t: i / 110, o: rnd(6), s: 1.5 + Math.random() * 0.9, n: false })
-    for (let k2 = 1; k2 * 15 < 46; k2++) for (let j = 0; j < 7; j++) cane_pts.push({ t: (k2 * 15) / 46, o: -4 + j * 1.35, s: 1.9, n: true })
+    // A short log, like a cut stump: ridged bark down the sides, pale wood and growth rings on top.
+    const LW = 22
+    const LH = 30
+    const bark: { lx: number; ly: number; s: number; c: string }[] = []
+    const barkCols = ['#4a2e1c', '#5e3b24', '#7a4f31', '#93653f', '#3a2314']
+    for (let i = 0; i < 360; i++) {
+      const lx = (Math.random() - 0.5) * LW
+      const ly = Math.random() * LH
+      const ridge = Math.sin(lx * 0.8 + Math.sin(ly * 0.25) * 1.6)
+      const ci = ridge > 0.55 ? 3 : ridge > 0 ? 2 : ridge > -0.5 ? 1 : 0
+      bark.push({ lx, ly: ly - LH / 2, s: 1.6 + Math.random() * 0.8, c: barkCols[Math.random() < 0.08 ? 4 : ci] })
+    }
+    const top: { lx: number; ly: number; s: number; c: string }[] = []
+    for (let i = 0; i < 90; i++) {
+      const a = Math.random() * 6.283
+      const r = Math.sqrt(Math.random())
+      const ring = Math.sin(r * 11) > 0.55
+      top.push({ lx: Math.cos(a) * r * (LW / 2), ly: -LH / 2 + Math.sin(a) * r * 4.5, s: 1.5 + Math.random() * 0.6, c: ring ? '#b0804f' : '#e0b887' })
+    }
     const BITE = 0.85
     let cool = 2
     let inSection = false
@@ -90,8 +99,7 @@ export default function Cursor() {
     const motes = Array.from({ length: 220 }, () => ({ a: Math.random() * 6.283, r: Math.sqrt(Math.random()), va: (Math.random() - 0.5) * 0.5, ph: Math.random() * 6.283, s: 1.4 + Math.random() * 1.6 }))
     const crumbs: { x: number; y: number; vx: number; vy: number; life: number }[] = []
     let last = performance.now()
-    // The old panda-eats-the-cane event is retired: the cursor itself is the beaver now.
-    const pandaEl = null as HTMLElement | null
+    const pandaEl = document.getElementById('panda')
 
     const onMove = (e: PointerEvent) => {
       tx = e.clientX
@@ -235,14 +243,13 @@ export default function Cursor() {
           ctx.globalAlpha = 1
         }
 
-        // The beaver: grains of its spotted body, nose on the pointer, flipping to face the way you move.
-        if (Math.abs(tx - x) > 1.5) face += ((tx > x ? 1 : -1) - face) * 0.25
-        for (let i = 0; i < beaverPts.length; i++) {
-          const q = beaverPts[i]
-          const wob = Math.sin(frame * 0.12 + i) * 0.5
-          grain(x + (q.lx * face + wob) * k, y + (q.ly + Math.cos(frame * 0.1 + i * 2) * 0.5) * k, q.s, q.c ? caneCol : caneInk, 0.95)
+        // The log: the bark is bitten away from the top down as the beaver eats it.
+        for (let i = 0; i < bark.length; i++) {
+          const q = bark[i]
+          if ((q.ly + LH / 2) / LH < 1 - cane) continue
+          grain(x + (q.lx + Math.sin(frame * 0.12 + i) * 0.3) * k, y + q.ly * k, q.s, q.c, 0.96)
         }
-        grain(x, y, 3.5 * k, caneCol)
+        if (cane > 0.99) for (let i = 0; i < top.length; i++) grain(x + top[i].lx * k, y + top[i].ly * k, top[i].s, top[i].c, 0.98)
 
         // Warning above the cane while the panda is about to eat it.
         if (P.st === 'chase' || P.st === 'eat') {
@@ -271,7 +278,7 @@ export default function Cursor() {
             crumbs.splice(i, 1)
             continue
           }
-          grain(c2.x, c2.y, 3, '#b8ff2a', c2.life)
+          grain(c2.x, c2.y, 3, '#c89a6a', c2.life)
         }
         ctx.globalAlpha = 1
 

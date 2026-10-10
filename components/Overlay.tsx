@@ -484,13 +484,13 @@ export default function Overlay() {
 
       <main>
         {/* INTRO: the wordmark is a live material; the snake does the moving. */}
-        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-24 lg:grid lg:grid-cols-2 lg:gap-10 lg:pl-28 lg:pr-16">
+        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-24 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw]">
           {/* Left: what we actually do, in plain words. */}
-          <div className="order-2 w-full max-w-[640px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
+          <div className="order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
             <p className="text-[12px] font-bold uppercase tracking-[0.22em] sm:text-[14px]" style={{ color: 'var(--muted)' }}>
               Creative studio · Calgary
             </p>
-            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We build digital worlds." className="mt-7 font-display text-[clamp(38px,min(6vw,10vh),100px)] leading-[0.98] tracking-[0.01em]">
+            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We build digital worlds." className="mt-8 font-display text-[clamp(40px,min(7.4vw,12.5vh),128px)] leading-[0.98] tracking-[0.01em]">
               WE BUILD<br />DIGITAL<br />WORLDS.
             </h1>
             <p className="mt-5 text-[clamp(15px,1.3vw,19px)] font-bold" style={{ color: 'var(--muted)' }}>
