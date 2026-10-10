@@ -375,7 +375,7 @@ const CLEAN_DESKTOP: Room[] = [
   { x: 3.1, y: 0.1, s: 0.8, rz: 0, dim: 1, target: 0 },
   { x: 3.3, y: 0.5, s: 0.95, rz: 0, dim: 0.9, target: 7 },
   { x: 3.4, y: -0.05, s: 0.72, rz: 0, dim: 1, target: 5 },
-  { x: 3.9, y: -1.0, s: 0.2, rz: 0, dim: 0.02, target: 3 },
+  { x: 3.4, y: -0.05, s: 0.72, rz: 0, dim: 1, target: 5 },
   { x: 4.0, y: 1.7, s: 0.22, rz: 0, dim: 0.02, target: 3 },
   { x: 3.7, y: 1.1, s: 0.58, rz: 0, dim: 1, target: 0 },
 ]
@@ -383,7 +383,7 @@ const CLEAN_STACKED: Room[] = [
   { x: 0, y: 1.7, s: 0.9, rz: 0, dim: 1, target: 0 },
   { x: 0, y: 2.4, s: 1.05, rz: 0, dim: 0.9, target: 7 },
   { x: 0, y: 2.7, s: 0.55, rz: 0, dim: 0.8, target: 5 },
-  { x: 0, y: 3.0, s: 0.24, rz: 0, dim: 0.02, target: 3 },
+  { x: 0, y: 2.7, s: 0.55, rz: 0, dim: 0.8, target: 5 },
   { x: 0, y: 3.2, s: 0.24, rz: 0, dim: 0.02, target: 3 },
   { x: 0, y: 2.8, s: 0.7, rz: 0, dim: 1, target: 0 },
 ]
@@ -843,12 +843,13 @@ export default function Particles() {
       const c = document.getElementById('contact')
       if (c) lift = Math.max(0, window.scrollY - c.offsetTop) * (viewport.height / size.height)
     }
-    // The spiral in Certificates is pinned beside its heading: it rides the page up and out, and rises into view from below.
-    if (clean && (i === 2 || j === 2) && i !== j) {
-      const c = document.getElementById('credentials')
-      if (c) {
-        const w = i === 2 ? 1 - t : t
-        lift += w * Math.max(-viewport.height * 0.7, (window.scrollY - c.offsetTop) * (viewport.height / size.height))
+    // The spirals in Certificates and Work are pinned beside their headings: they ride the page up and out, and rise into view from below.
+    if (clean && i !== j) {
+      for (const [r, id] of [[2, 'credentials'], [3, 'work']] as const) {
+        const w = (i === r ? 1 - t : 0) + (j === r ? t : 0)
+        if (w <= 0) continue
+        const c = document.getElementById(id)
+        if (c) lift += w * Math.max(-viewport.height * 0.7, (window.scrollY - c.offsetTop) * (viewport.height / size.height))
       }
     }
     g.position.y += (lerp(A.y, B.y, t) + lift - tiltY * 0.7 * st.depth - g.position.y) * k
@@ -908,7 +909,9 @@ export default function Particles() {
     colS.set(m.shadow)
 
     const ru = material.uniforms
-    ru.uDim.value += (lerp(A.dim, B.dim, t) - ru.uDim.value) * k
+    // Certificates -> Work is the same spiral twice: it fades out as the first one leaves and back in as the second one rises.
+    const dimSwap = clean && i === 2 && j === 3 ? Math.abs(1 - 2 * t) : 1
+    ru.uDim.value += (lerp(A.dim, B.dim, t) * dimSwap - ru.uDim.value) * k
     ru.uDepth.value = st.depth
     ru.uPulse.value = st.pulse
     ru.uLight.value.copy(light)
