@@ -31,7 +31,7 @@ export const PLANS: Plan[] = [
     blurb: 'Built for growing studios and agencies.',
     includes: ['Everything in Independent', 'Multi-page site', 'Custom 3D models and visualization', 'Phone motion and touch features'],
     options: [
-      { team: 'Up to 10 people', price: 349 },
+      { team: 'Up to 5 people', price: 349 },
       { team: 'Up to 25 people', price: 549 },
       { team: 'Up to 75 people', price: 949 },
     ],

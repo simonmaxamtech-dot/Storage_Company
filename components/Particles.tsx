@@ -385,7 +385,7 @@ const CLEAN_STACKED: Room[] = [
   { x: 0, y: 2.75, s: 0.65, rz: 0, dim: 0.9, target: 10 },
   { x: 0, y: 2.5, s: 0.5, rz: 0, dim: 0.85, target: 1 },
   { x: 0, y: 2.5, s: 0.6, rz: 0, dim: 0.9, target: 3 },
-  { x: 0, y: 1.7, s: 0.9, rz: 0, dim: 1, target: 0 },
+  { x: 0, y: 2.2, s: 0.78, rz: 0, dim: 1, target: 0 },
 ]
 
 // The pricing room shows the chosen plan: an apple, a tree, a planet, a galaxy.

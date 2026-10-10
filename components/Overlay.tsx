@@ -530,21 +530,21 @@ export default function Overlay() {
         </div>
       </footer>
 
-      <main>
+      <main className={clean ? 'clean-type' : undefined}>
         {/* INTRO: the wordmark is a live material; the snake does the moving. */}
-        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-24 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw] lg:pb-[7vh] lg:pt-[7vh]">
+        <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-32 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw] lg:pb-[7vh] lg:pt-[7vh]">
           {/* Left: what we actually do, in plain words. */}
           <div className="order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
-            <p className="text-[12px] font-bold uppercase tracking-[0.22em] sm:text-[14px]" style={{ color: 'var(--muted)' }}>
+            <p className="text-[12px] font-bold uppercase tracking-[0.22em] max-sm:hidden sm:text-[14px]" style={{ color: 'var(--muted)' }}>
               Creative studio · by Simon Maxam · Calgary
             </p>
-            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We build digital worlds." className="mt-8 font-pacalix text-[clamp(38px,min(6.9vw,12vh),124px)] leading-[1] tracking-[0.015em]">
+            <h1 data-live="hero" aria-label="PACALIX, by Simon Maxam. We build digital worlds." className="mt-8 font-pacalix text-[clamp(38px,min(6.9vw,12vh),124px)] max-sm:mt-0 max-sm:text-[clamp(44px,13.2vw,80px)] leading-[1] tracking-[0.015em]">
               WE BUILD<br />DIGITAL<br />WORLDS.
             </h1>
-            <p className="mt-6 text-[clamp(17px,1.5vw,23px)] font-extrabold" style={{ color: "var(--ink)", opacity: 0.85 }}>
+            <p className="mt-6 text-[clamp(17px,1.5vw,23px)] font-extrabold max-sm:hidden" style={{ color: "var(--ink)", opacity: 0.85 }}>
               Interactive websites · 3D experiences · Brand · AI
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center">
+            <div className="mt-7 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center max-sm:hidden">
               <a href="mailto:simon0021maxam@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>Let&apos;s talk ↗</a>
               {clean ? (
                 <>

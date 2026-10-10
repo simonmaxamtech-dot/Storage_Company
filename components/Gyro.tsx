@@ -60,16 +60,24 @@ export default function Gyro() {
     // angle really changed. (Writing a CSS variable on <html> per sensor event restyled the whole page 60 times
     // a second and starved the particles on phones.) GPU headlines (data-live) lean inside the scene instead.
     const seen = new Set<HTMLElement>()
+    const cards = new Set<HTMLElement>()
     const io = new IntersectionObserver((entries) =>
       entries.forEach((en) => {
         const el = en.target as HTMLElement
-        if (en.isIntersecting) seen.add(el)
+        const set = el.classList.contains('clean-card') ? cards : seen
+        if (en.isIntersecting) set.add(el)
         else {
-          seen.delete(el)
-          el.style.transform = ''
+          set.delete(el)
+          if (set === seen) el.style.transform = ''
+          else {
+            el.style.removeProperty('--card-rx')
+            el.style.removeProperty('--card-ry')
+          }
         }
       })
     )
+    // The cards (certificates, work) lean with the phone like a held card, and the dots inside drift the other way.
+    document.querySelectorAll<HTMLElement>('.clean-card').forEach((el) => io.observe(el))
     document
       .querySelectorAll<HTMLElement>('[data-react]:not([data-live])')
       .forEach((el) => !el.closest('#about, #credentials') && io.observe(el))
@@ -86,6 +94,12 @@ export default function Gyro() {
       ly = y
       const tf = `perspective(700px) rotateY(${(x * 16).toFixed(2)}deg) rotateX(${(y * -12).toFixed(2)}deg)`
       seen.forEach((el) => (el.style.transform = tf))
+      const rx = `${(y * -8).toFixed(2)}deg`
+      const ry = `${(x * 10).toFixed(2)}deg`
+      cards.forEach((el) => {
+        el.style.setProperty('--card-rx', rx)
+        el.style.setProperty('--card-ry', ry)
+      })
       const ic = icon()
       if (ic) ic.style.transform = `rotate(${(x * 30).toFixed(1)}deg)`
     }
@@ -96,6 +110,10 @@ export default function Gyro() {
       cancelAnimationFrame(raf)
       io.disconnect()
       seen.forEach((el) => (el.style.transform = ''))
+      cards.forEach((el) => {
+        el.style.removeProperty('--card-rx')
+        el.style.removeProperty('--card-ry')
+      })
       const ic = icon()
       if (ic) ic.style.transform = ''
     }

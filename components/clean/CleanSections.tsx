@@ -69,7 +69,7 @@ function Chips({ c }: { c: Cert }) {
   const s = c.skills ?? []
   if (c.look === 'code')
     return (
-      <span className="inline-block rounded-lg px-3 py-2 font-mono text-[13px] font-bold" style={{ background: 'color-mix(in srgb, var(--brand) 18%, transparent)' }}>
+      <span className="inline-block rounded-lg px-3 py-2 font-mono text-[13px] font-bold" style={{ boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 45%, transparent)' }}>
         <span style={{ color: 'var(--muted)' }}>&gt;&gt;&gt; </span>
         <span style={{ color: 'var(--brand2)' }}>import</span> {s.map((k) => k.toLowerCase()).join(', ')}
         <span className="code-caret" style={{ color: 'var(--brand2)' }}>▍</span>
@@ -113,8 +113,8 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
               </span>
               {OBJ[c.img] && <CertObject kind={OBJ[c.img]} size={96} />}
             </span>
-            <span className="inline-block rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ background: 'var(--brand)', color: '#14080a' }}>
-              ★ Professional Certificate
+            <span className="pill-o px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]">
+              Professional Certificate
             </span>
             <span className="block font-display text-[clamp(25px,2.5vw,36px)] leading-[1.02]">{c.title}</span>
             <span className="block max-w-[44ch] text-[15px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>{c.text}</span>
@@ -136,7 +136,7 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
             >
               <div className="flex items-start justify-between gap-3">
                 <Mark id={id} size={44} />
-                <span className="font-display text-[clamp(34px,3.4vw,52px)] leading-[0.85]" style={{ color: 'var(--brand)' }}>{String(list.length).padStart(2, '0')}</span>
+                <span className="font-pacalix text-[clamp(34px,3.4vw,52px)] leading-[0.85]" style={{ color: 'var(--brand)' }}>{String(list.length).padStart(2, '0')}</span>
               </div>
               <p className="text-[13px] font-bold uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>{ISSUER[id].line}</p>
               <div className="mt-auto flex flex-wrap gap-2">
@@ -178,54 +178,90 @@ export interface Project {
 
 export interface Demo {
   color: string
+  note?: string
   tag: string
   title: string
   line: string
   el: ReactNode
 }
 
+/* The lab: one big live screen, a list of experiments on the side. Different from the cards on purpose: this one is for playing. */
+function DemoLab({ demos }: { demos: Demo[] }) {
+  const [i, setI] = useState(0)
+  const d = demos[i]
+  return (
+    <div className="mt-16">
+      <p className="text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>Try it, they are live</p>
+      <div className="mt-4 grid gap-4 lg:grid-cols-[250px_1fr] lg:gap-6" style={{ ['--brand' as string]: d.color } as CSSProperties}>
+        <div className="[scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-6 flex gap-2 overflow-x-auto px-6 lg:mx-0 lg:flex-col lg:gap-1 lg:overflow-visible lg:px-0" role="tablist">
+          {demos.map((x, n) => (
+            <button
+              key={x.title}
+              role="tab"
+              aria-selected={n === i}
+              onClick={() => {
+                setI(n)
+                haptic(8)
+              }}
+              data-hover="Play"
+              className="lab-tab shrink-0 text-left font-mono"
+              style={{ ['--brand' as string]: x.color, opacity: n === i ? 1 : 0.55 } as CSSProperties}
+            >
+              <span className="text-[12px] font-bold" style={{ color: x.color }}>{String(n + 1).padStart(2, '0')}</span>
+              <span className="block text-[14px] font-bold leading-tight sm:text-[15px]">{x.tag}</span>
+              <span className="hidden text-[12px] font-semibold leading-snug lg:block" style={{ color: 'var(--muted)' }}>{x.title}</span>
+            </button>
+          ))}
+        </div>
+        <div>
+          <div className="overflow-hidden" style={{ borderRadius: 14, boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 55%, transparent), 0 30px 80px rgba(0,0,0,0.45)' }}>
+            <div className="flex items-center justify-between gap-3 px-4 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em]" style={{ background: 'color-mix(in srgb, var(--bg) 80%, black)', color: 'var(--muted)' }}>
+              <span className="flex items-center gap-2">
+                <span aria-hidden className="inline-block h-[7px] w-[7px] rounded-full" style={{ background: 'var(--brand)', animation: 'pill-pulse 1.4s ease-in-out infinite' }} />
+                live · {d.tag}
+              </span>
+              <span className="truncate normal-case tracking-normal">{d.note ?? 'try it'}</span>
+            </div>
+            <div key={d.title} className="h-[330px] w-full sm:h-[440px]">{d.el}</div>
+          </div>
+          <h3 className="mt-4 font-display text-[clamp(22px,2.2vw,30px)] leading-[1.05]">{d.title}</h3>
+          <p className="mt-1.5 max-w-[60ch] text-[15px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>{d.line}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function CleanWork({ projects, demos }: { projects: Project[]; demos: Demo[] }) {
   return (
     <Shell id="work" kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Real sites, running right now.">
       <div className="[scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0">
-        {projects.map((p, i) => (
+        {projects.map((p) => (
           <a
             key={p.name}
             href={p.url}
             target="_blank"
             rel="noopener noreferrer"
             data-hover="Visit"
-            className="clean-card group relative flex min-h-[380px] w-[76vw] shrink-0 snap-center flex-col justify-between sm:min-h-[420px] sm:w-auto"
+            className="clean-card group relative flex min-h-[470px] w-[76vw] shrink-0 snap-center flex-col justify-between sm:min-h-[520px] sm:w-auto"
             style={{ ['--brand' as string]: p.color } as CSSProperties}
           >
-            <div className="flex items-start justify-between gap-3">
-              <span className="work-num font-display text-[clamp(70px,7vw,110px)] leading-[0.85]" aria-hidden>{String(i + 1).padStart(2, '0')}</span>
-              <CertObject kind={p.obj} size={140} />
+            <div className="-mt-2 flex justify-center">
+              <CertObject kind={p.obj} size={230} />
             </div>
             <div>
-              <span className="inline-block rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ background: 'var(--brand)', color: '#14080a' }}>
+              <span className="pill-o px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]">
                 Live · {p.kind}
               </span>
-              <span className="mt-3.5 block font-display text-[clamp(32px,3.2vw,48px)] leading-[0.98]">{p.name}</span>
+              <span className="mt-3.5 block font-display text-[clamp(26px,2.6vw,40px)] leading-[0.98]">{p.name.replace('Ō', 'O')}</span>
               <p className="mt-2.5 text-[14px] font-semibold leading-snug sm:text-[15px]" style={{ color: 'var(--muted)' }}>{p.text}</p>
-              <span className="work-go mt-5 inline-block rounded-full px-4 py-2 text-[13px] font-extrabold" style={{ background: 'var(--brand)', color: '#14080a' }}>Visit site ↗</span>
+              <span className="work-go mt-5 inline-block rounded-full px-4 py-2 text-[13px] font-extrabold" style={{ color: 'var(--brand)', boxShadow: 'inset 0 0 0 1.5px var(--brand)' }}>Visit site ↗</span>
             </div>
           </a>
         ))}
       </div>
 
-      <p className="mt-14 text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>Try it, they are live</p>
-      <div className="[scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-6 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
-        {demos.map((d) => (
-          <div key={d.title} className="flex w-[74vw] shrink-0 snap-center flex-col sm:w-auto">
-            <div className="h-[300px] w-full" style={{ borderRadius: 22, boxShadow: '0 24px 60px rgba(0,0,0,0.35)' }}>
-              {d.el}
-            </div>
-            <h3 className="mt-3.5 font-display text-[21px] leading-[1.05]">{d.title}</h3>
-            <p className="mt-1 text-[14px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>{d.line}</p>
-          </div>
-        ))}
-      </div>
+      <DemoLab demos={demos} />
     </Shell>
   )
 }
@@ -257,7 +293,7 @@ export function CleanAbout() {
       <div className="grid grid-cols-3 gap-3">
         {STATS.map(([n, l]) => (
           <div key={l} className="rounded-[18px] px-4 py-4 sm:px-5" style={{ background: 'color-mix(in srgb, var(--hot) 13%, var(--bg))' }}>
-            <div className="font-display text-[clamp(34px,5vw,60px)] leading-none" style={{ color: 'var(--hot)' }}>{n}</div>
+            <div className="font-pacalix text-[clamp(34px,5vw,60px)] leading-none" style={{ color: 'var(--hot)' }}>{n}</div>
             <div className="mt-1 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>{l}</div>
           </div>
         ))}
@@ -280,13 +316,13 @@ export function CleanAbout() {
 /* ── Pricing ─────────────────────────────────────────────────────────────── */
 export function CleanPricing() {
   const [pi, setPi] = useState(1)
-  const [oi, setOi] = useState(1)
+  const [oi, setOi] = useState(0)
   const plan = PLANS[pi]
   const picked = plan.options[Math.min(oi, plan.options.length - 1)]
   const shown = useCount(picked.price)
   const choose = (i: number) => {
     setPi(i)
-    setOi(i === 1 ? 1 : 0)
+    setOi(0)
     haptic(10)
     sound.pluck(hashText(PLANS[i].name))
   }
@@ -314,7 +350,7 @@ export function CleanPricing() {
         <div key={plan.name} className="plan-in mt-7 grid gap-8 rounded-[24px] p-6 sm:p-9 lg:grid-cols-[1.1fr_1fr] lg:gap-14" style={{ background: 'color-mix(in srgb, var(--hot) 7%, var(--bg))', boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--hot) 24%, transparent)' }}>
           <div>
             <p className="text-[15px] font-bold" style={{ color: 'var(--muted)' }}>{plan.blurb}</p>
-            <p className="mt-3 font-display text-[clamp(56px,9vw,112px)] leading-[0.92] tracking-[-0.02em]">
+            <p className="mt-3 font-pacalix text-[clamp(44px,8vw,104px)] leading-[0.95]">
               <span className="align-top text-[0.42em]">CA$</span>
               {fmt(shown)}
             </p>
