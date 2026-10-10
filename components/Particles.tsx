@@ -660,10 +660,11 @@ export default function Particles() {
       const wait = window.setInterval(() => {
         if (live.go || cancelled) {
           window.clearInterval(wait)
-          if (!cancelled) timers.push(window.setTimeout(start, 800))
+          // Phones wait until the dust has gathered into the logo and the text is in, so nothing builds during the intro.
+          if (!cancelled) timers.push(window.setTimeout(start, mobile ? 3800 : 800))
           // Self-repair: every few seconds, any shape that is still missing (failed, stalled, never started) is built again.
           const t0 = performance.now()
-          const grace = 800 + (weak ? 1000 + list.length * 900 : 200 + list.length * 500) + 5000
+          const grace = (mobile ? 3800 : 800) + (weak ? 1000 + list.length * 900 : 200 + list.length * 500) + 5000
           const repair = window.setInterval(() => {
             if (cancelled || document.hidden || performance.now() - t0 < grace) return
             list.forEach(([name, t, n]) => {
@@ -770,7 +771,8 @@ export default function Particles() {
     } else st.sim += sdt * steps
 
     // The intro runs on simulation time so the wordmark never arrives before the snake has formed.
-    const introT = reduced ? 9 : st.sim / 1.3
+    // On phones the dust drifts over the whole screen a little longer before it gathers, which buys the phone time to load.
+    const introT = reduced ? 9 : st.sim / (mobile ? 1.9 : 1.3)
     const introVar = Math.round(smooth(0.95, 1.55, introT) * 50) / 50
     if (introVar !== st.lastIntroVar) {
       st.lastIntroVar = introVar

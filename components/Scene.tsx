@@ -106,7 +106,7 @@ export default function Scene() {
     setStep(process.env.NODE_ENV !== 'production' && new URLSearchParams(window.location.search).has('step'))
     const phone = window.innerWidth < 768
     const weak = tier() === 'low'
-    const top = Math.min(window.devicePixelRatio || 1, lite() ? 1 : phone ? 2 : weak ? 1.25 : 1.5)
+    const top = Math.min(window.devicePixelRatio || 1, lite() ? 1 : phone ? 1.5 : weak ? 1.25 : 1.5)
     setMaxDpr(top)
     // Start low like a phone does; the monitor climbs back up if the device has room to spare.
     setDpr(Math.min(top, 1))

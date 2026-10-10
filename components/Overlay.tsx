@@ -50,11 +50,11 @@ function ScrollLine() {
     <div aria-hidden className="pointer-events-none fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 lg:block">
       <div
         ref={name}
-        className="font-pacalix-solid text-[30px] leading-[1.05] tracking-[0.1em]"
+        className="font-pacalix whitespace-nowrap text-[46px] leading-[1] tracking-[0.04em]"
         style={{
           writingMode: 'vertical-rl',
-          textOrientation: 'upright',
-          backgroundImage: 'linear-gradient(to bottom, var(--hot) var(--p, 0%), color-mix(in srgb, var(--ink) 26%, transparent) var(--p, 0%))',
+          rotate: '180deg',
+          backgroundImage: 'linear-gradient(to top, var(--hot) var(--p, 0%), color-mix(in srgb, var(--ink) 30%, transparent) var(--p, 0%))',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
           color: 'transparent',
