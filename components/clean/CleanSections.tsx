@@ -40,7 +40,7 @@ function Shell({
 }) {
   return (
     <section data-section id={id} className="relative">
-      <div className={`flex flex-col pb-8 pt-28 sm:pb-12 ${big ? 'min-h-[72svh] justify-end sm:min-h-[100svh] sm:justify-center' : 'min-h-[44svh] justify-end sm:min-h-[58svh]'} ${pad}`}>
+      <div className={`flex flex-col pb-8 pt-28 sm:pb-12 ${big ? 'min-h-[60svh] justify-end sm:min-h-[84svh] sm:justify-center' : 'min-h-[26svh] justify-end sm:min-h-[36svh]'} ${pad}`}>
         <div className="mx-auto w-full max-w-[1100px]">
           <Kicker>{kicker}</Kicker>
           <h2 data-react data-live={id} className={big ? 'mt-5 font-pacalix text-[clamp(56px,7.4vw,150px)] leading-[0.92] tracking-[0.015em]' : 'mt-4 font-pacalix text-[clamp(30px,4.8vw,70px)] leading-[1.02] tracking-[0.015em] lg:max-w-[60%]'}>
@@ -54,7 +54,7 @@ function Shell({
         </div>
       </div>
       {children && (
-        <div className={`pb-20 pt-24 sm:pb-28 ${pad}`} style={{ background: 'linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 90%, transparent) 90px, color-mix(in srgb, var(--bg) 90%, transparent) calc(100% - 110px), transparent 100%)' }}>
+        <div className={`pb-14 pt-10 sm:pb-20 sm:pt-14 ${pad}`} style={{ background: 'linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 62%, transparent) 50px, color-mix(in srgb, var(--bg) 62%, transparent) calc(100% - 60px), transparent 100%)' }}>
           <div className="mx-auto w-full max-w-[1100px]">{children}</div>
         </div>
       )}
@@ -103,7 +103,7 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
             onClick={() => open(c, 10)}
             onPointerEnter={() => sound.pluck(hashText(c.title))}
             data-hover="Open"
-            className="clean-card issuer-pop group flex min-h-[300px] flex-col items-start gap-4 text-left"
+            className="clean-card issuer-pop group flex flex-col items-start gap-4 text-left sm:min-h-[300px] max-sm:gap-2.5"
             style={{ ['--brand' as string]: c.brand ?? ISSUER[c.issuer].color, ['--brand2' as string]: c.brand2 } as CSSProperties}
           >
             <span className="flex w-full items-start justify-between gap-3">
@@ -113,14 +113,14 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
                   {c.courses} courses · {c.date}
                 </span>
               </span>
-              {OBJ[c.img] && <CertObject kind={OBJ[c.img]} size={96} />}
+              {OBJ[c.img] && <span className="max-sm:-mb-6 max-sm:-mt-2"><CertObject kind={OBJ[c.img]} size={96} /></span>}
             </span>
             <span className="pill-o px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]">
               Professional Certificate
             </span>
             <span className="block font-display text-[clamp(25px,2.5vw,36px)] leading-[1.02]">{c.title}</span>
-            <span className="block max-w-[44ch] text-[15px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>{c.text}</span>
-            <Chips c={c} />
+            <span className="block max-w-[44ch] text-[15px] font-bold leading-snug max-sm:hidden" style={{ color: 'var(--muted)' }}>{c.text}</span>
+            <span className="max-sm:hidden"><Chips c={c} /></span>
             <span className="work-go mt-auto text-[14px] font-extrabold" style={{ color: 'var(--brand)' }}>See certificate ↗</span>
           </button>
         ))}
