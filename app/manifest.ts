@@ -4,9 +4,9 @@ export const dynamic = 'force-static'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'PACALIX',
-    short_name: 'PACALIX',
-    description: 'Creative technology studio by Simon Maxam, Calgary, Alberta.',
+    name: 'Dokeon',
+    short_name: 'Dokeon',
+    description: 'Dokeon, a creative and marketing agency in Calgary, Alberta.',
     start_url: '/',
     display: 'standalone',
     background_color: '#08090b',

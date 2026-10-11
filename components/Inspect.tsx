@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 // "Inspect": a designer's x-ray. Hover anything and see its box, size, position, type size and colour,
-// the same way design tools do. On by default, for the small reading text only (not our own Pacalix lettering). Press I to toggle.
+// the same way design tools do. On by default, for the small reading text only (not our own Dokeon lettering). Press I to toggle.
 const PICK = 'p,a,button,li,dt,dd,label,span,.pill-o,.cert-chip,input,textarea'
 const OWN_FONT = /pacalix/i
 

@@ -4,7 +4,7 @@ import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Site Map',
-  description: 'Every page and section of the PACALIX site in one list.',
+  description: 'Every page and section of the Dokeon site in one list.',
   alternates: { canonical: '/site-map' },
 }
 

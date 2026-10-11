@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 import { EMAIL, INSTAGRAM, LINKEDIN_COMPANY, SITE_URL } from '@/lib/site'
 
 const PATH = '/services'
-const PAGE_TITLE = 'Services | Web Design | 3D | Brand | AI'
-const PAGE_DESC = 'PACALIX builds interactive websites, 3D product configurators, brand identities and AI assistants for businesses in Calgary and worldwide.'
+const PAGE_TITLE = 'Services: Web Design, Marketing, 3D and Brand in Calgary'
+const PAGE_DESC = 'Dokeon is a Calgary creative and marketing agency. We build websites, content and media, brand identities, 3D experiences and AI assistants that get businesses noticed.'
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESC,
   alternates: { canonical: PATH },
-  openGraph: { type: 'website', url: PATH, title: `${PAGE_TITLE} | PACALIX`, description: PAGE_DESC, siteName: 'PACALIX' },
+  openGraph: { type: 'website', url: PATH, title: `${PAGE_TITLE} | Dokeon`, description: PAGE_DESC, siteName: 'Dokeon' },
 }
 
 const SERVICES = [
@@ -29,11 +29,13 @@ const STEPS = [
 ]
 
 const FAQ = [
-  { q: 'Where is PACALIX based?', a: 'Calgary, Alberta, Canada. We work with clients anywhere, and all communication is online.' },
-  { q: 'Who runs PACALIX?', a: 'PACALIX was founded by Simon Maxam, who designs and builds every project personally.' },
+  { q: 'Where is Dokeon based?', a: 'Calgary, Alberta, Canada. We work with clients anywhere, and all communication is online.' },
+  { q: 'Who runs Dokeon?', a: 'Dokeon was founded by Simon Maxam, who designs and builds every project personally.' },
   { q: 'How long does a website take?', a: 'A focused interactive site usually takes a few weeks. A configurator or a 3D space takes longer, and we give you a clear timeline before starting.' },
   { q: 'What does it cost?', a: 'Pricing depends on scope. Email a short description of your idea and you get a clear quote in Canadian dollars, usually within a day.' },
-  { q: 'Why the beaver?', a: 'The name nods to Palaeocastor, an ancient beaver. Beavers are builders, and that is how we work: carefully, and made to last.' },
+  { q: 'What is Dokeon?', a: 'Dokeon is a creative and marketing agency in Calgary, Alberta. We build websites, content and media, brand identities, 3D experiences and AI tools for businesses that want to get noticed.' },
+  { q: 'What does the name mean?', a: 'Dokeon comes from the Greek dokeo, "to appear". How a business appears is how people choose it, so we make it appear as good as it really is.' },
+  { q: 'Why the beaver?', a: 'Beavers are builders, and that is how we work: carefully, and made to last.' },
 ]
 
 const jsonLd = {
@@ -43,7 +45,7 @@ const jsonLd = {
       '@type': 'Service',
       '@id': `${SITE_URL}${PATH}#service`,
       name: PAGE_TITLE,
-      serviceType: 'Web design and 3D development',
+      serviceType: 'Web design, digital marketing and 3D development',
       provider: { '@id': `${SITE_URL}/#org` },
       areaServed: [{ '@type': 'City', name: 'Calgary' }, { '@type': 'Country', name: 'Canada' }],
       description: PAGE_DESC,
@@ -56,7 +58,7 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'PACALIX', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 1, name: 'Dokeon', item: `${SITE_URL}/` },
         { '@type': 'ListItem', position: 2, name: 'Services', item: `${SITE_URL}${PATH}` },
       ],
     },
@@ -70,7 +72,7 @@ export default function Services() {
       <nav aria-label="Breadcrumb" className="flex items-center justify-between">
         <a href="/" className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/wordmark.png" width={1200} height={224} alt="PACALIX" className="h-[22px] w-auto" />
+          <img src="/wordmark.png" width={1200} height={224} alt="Dokeon" className="h-[22px] w-auto" />
         </a>
         <a href={`mailto:${EMAIL}`} className="rounded-full px-5 py-2.5 text-[14px] font-extrabold" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>
           Email us
@@ -80,10 +82,10 @@ export default function Services() {
       <header className="mt-16 sm:mt-24">
         <p className="text-[14px] font-bold uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>Services</p>
         <h1 className="mt-4 font-[family-name:var(--font-display)] text-[clamp(40px,7vw,84px)] font-black leading-[0.98]">
-          Web design and 3D experiences, built in Calgary.
+          Websites, marketing and 3D, built in Calgary.
         </h1>
         <p className="mt-6 max-w-[640px] text-[19px] font-semibold leading-snug" style={{ color: 'var(--muted)' }}>
-          PACALIX is a small creative technology studio founded by Simon Maxam. We make websites and interactive 3D work that people remember, for businesses in Calgary and around the world.
+          Dokeon is a creative and marketing agency in Calgary, founded by Simon Maxam. We build the website, the look and the content that bring you customers, for businesses in Calgary and around the world.
         </p>
       </header>
 

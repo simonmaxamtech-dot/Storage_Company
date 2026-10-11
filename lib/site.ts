@@ -1,10 +1,12 @@
-// Production domain. Override with NEXT_PUBLIC_SITE_URL if needed. No trailing slash.
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://pacalix.com').replace(/\/$/, '')
-export const SITE_NAME = 'PACALIX'
+// Production domain. Override with NEXT_PUBLIC_SITE_URL when a custom domain is connected. No trailing slash.
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://dokeon.pages.dev').replace(/\/$/, '')
+export const SITE_NAME = 'Dokeon'
 export const OWNER = 'Simon Maxam'
-export const TITLE = 'PACALIX | Websites | 3D Experiences | Brand | AI'
+// Another company (dokeon.dev, market intelligence software) shares the bare name, so every title and description
+// says what we are and where: "Dokeon creative and marketing agency, Calgary". That is the phrase to win.
+export const TITLE = 'Dokeon | Creative & Marketing Agency in Calgary'
 export const DESCRIPTION =
-  'PACALIX is a Calgary creative and marketing agency founded by Simon Maxam. Websites, media, 3D experiences, brand identity and AI tools.'
+  'Dokeon is a creative and marketing agency in Calgary, Alberta, founded by Simon Maxam. Websites, content and media, 3D experiences, brand identity and AI tools that get small businesses noticed.'
 
 // Placeholder number (555-01xx is reserved for fiction). Replace with the real one before launch.
 export const PHONE = '+1 403 555 0142'

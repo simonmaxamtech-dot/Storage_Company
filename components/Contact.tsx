@@ -7,7 +7,7 @@ import { hashText, sound } from '@/lib/sound'
 import { INSTAGRAM, LINKEDIN_COMPANY, PHONE, PHONE_HREF } from '@/lib/site'
 
 const KINDS = ['A website', '3D visuals', 'A product in 3D', 'A game', 'Architecture', 'Something strange']
-const RING = 'SAY HELLO · START A PROJECT · IDEAS BUILT IN 3D · PACALIX · '
+const RING = 'SAY HELLO · START A PROJECT · IDEAS BUILT IN 3D · Dokeon · '
 
 // Letters lean away from the cursor and blush red as it passes, like fur brushed the wrong way.
 function MagneticLine({ text, className }: { text: string; className?: string }) {
@@ -111,7 +111,7 @@ export default function Contact({ email }: { email: string }) {
   const [copied, setCopied] = useState(false)
   const [spin, setSpin] = useState(false)
 
-  const brief = `Hi PACALIX, I'd like to build ${picked.length ? picked.join(', ').toLowerCase() : 'something'}.`
+  const brief = `Hi Dokeon, I'd like to build ${picked.length ? picked.join(', ').toLowerCase() : 'something'}.`
   const act = async () => {
     haptic([10, 30, 10])
     live.shake = 0.6
@@ -162,7 +162,7 @@ export default function Contact({ email }: { email: string }) {
           <span className="absolute inset-[42px] flex items-center justify-center rounded-full transition-colors duration-500" style={{ background: spin ? 'var(--hot)' : '#1a0b06' }}>
             {/* The logo is white on black: screen blending drops the black so only the panda shows. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/snake.png" width={1000} height={667} alt="PACALIX particle snake" className="w-[80%] select-none transition-transform duration-500" draggable={false} style={{ mixBlendMode: 'screen', transform: spin ? 'scale(1.08) rotate(-6deg)' : 'none' }} />
+            <img src="/snake.png" width={1000} height={667} alt="Dokeon particle snake" className="w-[80%] select-none transition-transform duration-500" draggable={false} style={{ mixBlendMode: 'screen', transform: spin ? 'scale(1.08) rotate(-6deg)' : 'none' }} />
           </span>
         </button>
 

@@ -44,7 +44,7 @@ body {
   font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
 }
 
-/* The PACALIX font, traced from our own letter sheet. Capitals only (lowercase maps to caps). */
+/* The Dokeon font, traced from our own letter sheet. Capitals only (lowercase maps to caps). */
 @font-face {
   font-family: 'Pacalix Spots';
   src: url('/fonts/pacalix-spots.woff2') format('woff2'), url('/fonts/pacalix-spots.ttf') format('truetype');

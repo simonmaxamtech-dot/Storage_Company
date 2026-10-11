@@ -1,22 +1,23 @@
 import type { Metadata, Viewport } from 'next'
 import { Nunito, Space_Grotesk } from 'next/font/google'
 import './globals.css'
-import { DESCRIPTION, INSTAGRAM, LINKEDIN, LINKEDIN_COMPANY, OWNER, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
+import { DESCRIPTION, LINKEDIN, OWNER, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
 
 const display = Nunito({ subsets: ['latin', 'latin-ext'], weight: ['800', '900'], variable: '--font-display', display: 'swap' })
 const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' })
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: TITLE, template: '%s | PACALIX' },
+  title: { default: TITLE, template: '%s | Dokeon Calgary' },
   description: DESCRIPTION,
   applicationName: SITE_NAME,
   authors: [{ name: OWNER, url: SITE_URL }],
   creator: OWNER,
   publisher: SITE_NAME,
   keywords: [
-    'PACALIX', 'Pacalix studio', 'Pacalix Calgary', 'Pacalix web design', 'Pacalix Simon Maxam', 'Simon Maxam', 'Simon Maxam Pacalix', 'simon0021maxam', 'Simon Maxam Calgary', 'creative technology studio', 'Calgary web design',
-    '3D product configurator', 'interactive website', 'architecture visualization', 'AI assistant', 'WebGL', 'Three.js', 'Alberta',
+    'Dokeon', 'Dokeon agency', 'Dokeon Calgary', 'Dokeon creative agency', 'Dokeon marketing agency', 'Dokeon web design', 'Dokeon Simon Maxam', 'Simon Maxam', 'Simon Maxam Dokeon', 'Simon Maxam Calgary',
+    'creative and marketing agency Calgary', 'Calgary web design', 'Calgary marketing agency', 'Calgary website design', 'brand identity Calgary', 'content and media Calgary',
+    '3D product configurator', 'interactive website', 'AI assistant', 'Alberta',
   ],
   alternates: { canonical: '/' },
   category: 'technology',
@@ -33,14 +34,16 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     locale: 'en_CA',
     alternateLocale: ['fr_CA', 'fr_FR', 'es_ES', 'de_DE', 'tr_TR', 'ru_RU', 'ar_AE', 'ja_JP', 'ko_KR', 'zh_CN', 'pt_BR', 'it_IT'],
-    images: [{ url: '/logo-panda.png', width: 1254, height: 1254, alt: 'PACALIX beaver logo' }],
+    images: [{ url: '/logo-panda.png', width: 1254, height: 1254, alt: 'Dokeon creative and marketing agency logo' }],
   },
   twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/logo-panda.png'] },
   icons: { icon: '/logo-panda.png', apple: '/logo-panda.png' },
 }
 
-const ORG_SAME_AS = [INSTAGRAM, LINKEDIN_COMPANY]
-const PERSON_SAME_AS = [LINKEDIN, LINKEDIN_COMPANY]
+// The Instagram and LinkedIn company pages still carry the old name, so they are not claimed as Dokeon's own profiles
+// here. Once Dokeon accounts exist, add their links to ORG_SAME_AS: that is how search engines connect a brand to its profiles.
+const ORG_SAME_AS: string[] = []
+const PERSON_SAME_AS = [LINKEDIN]
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -50,16 +53,19 @@ const jsonLd = {
       '@id': `${SITE_URL}/#website`,
       url: `${SITE_URL}/`,
       name: SITE_NAME,
-      alternateName: ['Pacalix', 'PACALIX Studio', 'Simon Maxam'],
+      alternateName: ['Dokeon Calgary', 'Dokeon Agency', 'Dokeon Creative Agency'],
       description: DESCRIPTION,
       inLanguage: 'en',
       publisher: { '@id': `${SITE_URL}/#org` },
     },
     {
-      '@type': 'Organization',
+      '@type': ['Organization', 'ProfessionalService'],
       '@id': `${SITE_URL}/#org`,
       name: SITE_NAME,
-      alternateName: ['Pacalix', 'PACALIX Studio'],
+      legalName: 'Dokeon',
+      slogan: 'Get found. Get chosen.',
+      disambiguatingDescription: 'Dokeon is a creative and marketing agency in Calgary, Alberta, Canada. It is not the software company at dokeon.dev.',
+      alternateName: ['Dokeon Calgary', 'Dokeon Agency', 'Dokeon Creative Agency'],
       url: `${SITE_URL}/`,
       logo: `${SITE_URL}/logo-panda.png`,
       image: `${SITE_URL}/logo-panda.png`,
@@ -70,7 +76,8 @@ const jsonLd = {
       founder: { '@id': `${SITE_URL}/#simon` },
       address: { '@type': 'PostalAddress', addressLocality: 'Calgary', addressRegion: 'AB', addressCountry: 'CA' },
       areaServed: 'Worldwide',
-      knowsAbout: ['3D', 'Web design', 'Architecture visualization', 'Artificial intelligence', 'Interactive experiences', 'Product configurators'],
+      knowsAbout: ['Web design', 'Digital marketing', 'Content and media', 'Brand identity', '3D', 'Artificial intelligence', 'Interactive experiences', 'Product configurators'],
+      makesOffer: ['Website design and development', 'Content and media', 'Brand identity', '3D and interactive experiences', 'AI assistants'].map((n) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n } })),
     },
     {
       '@type': 'Person',
@@ -78,7 +85,7 @@ const jsonLd = {
       name: OWNER,
       url: `${SITE_URL}/`,
       jobTitle: 'Founder and owner',
-      alternateName: ['Simon Maxam Pacalix', 'Simon Maxam Calgary'],
+      alternateName: ['Simon Maxam Dokeon', 'Simon Maxam Calgary'],
       email: 'simon0021maxam@gmail.com',
       sameAs: PERSON_SAME_AS,
       worksFor: { '@id': `${SITE_URL}/#org` },

@@ -4,7 +4,7 @@ import { EMAIL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy and Cookies',
-  description: 'What PACALIX stores on your device and what it does not: no tracking, no ad cookies.',
+  description: 'What Dokeon stores on your device and what it does not: no tracking, no ad cookies.',
   alternates: { canonical: '/privacy' },
 }
 
