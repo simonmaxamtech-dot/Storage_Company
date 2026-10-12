@@ -7,6 +7,7 @@ import { hashText, sound } from '@/lib/sound'
 import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
 import { ISSUER, Mark, OBJ, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
 import QuoteChat from './QuoteChat'
+import MapPill from './MapPill'
 import CertObject, { type ObjKind } from '../CertObject'
 
 // The Clean design: short sections, one accent colour each. Every section opens with a "stage" where the particle
@@ -450,6 +451,7 @@ export function CleanContact({ email }: { email: string }) {
           <a href={`mailto:${email}`} className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>{email}</a>
         </div>
       </div>
+      <MapPill />
     </Shell>
   )
 }
