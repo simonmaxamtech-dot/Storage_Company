@@ -1,15 +1,15 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { EMAIL, INSTAGRAM, LINKEDIN_COMPANY, SITE_URL } from '@/lib/site'
 
 const PATH = '/services'
 const PAGE_TITLE = 'Services: Web Design, Marketing, 3D and Brand in Calgary'
-const PAGE_DESC = 'Raduya is a Calgary creative and marketing agency. We build websites, content and media, brand identities, 3D experiences and AI assistants that get businesses noticed.'
+const PAGE_DESC = 'Radoya is a Calgary creative and marketing agency. We build websites, content and media, brand identities, 3D experiences and AI assistants that get businesses noticed.'
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESC,
   alternates: { canonical: PATH },
-  openGraph: { type: 'website', url: PATH, title: `${PAGE_TITLE} | Raduya`, description: PAGE_DESC, siteName: 'Raduya' },
+  openGraph: { type: 'website', url: PATH, title: `${PAGE_TITLE} | Radoya`, description: PAGE_DESC, siteName: 'Radoya' },
 }
 
 const SERVICES = [
@@ -29,12 +29,12 @@ const STEPS = [
 ]
 
 const FAQ = [
-  { q: 'Where is Raduya based?', a: 'Calgary, Alberta, Canada. We work with clients anywhere, and all communication is online.' },
-  { q: 'Who runs Raduya?', a: 'Raduya was founded by Simon Maxam, who designs and builds every project personally.' },
+  { q: 'Where is Radoya based?', a: 'Calgary, Alberta, Canada. We work with clients anywhere, and all communication is online.' },
+  { q: 'Who runs Radoya?', a: 'Radoya was founded by Simon Maxam, who designs and builds every project personally.' },
   { q: 'How long does a website take?', a: 'A focused interactive site usually takes a few weeks. A configurator or a 3D space takes longer, and we give you a clear timeline before starting.' },
   { q: 'What does it cost?', a: 'Pricing depends on scope. Email a short description of your idea and you get a clear quote in Canadian dollars, usually within a day.' },
-  { q: 'What is Raduya?', a: 'Raduya is a creative and marketing agency in Calgary, Alberta. We build websites, content and media, brand identities, 3D experiences and AI tools for businesses that want to get noticed.' },
-  { q: 'What does the name mean?', a: 'Raduya starts with "radu", from the Latin radius, a ray of light, and ends with "ya", you. A ray of light on you: we make sure the right people find you and choose you.' },
+  { q: 'What is Radoya?', a: 'Radoya is a creative and marketing agency in Calgary, Alberta. We build websites, content and media, brand identities, 3D experiences and AI tools for businesses that want to get noticed.' },
+  { q: 'What does the name mean?', a: 'Radoya starts with "rado", which echoes the Latin radius (a ray of light) and means "gladly" in Slavic languages, and ends with "ya", you. Gladly putting a light on you, so the right people find you and choose you.' },
   { q: 'Why the beaver?', a: 'Beavers are builders, and that is how we work: carefully, and made to last.' },
 ]
 
@@ -58,7 +58,7 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Raduya', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 1, name: 'Radoya', item: `${SITE_URL}/` },
         { '@type': 'ListItem', position: 2, name: 'Services', item: `${SITE_URL}${PATH}` },
       ],
     },
@@ -72,7 +72,7 @@ export default function Services() {
       <nav aria-label="Breadcrumb" className="flex items-center justify-between">
         <a href="/" className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/wordmark.png" width={1200} height={224} alt="Raduya" className="h-[22px] w-auto" />
+          <img src="/wordmark.png" width={1200} height={224} alt="Radoya" className="h-[22px] w-auto" />
         </a>
         <a href={`mailto:${EMAIL}`} className="rounded-full px-5 py-2.5 text-[14px] font-extrabold" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>
           Email us
@@ -85,7 +85,7 @@ export default function Services() {
           Websites, marketing and 3D, built in Calgary.
         </h1>
         <p className="mt-6 max-w-[640px] text-[19px] font-semibold leading-snug" style={{ color: 'var(--muted)' }}>
-          Raduya is a creative and marketing agency in Calgary, founded by Simon Maxam. We build the website, the look and the content that bring you customers, for businesses in Calgary and around the world.
+          Radoya is a creative and marketing agency in Calgary, founded by Simon Maxam. We build the website, the look and the content that bring you customers, for businesses in Calgary and around the world.
         </p>
       </header>
 

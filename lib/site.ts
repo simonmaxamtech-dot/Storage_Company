@@ -1,12 +1,12 @@
-// Production domain. Override with NEXT_PUBLIC_SITE_URL when a custom domain is connected. No trailing slash.
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://raduya.com').replace(/\/$/, '')
-export const SITE_NAME = 'Raduya'
+﻿// Production domain. Override with NEXT_PUBLIC_SITE_URL when a custom domain is connected. No trailing slash.
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://Radoya.com').replace(/\/$/, '')
+export const SITE_NAME = 'Radoya'
 export const OWNER = 'Simon Maxam'
-// Every title and description says what we are and where: "Raduya creative and marketing agency, Calgary".
+// Every title and description says what we are and where: "Radoya creative and marketing agency, Calgary".
 // That is the phrase to win, and it ties the name to Simon Maxam and to Calgary.
-export const TITLE = 'Raduya | Creative & Marketing Agency in Calgary'
+export const TITLE = 'Radoya | Creative & Marketing Agency in Calgary'
 export const DESCRIPTION =
-  'Raduya is a creative and marketing agency in Calgary. Websites, content, 3D, brand and AI that get small businesses noticed.'
+  'Radoya is a creative and marketing agency in Calgary. Websites, content, 3D, brand and AI that get small businesses noticed.'
 
 // Placeholder number (555-01xx is reserved for fiction). Replace with the real one before launch.
 export const PHONE = '+1 403 555 0142'

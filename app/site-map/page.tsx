@@ -1,10 +1,10 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import LegalShell from '@/components/LegalShell'
 import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Site Map',
-  description: 'Every page and section of the Raduya site in one list.',
+  description: 'Every page and section of the Radoya site in one list.',
   alternates: { canonical: '/site-map' },
 }
 

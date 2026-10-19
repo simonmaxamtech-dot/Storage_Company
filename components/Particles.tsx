@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
@@ -564,7 +564,7 @@ export default function Particles() {
       mu.tPortrait.value = tex.portrait
       if (err) {
         // No float render targets: show the measured snake without the simulation.
-        console.warn("Raduya: GPU simulation unavailable, showing the static form.", err)
+        console.warn("Radoya: GPU simulation unavailable, showing the static form.", err)
         gpu.dispose()
         mu.tPos.value = tex.snake
         built = { gpu: null, pos: null, vel: null, textures }
@@ -597,7 +597,7 @@ export default function Particles() {
           .catch((err) => {
             busy.delete(name)
             if (cancelled || tries >= 4) {
-              console.warn('Raduya: formation failed', name, err)
+              console.warn('Radoya: formation failed', name, err)
               return
             }
             timers.push(window.setTimeout(() => void fill(name, t, n, tries + 1), 1500 * (tries + 1)))

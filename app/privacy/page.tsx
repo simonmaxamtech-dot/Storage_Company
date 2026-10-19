@@ -1,10 +1,10 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import LegalShell from '@/components/LegalShell'
 import { EMAIL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy and Cookies',
-  description: 'What Raduya stores on your device and what it does not: no tracking, no ad cookies.',
+  description: 'What Radoya stores on your device and what it does not: no tracking, no ad cookies.',
   alternates: { canonical: '/privacy' },
 }
 

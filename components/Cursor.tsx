@@ -1,8 +1,8 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useRef, useState } from 'react'
 
-// The cursor is a short log of bark, drawn in grains. In the beaver section the Raduya beaver (made of the logo's grains) comes and eats it: beavers eat bark.
+// The cursor is a short log of bark, drawn in grains. In the beaver section the Radoya beaver (made of the logo's grains) comes and eats it: beavers eat bark.
 
 export default function Cursor() {
   const cv = useRef<HTMLCanvasElement>(null)

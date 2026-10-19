@@ -1,12 +1,12 @@
-import type { MetadataRoute } from 'next'
+﻿import type { MetadataRoute } from 'next'
 
 export const dynamic = 'force-static'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Raduya',
-    short_name: 'Raduya',
-    description: 'Raduya, a creative and marketing agency in Calgary, Alberta.',
+    name: 'Radoya',
+    short_name: 'Radoya',
+    description: 'Radoya, a creative and marketing agency in Calgary, Alberta.',
     start_url: '/',
     display: 'standalone',
     background_color: '#08090b',

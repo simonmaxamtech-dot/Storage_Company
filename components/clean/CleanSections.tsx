@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { live } from '@/lib/store'
@@ -356,7 +356,7 @@ export function CleanAbout() {
 
       <Reveal className="mt-16 max-sm:mt-8">
         <p className="max-w-[640px] text-[15px] max-sm:hidden font-bold leading-snug sm:text-[17px]" style={{ color: 'var(--muted)' }}>
-          <span style={{ color: 'var(--hot)' }}>Why Raduya?</span> From the Latin <i>radius</i>, a ray of light, plus &ldquo;ya&rdquo;: you. A ray of light on you, so people find you and choose you.
+          <span style={{ color: 'var(--hot)' }}>Why Radoya?</span> &ldquo;Rado&rdquo; echoes the Latin <i>radius</i>, a ray of light, and means &ldquo;gladly&rdquo; in Slavic languages. &ldquo;Ya&rdquo; is you. Gladly shining a light on you, so people find you and choose you.
         </p>
         <button onClick={() => go('work')} data-hover="Work" className="pill-o px-5 sm:mt-6 py-2.5 text-[14px] font-extrabold transition-transform hover:scale-105">
           See what we built ↓
@@ -408,7 +408,7 @@ const KINDS = ['A website', '3D visuals', 'A product in 3D', 'A game', 'Architec
 
 export function CleanContact({ email }: { email: string }) {
   const [picked, setPicked] = useState<string[]>([])
-  const brief = `Hi Raduya, I'd like to build ${picked.length ? picked.join(', ').toLowerCase() : 'something'}.`
+  const brief = `Hi Radoya, I'd like to build ${picked.length ? picked.join(', ').toLowerCase() : 'something'}.`
   const send = () => {
     haptic([10, 30, 10])
     live.shake = 0.6
@@ -473,13 +473,13 @@ export function CleanFooter() {
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} data-hover="Top" className="foot-link">Back to top ↑</button>
           </div>
         </div>
-        <p aria-label="Raduya" className="foot-word select-none py-6 font-pacalix text-[clamp(56px,16.4vw,230px)] leading-[0.95]" style={{ color: 'var(--hot)' }}>
-          {'Raduya'.split('').map((l, i) => (
+        <p aria-label="Radoya" className="foot-word select-none py-6 font-pacalix text-[clamp(56px,16.4vw,230px)] leading-[0.95]" style={{ color: 'var(--hot)' }}>
+          {'Radoya'.split('').map((l, i) => (
             <span key={i} aria-hidden>{l}</span>
           ))}
         </p>
         <p className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 pt-4 text-[13px] font-bold" style={{ borderTop: '1.5px solid var(--line)', color: 'var(--muted)' }}>
-          <span>© {year} Raduya. All rights reserved.</span>
+          <span>© {year} Radoya. All rights reserved.</span>
           <span className="flex flex-wrap gap-x-5 gap-y-1">
             <a href="/privacy" className="foot-link">Privacy Policy</a>
             <a href="/privacy#cookies" className="foot-link">Use of Cookies</a>

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { live } from '@/lib/store'
@@ -115,7 +115,7 @@ export function drawRing(ctx: CanvasRenderingContext2D, x: number, y: number, ce
   }
 }
 
-// The hidden game: the Raduya beaver eats leaves and its ringed tail grows.
+// The hidden game: the Radoya beaver eats leaves and its ringed tail grows.
 // A golden shoot appears now and then: worth three, but it does not wait.
 export default function PandaGame({ onClose }: { onClose: () => void }) {
   const canvas = useRef<HTMLCanvasElement>(null)
