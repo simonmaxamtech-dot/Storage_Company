@@ -1,12 +1,12 @@
 // Production domain. Override with NEXT_PUBLIC_SITE_URL when a custom domain is connected. No trailing slash.
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://pacalix.com').replace(/\/$/, '')
-export const SITE_NAME = 'Dokeon'
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://raduya.com').replace(/\/$/, '')
+export const SITE_NAME = 'Raduya'
 export const OWNER = 'Simon Maxam'
-// Another company (dokeon.dev, market intelligence software) shares the bare name, so every title and description
-// says what we are and where: "Dokeon creative and marketing agency, Calgary". That is the phrase to win.
-export const TITLE = 'Dokeon | Creative & Marketing Agency in Calgary'
+// Every title and description says what we are and where: "Raduya creative and marketing agency, Calgary".
+// That is the phrase to win, and it ties the name to Simon Maxam and to Calgary.
+export const TITLE = 'Raduya | Creative & Marketing Agency in Calgary'
 export const DESCRIPTION =
-  'Dokeon is a creative and marketing agency in Calgary. Websites, content, 3D, brand and AI that get small businesses noticed.'
+  'Raduya is a creative and marketing agency in Calgary. Websites, content, 3D, brand and AI that get small businesses noticed.'
 
 // Placeholder number (555-01xx is reserved for fiction). Replace with the real one before launch.
 export const PHONE = '+1 403 555 0142'

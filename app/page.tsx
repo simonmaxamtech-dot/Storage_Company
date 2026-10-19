@@ -11,19 +11,19 @@ export default function Home() {
       <Objects />
       <Cursor />
       <Overlay />
-      <section className="sr-only" aria-label="About Dokeon">
-        <h2>Dokeon — creative and marketing agency in Calgary</h2>
+      <section className="sr-only" aria-label="About Raduya">
+        <h2>Raduya — creative and marketing agency in Calgary</h2>
         <p>
-          Dokeon is a creative and marketing agency in Calgary, Alberta, Canada, founded and owned by Simon Maxam.
-          Dokeon builds websites, content and media, brand identities, 3D product configurators, real-time
+          Raduya is a creative and marketing agency in Calgary, Alberta, Canada, founded and owned by Simon Maxam.
+          Raduya builds websites, content and media, brand identities, 3D product configurators, real-time
           experiences and AI assistants that help businesses get found and get chosen.
         </p>
         <p>
-          The name Dokeon comes from the Greek dokeo, &ldquo;to appear&rdquo;. Dokeon is not affiliated with other
-          companies that use a similar name.
+          The name Raduya combines &ldquo;radu&rdquo;, from the Latin radius (a ray of light), with &ldquo;ya&rdquo;
+          (you): a ray of light on you. Raduya was created by Simon Maxam in Calgary.
         </p>
         <AboutLocales />
-        <a href="/services">Dokeon services: web design, marketing and 3D experiences in Calgary</a>
+        <a href="/services">Raduya services: web design, marketing and 3D experiences in Calgary</a>
       </section>
     </>
   )

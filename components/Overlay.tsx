@@ -383,7 +383,7 @@ export default function Overlay() {
       }
     }
     window.addEventListener('keydown', onKey)
-    console.log('%cDokeon%c  Psst. Type "beaver".', 'font-weight:700;letter-spacing:.2em', 'opacity:.6')
+    console.log('%cRaduya%c  Psst. Type "beaver".', 'font-weight:700;letter-spacing:.2em', 'opacity:.6')
     return () => window.removeEventListener('keydown', onKey)
   }, [setGame])
 
@@ -488,7 +488,7 @@ export default function Overlay() {
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-5 sm:px-10 sm:py-7">
         <button
           onClick={() => go('intro')}
-          aria-label="Dokeon, back to top"
+          aria-label="Raduya, back to top"
           className="transition-opacity duration-700"
           onPointerDown={() => {
             pressTimer.current = window.setTimeout(() => setGame(true), 900)
@@ -498,7 +498,7 @@ export default function Overlay() {
           onPointerCancel={() => window.clearTimeout(pressTimer.current)}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/wordmark.png" width={1200} height={224} alt="Dokeon" className="h-[28px] sm:h-[40px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
+          <img src="/wordmark.png" width={1200} height={224} alt="Raduya" className="h-[28px] sm:h-[40px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
         </button>
         <nav aria-label="Primary" className="flex gap-5 text-[15px] font-bold sm:gap-9">
           {(clean ? CLEAN_NAV : NAV.map((n) => ({ ...n, phone: n.id !== 'play' }))).map((n) => {
@@ -537,7 +537,7 @@ export default function Overlay() {
         <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-32 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw] lg:pb-[7vh] lg:pt-[7vh]">
           {/* Left: what we actually do, in plain words. */}
           <div className="order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
-            <h1 data-live="hero" aria-label="Dokeon, by Simon Maxam. Websites that get you noticed." className="font-pacalix text-[clamp(38px,min(6.4vw,11vh),118px)] max-sm:mt-0 max-sm:text-[clamp(42px,12.4vw,76px)] leading-[1] tracking-[0.015em]">
+            <h1 data-live="hero" aria-label="Raduya, by Simon Maxam. Websites that get you noticed." className="font-pacalix text-[clamp(38px,min(6.4vw,11vh),118px)] max-sm:mt-0 max-sm:text-[clamp(42px,12.4vw,76px)] leading-[1] tracking-[0.015em]">
               WEBSITES<br />THAT<br />GET YOU<br />NOTICED.
             </h1>
             <p className="mt-6 max-w-[480px] text-[16px] font-bold leading-snug sm:text-[19px] max-lg:mx-auto" style={{ color: 'var(--muted)' }}>
@@ -684,10 +684,10 @@ export default function Overlay() {
           <div className="reveal w-full max-w-[min(520px,42vw)] max-lg:max-w-[620px] max-lg:text-center">
             <Label>Where the name comes from</Label>
             <h2 data-react className="spotty mt-8 font-display text-[clamp(36px,5.4vw,78px)] leading-[1.02] tracking-[-0.01em]">
-              Dokeon. How you <span className="panda-word">appear</span> is how you are chosen.
+              Raduya. How you <span className="panda-word">appear</span> is how you are chosen.
             </h2>
             <p data-react className="hov mt-6 text-[18px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
-              Dokeon comes from the Greek dokeo, "to appear, to seem". People decide in seconds what a business is by how it looks and sounds. We make sure it appears as good as it really is. And like the beaver, we build things that last.
+              Raduya is "radu", from the Latin radius, a ray of light, plus "ya": you. People decide in seconds what a business is by how it looks and sounds. We put the light on you, so you get found and chosen.
             </p>
             <p className="mt-5 text-[14px] font-bold" style={{ color: 'var(--muted)' }}>
               Its aspen grows here, trunk by trunk. Stir it with your cursor, or tilt your phone.
@@ -745,12 +745,12 @@ export default function Overlay() {
             <Label>About</Label>
             <h2 data-react className="spotty mt-6 font-display text-[clamp(44px,7vw,104px)] leading-none tracking-[-0.01em]">Simon Maxam</h2>
             <p className="mx-auto mt-5 max-w-[620px] text-[18px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
-              Founder of Dokeon. I build interactive 3D websites, products and games, and I play guitar on stage the same way I code: patient, then suddenly fast.
+              Founder of Raduya. I build interactive 3D websites, products and games, and I play guitar on stage the same way I code: patient, then suddenly fast.
             </p>
             <div className="mx-auto mt-8 max-w-[680px] rounded-[20px] px-6 py-6 text-left" style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)' }}>
-              <div className="font-display text-[clamp(22px,3vw,32px)] leading-tight" style={{ color: 'var(--hot)' }}>Why Dokeon</div>
+              <div className="font-display text-[clamp(22px,3vw,32px)] leading-tight" style={{ color: 'var(--hot)' }}>Why Raduya</div>
               <ul className="mt-4 space-y-3 text-[15px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
-                <li><span style={{ color: 'var(--fg, #fff)' }}>The name.</span> From the Greek dokeo, "to appear, to seem". How a business appears is how people choose it, so we make it appear as good as it is.</li>
+                <li><span style={{ color: 'var(--fg, #fff)' }}>The name.</span> From the Latin radius, a ray of light, plus "ya": you. We put the light on you, so you get found and chosen.</li>
                 <li><span style={{ color: 'var(--fg, #fff)' }}>The philosophy.</span> Make work that lasts: dig deep, build it right, leave something that stays standing.</li>
               </ul>
             </div>

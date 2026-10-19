@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { haptic } from '@/lib/phone'
@@ -16,7 +16,7 @@ type Sent = 'idle' | 'sending' | 'sent' | 'draft'
 function Bot({ children }: { children: ReactNode }) {
   return (
     <div className="chat-in flex items-end gap-2.5">
-      <span aria-hidden className="mb-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full font-pacalix text-[15px] leading-none" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>P</span>
+      <span aria-hidden className="mb-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full font-pacalix text-[15px] leading-none" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>R</span>
       <div className="max-w-[88%] rounded-[20px] rounded-bl-md px-4 py-3 text-[16px] font-bold leading-snug sm:text-[18px]" style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)', background: 'color-mix(in srgb, var(--bg) 70%, transparent)' }}>
         {children}
       </div>
@@ -37,7 +37,7 @@ function Me({ children }: { children: ReactNode }) {
 function Typing() {
   return (
     <div className="chat-in flex items-end gap-2.5" aria-label="Typing">
-      <span aria-hidden className="mb-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full font-pacalix text-[15px] leading-none" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>P</span>
+      <span aria-hidden className="mb-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full font-pacalix text-[15px] leading-none" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>R</span>
       <div className="flex items-center gap-1.5 rounded-[20px] rounded-bl-md px-4 py-4" style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)' }}>
         {[0, 1, 2].map((n) => (
           <span key={n} className="chat-dot h-2 w-2 rounded-full" style={{ background: 'var(--ink)', animationDelay: `${n * 160}ms` }} />
@@ -171,7 +171,7 @@ export default function QuoteChat() {
                 className="rounded-full px-6 py-3 text-[16px] font-extrabold transition-all disabled:opacity-30"
                 style={{ background: 'var(--ink)', color: 'var(--bg)' }}
               >
-                Next →
+                Next â†’
               </button>
             </div>
           </>
@@ -212,7 +212,7 @@ export default function QuoteChat() {
               style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)', color: 'var(--ink)' }}
             />
             <button type="submit" disabled={!name.trim()} className="rounded-full px-6 py-3 text-[16px] font-extrabold transition-all disabled:opacity-30" style={{ background: 'var(--hot)', color: '#1a1200' }}>
-              Next →
+              Next â†’
             </button>
           </form>
         )}
@@ -242,7 +242,7 @@ export default function QuoteChat() {
                 style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)', color: 'var(--ink)' }}
               />
               <button type="submit" disabled={!phoneOk} data-hover="Send" className="rounded-full px-6 py-3 text-[16px] font-extrabold transition-all disabled:opacity-30" style={{ background: 'var(--hot)', color: '#1a1200' }}>
-                Call me ↗
+                Call me â†—
               </button>
             </div>
             <p className="text-[12.5px] font-bold" style={{ color: 'var(--muted)' }}>

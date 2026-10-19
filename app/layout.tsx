@@ -8,14 +8,14 @@ const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: TITLE, template: '%s | Dokeon Calgary' },
+  title: { default: TITLE, template: '%s | Raduya Calgary' },
   description: DESCRIPTION,
   applicationName: SITE_NAME,
   authors: [{ name: OWNER, url: SITE_URL }],
   creator: OWNER,
   publisher: SITE_NAME,
   keywords: [
-    'Dokeon', 'Dokeon agency', 'Dokeon Calgary', 'Dokeon creative agency', 'Dokeon marketing agency', 'Dokeon web design', 'Dokeon Simon Maxam', 'Simon Maxam', 'Simon Maxam Dokeon', 'Simon Maxam Calgary',
+    'Raduya', 'Raduya agency', 'Raduya Calgary', 'Raduya creative agency', 'Raduya marketing agency', 'Raduya web design', 'Raduya Simon Maxam', 'Simon Maxam', 'Simon Maxam Raduya', 'Simon Maxam Calgary',
     'creative and marketing agency Calgary', 'Calgary web design', 'Calgary marketing agency', 'Calgary website design', 'brand identity Calgary', 'content and media Calgary',
     '3D product configurator', 'interactive website', 'AI assistant', 'Alberta',
   ],
@@ -34,14 +34,14 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     locale: 'en_CA',
     alternateLocale: ['fr_CA', 'fr_FR', 'es_ES', 'de_DE', 'tr_TR', 'ru_RU', 'ar_AE', 'ja_JP', 'ko_KR', 'zh_CN', 'pt_BR', 'it_IT'],
-    images: [{ url: '/logo-panda.png', width: 1254, height: 1254, alt: 'Dokeon creative and marketing agency logo' }],
+    images: [{ url: '/logo-panda.png', width: 1254, height: 1254, alt: 'Raduya creative and marketing agency logo' }],
   },
   twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/logo-panda.png'] },
   icons: { icon: '/logo-panda.png', apple: '/logo-panda.png' },
 }
 
-// The Instagram and LinkedIn company pages still carry the old name, so they are not claimed as Dokeon's own profiles
-// here. Once Dokeon accounts exist, add their links to ORG_SAME_AS: that is how search engines connect a brand to its profiles.
+// The Instagram and LinkedIn company pages still carry the old name, so they are not claimed as Raduya's own profiles
+// here. Once Raduya accounts exist, add their links to ORG_SAME_AS: that is how search engines connect a brand to its profiles.
 const ORG_SAME_AS: string[] = []
 const PERSON_SAME_AS = [LINKEDIN]
 
@@ -53,7 +53,7 @@ const jsonLd = {
       '@id': `${SITE_URL}/#website`,
       url: `${SITE_URL}/`,
       name: SITE_NAME,
-      alternateName: ['Dokeon Calgary', 'Dokeon Agency', 'Dokeon Creative Agency'],
+      alternateName: ['Raduya Calgary', 'Raduya Agency', 'Raduya Creative Agency'],
       description: DESCRIPTION,
       inLanguage: 'en',
       publisher: { '@id': `${SITE_URL}/#org` },
@@ -62,10 +62,10 @@ const jsonLd = {
       '@type': ['Organization', 'ProfessionalService'],
       '@id': `${SITE_URL}/#org`,
       name: SITE_NAME,
-      legalName: 'Dokeon',
+      legalName: 'Raduya',
       slogan: 'Get found. Get chosen.',
-      disambiguatingDescription: 'Dokeon is a creative and marketing agency in Calgary, Alberta, Canada. It is not the software company at dokeon.dev.',
-      alternateName: ['Dokeon Calgary', 'Dokeon Agency', 'Dokeon Creative Agency'],
+      disambiguatingDescription: 'Raduya is a creative and marketing agency in Calgary, Alberta, Canada, founded by Simon Maxam.',
+      alternateName: ['Raduya Calgary', 'Raduya Agency', 'Raduya Creative Agency'],
       url: `${SITE_URL}/`,
       logo: `${SITE_URL}/logo-panda.png`,
       image: `${SITE_URL}/logo-panda.png`,
@@ -85,7 +85,7 @@ const jsonLd = {
       name: OWNER,
       url: `${SITE_URL}/`,
       jobTitle: 'Founder and owner',
-      alternateName: ['Simon Maxam Dokeon', 'Simon Maxam Calgary'],
+      alternateName: ['Simon Maxam Raduya', 'Simon Maxam Calgary'],
       email: 'simon0021maxam@gmail.com',
       sameAs: PERSON_SAME_AS,
       worksFor: { '@id': `${SITE_URL}/#org` },

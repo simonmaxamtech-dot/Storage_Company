@@ -13,7 +13,7 @@ export default function LegalShell({ eyebrow, title, blocks, children }: { eyebr
       <nav aria-label="Breadcrumb" className="flex items-center justify-between">
         <a href="/" className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/wordmark.png" width={1200} height={224} alt="Dokeon" className="h-[22px] w-auto" />
+          <img src="/wordmark.png" width={1200} height={224} alt="Raduya" className="h-[22px] w-auto" />
         </a>
         <a href="/" className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>← Back to the 3D site</a>
       </nav>
@@ -37,7 +37,7 @@ export default function LegalShell({ eyebrow, title, blocks, children }: { eyebr
         <a href="/legal" className="underline decoration-2 underline-offset-4">Legal</a>
         <a href="/site-map" className="underline decoration-2 underline-offset-4">Site Map</a>
       </nav>
-      <p className="mt-6 text-[14px] font-bold" style={{ color: 'var(--muted)' }}>© {new Date().getFullYear()} Dokeon. All rights reserved.</p>
+      <p className="mt-6 text-[14px] font-bold" style={{ color: 'var(--muted)' }}>© {new Date().getFullYear()} Raduya. All rights reserved.</p>
     </main>
   )
 }
