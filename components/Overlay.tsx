@@ -541,7 +541,7 @@ export default function Overlay() {
               GET FOUND.<br />GET<br />CHOSEN.
             </h1>
             <p className="mt-6 max-w-[480px] text-[16px] font-bold leading-snug sm:text-[19px] max-lg:mx-auto" style={{ color: 'var(--muted)' }}>
-              A creative and marketing agency in Calgary.<span className="max-sm:hidden"> We build the website, the look and the content that bring you customers.</span>
+              A creative and marketing agency in Calgary.<span className="max-sm:hidden"> We build your website, brand and content so customers find you and pick you.</span>
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center max-sm:hidden">
               <a href="mailto:simon0021maxam@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>Let&apos;s talk ↗</a>
@@ -576,10 +576,10 @@ export default function Overlay() {
         {/* EDEN: the oldest story about an idea: a red panda, an apple, a tree. */}
         <section data-section id="eden" className="flex min-h-[88svh] flex-col items-center justify-end px-6 pb-[12vh] max-sm:pb-52 text-center">
           <div className="reveal">
-            <Label>In the beginning</Label>
+            <Label>The problem</Label>
             <h2 data-react data-live="eden" className="mt-6 font-display text-[clamp(48px,10vw,150px)] leading-[0.98] tracking-[-0.02em]">
-              Every idea starts
-              <br />with a question.
+              Good businesses
+              <br />get overlooked.
             </h2>
           </div>
         </section>
@@ -587,30 +587,30 @@ export default function Overlay() {
         {/* NEWTON: an idea passes from one thing to the next. */}
         <section data-section id="newton" className="flex min-h-[88svh] flex-col items-center justify-end px-6 pb-[12vh] max-sm:pb-52 text-center">
           <div className="reveal">
-            <Label>Momentum</Label>
+            <Label>What we do</Label>
             <h2 data-react data-live="newton" className="mt-6 font-display text-[clamp(44px,9vw,136px)] leading-[0.98] tracking-[-0.02em]">
-              An idea moves
+              We make you easy
               <br />
-              from hand to hand.
+              to find and choose.
             </h2>
           </div>
         </section>
 
         {/* The story passes quickly here: the form changes while you scroll. */}
         <section data-section id="idea" className="flex min-h-[78svh] items-center justify-center px-6 text-center">
-          <p data-react data-live="idea" className="font-display text-[clamp(110px,24vw,380px)] leading-[0.82] tracking-[-0.03em]">Build<br />it.</p>
+          <p data-react data-live="idea" className="font-display text-[clamp(110px,24vw,380px)] leading-[0.82] tracking-[-0.03em]">We build<br />it.</p>
         </section>
         {/* THE DARK ROOM: the page goes dark and only what the cursor lights can be read. */}
         <section data-section id="form" className="relative flex max-sm:h-0 max-sm:min-h-0 max-sm:overflow-hidden max-sm:p-0 max-sm:invisible min-h-[150svh] flex-col justify-center gap-[10svh] px-6 py-[14svh] sm:px-10" style={{ background: 'linear-gradient(to bottom, transparent, rgba(2,4,10,0.82) 16%, rgba(2,4,10,0.82) 84%, transparent)' }}>
-          <p className="pointer-events-none mx-auto text-[13px] font-bold uppercase tracking-[0.2em]" style={{ color: 'var(--muted)' }}>It is dark in here. Bring light.</p>
-          <Torch radius={230} dim={0.06} lit="var(--ink)" className="mx-auto w-full max-w-[1000px] text-center text-[clamp(30px,5.6vw,80px)] leading-[1.05] tracking-[-0.01em]" text="We make things you can walk into, hold, and play." />
+          <p className="pointer-events-none mx-auto text-[13px] font-bold uppercase tracking-[0.2em]" style={{ color: 'var(--muted)' }}>Move your cursor to light up the text.</p>
+          <Torch radius={230} dim={0.06} lit="var(--ink)" className="mx-auto w-full max-w-[1000px] text-center text-[clamp(30px,5.6vw,80px)] leading-[1.05] tracking-[-0.01em]" text="Websites, brand, content and 3D, all in one place." />
           <div className="mx-auto grid w-full max-w-[1100px] gap-x-14 gap-y-[8svh] sm:grid-cols-2">
-            <Torch radius={200} dim={0.06} className="text-left text-[clamp(22px,2.6vw,36px)] leading-[1.1]" text="Websites that feel like places." />
-            <Torch radius={200} dim={0.06} lit="var(--ink)" className="text-left text-[clamp(22px,2.6vw,36px)] leading-[1.1] sm:mt-[10svh]" text="Details you only find by looking." />
-            <Torch radius={200} dim={0.06} lit="var(--ink)" className="text-left text-[clamp(22px,2.6vw,36px)] leading-[1.1]" text="Particles with a purpose, not decoration." />
-            <Torch radius={200} dim={0.06} className="text-left text-[clamp(22px,2.6vw,36px)] leading-[1.1] sm:mt-[10svh]" text="Built to be found by the curious." />
+            <Torch radius={200} dim={0.06} className="text-left text-[clamp(22px,2.6vw,36px)] leading-[1.1]" text="Websites people enjoy using." />
+            <Torch radius={200} dim={0.06} lit="var(--ink)" className="text-left text-[clamp(22px,2.6vw,36px)] leading-[1.1] sm:mt-[10svh]" text="Clear design that builds trust." />
+            <Torch radius={200} dim={0.06} lit="var(--ink)" className="text-left text-[clamp(22px,2.6vw,36px)] leading-[1.1]" text="3D and motion that explain, not distract." />
+            <Torch radius={200} dim={0.06} className="text-left text-[clamp(22px,2.6vw,36px)] leading-[1.1] sm:mt-[10svh]" text="Built to show up on Google." />
           </div>
-          <Torch radius={260} dim={0.05} className="mx-auto w-full max-w-[1000px] text-center text-[clamp(48px,11vw,170px)] leading-[0.9] tracking-[-0.03em]" text="Look closer." />
+          <Torch radius={260} dim={0.05} className="mx-auto w-full max-w-[1000px] text-center text-[clamp(48px,11vw,170px)] leading-[0.9] tracking-[-0.03em]" text="See for yourself." />
         </section>
 
         {/* WORK */}
@@ -618,8 +618,8 @@ export default function Overlay() {
           <HStrip length={2.2}>
             <div className="flex w-[78vw] shrink-0 flex-col justify-center sm:w-[30vw]">
               <Label>Selected work</Label>
-              <p data-react className="mt-6 font-display text-[clamp(44px,6vw,92px)] leading-[0.95] tracking-[-0.02em]">Things we have shipped.</p>
-              <p className="mt-6 text-[15px] font-bold" style={{ color: 'var(--muted)' }}>Keep scrolling. The strip moves sideways.</p>
+              <p data-react className="mt-6 font-display text-[clamp(44px,6vw,92px)] leading-[0.95] tracking-[-0.02em]">Our work.</p>
+              <p className="mt-6 text-[15px] font-bold" style={{ color: 'var(--muted)' }}>Keep scrolling to see more projects.</p>
             </div>
               {PROJECTS.map((p, i) => (
                 <a
@@ -657,13 +657,13 @@ export default function Overlay() {
           <div className="reveal w-full max-w-[960px]">
             <Label>Studio</Label>
             <h2 data-react data-live="studio" className="mt-8 font-display text-[clamp(34px,6vw,86px)] leading-[1.02] tracking-[-0.01em]">
-              We make experiences come to life.
+              Websites, 3D and content that bring customers in.
             </h2>
             <div className="mt-12 grid gap-6 text-left sm:grid-cols-3">
               {[
-                ['3D & visualization', 'Architecture, interiors, products.'],
-                ['Interactive web', 'Sites you move through.'],
-                ['Real-time worlds', 'Unreal Engine and WebGL.'],
+                ['Websites', 'Fast, clear sites that turn visitors into customers.'],
+                ['3D and visuals', 'Product, interior and architecture visuals.'],
+                ['Brand and content', 'Logos, photos, video and social posts.'],
               ].map(([t, d]) => (
                 <div key={t} data-react className="hov" style={{ color: 'var(--muted)' }}>
                   <h3 className="text-[19px] font-bold tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>{t}</h3>
@@ -676,7 +676,7 @@ export default function Overlay() {
 
         {/* BEYOND: stars. */}
         <section data-section id="beyond" className="flex min-h-[85svh] flex-col items-center justify-end px-6 pb-[14vh] max-sm:pb-52 text-center">
-          <p data-react data-live="beyond" className="reveal font-display text-[clamp(44px,9vw,140px)] leading-[0.98] tracking-[-0.02em]">Some ideas are<br />bigger than a room.</p>
+          <p data-react data-live="beyond" className="reveal font-display text-[clamp(44px,9vw,140px)] leading-[0.98] tracking-[-0.02em]">Big or small,<br />we build it.</p>
         </section>
 
         {/* PANDA: the new mascot. */}
@@ -690,7 +690,7 @@ export default function Overlay() {
               Radoya is "rado", which echoes the Latin radius (a ray of light) and means "gladly" in Slavic languages, plus "ya": you. People decide in seconds what a business is by how it looks and sounds. We put the light on you, so you get found and chosen.
             </p>
             <p className="mt-5 text-[14px] font-bold" style={{ color: 'var(--muted)' }}>
-              Its aspen grows here, trunk by trunk. Stir it with your cursor, or tilt your phone.
+              Move your cursor, or tilt your phone, to play with the particles.
             </p>
           </div>
         </section>
@@ -700,7 +700,7 @@ export default function Overlay() {
           <div className="reveal mx-auto w-full max-w-[1180px]">
             <Label>Try it</Label>
             <h2 data-react data-live="build" className="mt-6 font-display text-[clamp(34px,5.4vw,78px)] leading-[1.02] tracking-[-0.01em]">What we can build for you.</h2>
-            <p className="mt-5 max-w-[640px] text-[17px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>A real build first, then eight things clients ask us for, all live. Try them.</p>
+            <p className="mt-5 max-w-[640px] text-[17px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>Real examples of what we build for clients. Tap or click to try each one.</p>
             <div className="mt-12">
               <PizzaShowcase />
             </div>
@@ -728,7 +728,7 @@ export default function Overlay() {
         <section data-section id="pricing" className="flex min-h-[95svh] gap-8 items-center px-6 py-28 sm:px-10 max-lg:flex-col max-lg:items-end max-lg:pt-[58vh]">
           <div className="reveal w-full max-w-[min(660px,50vw)] max-lg:max-w-[680px] lg:flex-1">
             <Label>Pricing</Label>
-            <h2 data-react data-live="pricing" className="mt-6 mb-8 font-display text-[clamp(34px,5vw,72px)] leading-[1.02] tracking-[-0.01em]">Plans that grow with you.</h2>
+            <h2 data-react data-live="pricing" className="mt-6 mb-8 font-display text-[clamp(34px,5vw,72px)] leading-[1.02] tracking-[-0.01em]">Simple plans.</h2>
             <Pricing />
             <p data-react className="mt-8 text-[17px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
               Every project is different. Tell us what you need and we will talk it through together, then settle the price that fits your work.{' '}
@@ -745,7 +745,7 @@ export default function Overlay() {
             <Label>About</Label>
             <h2 data-react className="spotty mt-6 font-display text-[clamp(44px,7vw,104px)] leading-none tracking-[-0.01em]">Simon Maxam</h2>
             <p className="mx-auto mt-5 max-w-[620px] text-[18px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
-              Founder of Radoya. I build interactive 3D websites, products and games, and I play guitar on stage the same way I code: patient, then suddenly fast.
+              Founder and CEO of Radoya in Calgary. I build websites, 3D and brand work for small businesses. I hold Google and IBM certificates, and I play guitar and double bass.
             </p>
             <div className="mx-auto mt-8 max-w-[680px] rounded-[20px] px-6 py-6 text-left" style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)' }}>
               <div className="font-display text-[clamp(22px,3vw,32px)] leading-tight" style={{ color: 'var(--hot)' }}>Why Radoya</div>
@@ -758,7 +758,7 @@ export default function Overlay() {
               {[
                 ['27', 'certificates'],
                 ['5', 'disciplines'],
-                ['7', 'years of guitar'],
+                ['6', 'years of guitar'],
               ].map(([n, l]) => (
                 <div key={l} className="rounded-[20px] px-5 py-4" style={{ background: 'color-mix(in srgb, var(--hot) 14%, var(--bg))' }}>
                   <div className="font-display text-[clamp(34px,5vw,60px)] leading-none" style={{ color: 'var(--hot)' }}>{n}</div>
