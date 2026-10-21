@@ -30,7 +30,7 @@ const STEPS = [
 
 const FAQ = [
   { q: 'Where is Radoya based?', a: 'Calgary, Alberta, Canada. We work with clients anywhere, and all communication is online.' },
-  { q: 'Who runs Radoya?', a: 'Radoya was founded by Simon Maxam, who designs and builds every project personally. Simon holds Google and IBM professional certificates, has business, tech and 3D design knowledge, was a professional musician for 7 years, and won third place nationwide in Türkiye at TÜBİTAK in 2024.' },
+  { q: 'Who runs Radoya?', a: 'Radoya was founded by Simon Maxam, who designs and builds every project personally. Simon holds Google and IBM professional certificates, has business, tech and 3D design knowledge, was a musician with six years of guitar and double bass, and won third place nationwide in Türkiye at TÜBİTAK in 2024.' },
   { q: 'How long does a website take?', a: 'A focused interactive site usually takes a few weeks. A configurator or a 3D space takes longer, and we give you a clear timeline before starting.' },
   { q: 'What does it cost?', a: 'Pricing depends on scope. Email a short description of your idea and you get a clear quote in Canadian dollars, usually within a day.' },
   { q: 'What is Radoya?', a: 'Radoya is a creative and marketing agency in Calgary, Alberta. We build websites, content and media, brand identities, 3D experiences and AI tools for businesses that want to get noticed.' },

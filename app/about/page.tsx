@@ -86,7 +86,7 @@ export default function About() {
           Simon Maxam is the founder and owner of Radoya in Calgary, Alberta. He works across 3D, web development, architecture visualization and AI, and started Radoya to give small businesses the kind of presence big brands have.
         </p>
         <p className="mt-4 text-[18px] font-semibold leading-snug" style={{ color: 'var(--muted)' }}>
-          Simon holds professional certificates from Google and IBM, and has strong knowledge of business and technology, with 3D design as his craft. He was also a professional musician for 7 years, and in 2024 he won third place nationwide in Türkiye at TÜBİTAK.
+          Simon holds professional certificates from Google and IBM, and has strong knowledge of business and technology, with 3D design as his craft. He is also a musician, with six years of guitar and double bass across jazz, rock, classical and flamenco, and in 2024 he won third place nationwide in Türkiye at TÜBİTAK.
         </p>
         <p className="mt-4 text-[18px] font-semibold">
           <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="underline decoration-2 underline-offset-4">Simon Maxam on LinkedIn</a>
