@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     images: [{ url: '/logo-panda.png', width: 1254, height: 1254, alt: 'Radoya creative and marketing agency logo' }],
   },
   twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/logo-panda.png'] },
-  icons: { icon: '/logo-panda.png', apple: '/logo-panda.png' },
+  icons: { icon: [{ url: '/favicon.ico', sizes: '48x48' }, { url: '/icon-48.png', sizes: '48x48', type: 'image/png' }, { url: '/icon-192.png', sizes: '192x192', type: 'image/png' }, { url: '/icon-512.png', sizes: '512x512', type: 'image/png' }], apple: '/apple-icon.png' },
 }
 
 // The Instagram and LinkedIn company pages still carry the old name, so they are not claimed as Radoya's own profiles
