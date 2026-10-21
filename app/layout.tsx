@@ -90,7 +90,13 @@ const jsonLd = {
       sameAs: PERSON_SAME_AS,
       worksFor: { '@id': `${SITE_URL}/#org` },
       homeLocation: { '@type': 'Place', name: 'Calgary, Alberta, Canada' },
-      knowsAbout: ['3D', 'Web development', 'Architecture visualization', 'Artificial intelligence', 'Unreal Engine', 'Blender'],
+      description: 'Simon Maxam is the founder and owner of Radoya in Calgary. He holds professional certificates from Google and IBM, has business and technology knowledge and 3D design skills, was a professional musician for 7 years, and won third place nationwide in Türkiye at TÜBİTAK in 2024.',
+      award: 'Third place nationwide in Türkiye, TÜBİTAK, 2024',
+      hasCredential: [
+        { '@type': 'EducationalOccupationalCredential', name: 'Google professional certificates', credentialCategory: 'certificate', recognizedBy: { '@type': 'Organization', name: 'Google' } },
+        { '@type': 'EducationalOccupationalCredential', name: 'IBM professional certificates', credentialCategory: 'certificate', recognizedBy: { '@type': 'Organization', name: 'IBM' } },
+      ],
+      knowsAbout: ['3D', '3D design', 'Technology', 'Business', 'Music', 'Web development', 'Architecture visualization', 'Artificial intelligence', 'Unreal Engine', 'Blender'],
     },
   ],
 }
