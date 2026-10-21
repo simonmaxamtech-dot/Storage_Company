@@ -925,7 +925,7 @@ export default function Particles() {
     ;(ru.uColorB.value as THREE.Color).lerp(colB, 1 - Math.exp(-dt * 2))
     ;(ru.uShadow.value as THREE.Color).lerp(colS, 1 - Math.exp(-dt * 2))
     ru.uAccentAmt.value += (m.accentAmt - ru.uAccentAmt.value) * (1 - Math.exp(-dt * 2))
-    const grain = mobile ? 0.05 : weak ? 0.042 : 0.038
+    const grain = mobile ? 0.042 : weak ? 0.042 : 0.038
     ru.uSize.value = (grain * size.height * gl.getPixelRatio()) / 2 / Math.tan((50 * Math.PI) / 360)
 
     ru.uTime.value = time

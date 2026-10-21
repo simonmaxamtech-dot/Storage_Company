@@ -53,7 +53,7 @@ export default function LiveTypes() {
       window.clearInterval(id)
     }
   }, [armed, active])
-  const size = useMemo(() => (typeof window !== 'undefined' && window.innerWidth < 768 ? 88 : tier() === 'low' ? 112 : 144), [])
+  const size = useMemo(() => (typeof window !== 'undefined' && window.innerWidth < 768 ? 112 : tier() === 'low' ? 112 : 144), [])
 
   // The page's headlines change when the design is switched, so look again.
   const clean = useStore((s) => s.clean)

@@ -109,7 +109,7 @@ export default function Scene() {
     const top = Math.min(window.devicePixelRatio || 1, lite() ? 1 : phone ? 1.5 : weak ? 1.25 : 1.5)
     setMaxDpr(top)
     // Start low like a phone does; the monitor climbs back up if the device has room to spare.
-    setDpr(Math.min(top, 1))
+    setDpr(Math.min(top, phone ? 1.25 : 1))
     setMounted(true)
   }, [])
   // Watchdog: if the real frame rate stays low (an old or busy computer), switch to the light mode for good:
