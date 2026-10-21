@@ -20,4 +20,4 @@ export const CALLBACK_MINUTES = 15
 
 export const INSTAGRAM = 'https://www.instagram.com/pacalixhq/'
 export const LINKEDIN = 'https://www.linkedin.com/in/simonmaxam/'
-export const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/pacalix/'
+export const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/143960470/'
