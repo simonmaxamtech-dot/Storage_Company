@@ -1,7 +1,7 @@
 ﻿import type { Metadata, Viewport } from 'next'
 import { Nunito, Space_Grotesk } from 'next/font/google'
 import './globals.css'
-import { DESCRIPTION, LINKEDIN, LINKEDIN_COMPANY, OWNER, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
+import { DESCRIPTION, INSTAGRAM, LINKEDIN, LINKEDIN_COMPANY, OWNER, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
 
 const display = Nunito({ subsets: ['latin', 'latin-ext'], weight: ['800', '900'], variable: '--font-display', display: 'swap' })
 const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' })
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
 // The Instagram and LinkedIn company pages still carry the old name, so they are not claimed as Radoya's own profiles
 // here. Once Radoya accounts exist, add their links to ORG_SAME_AS: that is how search engines connect a brand to its profiles.
-const ORG_SAME_AS: string[] = [LINKEDIN_COMPANY]
+const ORG_SAME_AS: string[] = [LINKEDIN_COMPANY, INSTAGRAM]
 const PERSON_SAME_AS = [LINKEDIN]
 
 const jsonLd = {

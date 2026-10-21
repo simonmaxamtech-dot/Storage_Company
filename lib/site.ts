@@ -18,6 +18,6 @@ export const EMAIL = 'simon0021maxam@gmail.com'
 export const LEAD_ENDPOINT = process.env.NEXT_PUBLIC_LEAD_ENDPOINT || ''
 export const CALLBACK_MINUTES = 15
 
-export const INSTAGRAM = 'https://www.instagram.com/pacalixhq/'
+export const INSTAGRAM = 'https://www.instagram.com/radoyahq/'
 export const LINKEDIN = 'https://www.linkedin.com/in/simonmaxam/'
 export const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/143960470/'
