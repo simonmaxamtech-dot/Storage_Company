@@ -1,0 +1,19 @@
+# Radoya
+
+> Radoya is a creative and marketing agency in Calgary, Alberta, Canada. It was founded and is owned by Simon Maxam. Radoya builds websites, content and media, brand identities, 3D product configurators, real-time experiences and AI assistants that help businesses get found and get chosen.
+
+## Facts
+- Company name: Radoya (also written "Radoya Agency" or "Radoya Calgary")
+- Website: https://radoya.com
+- Founder and owner: Simon Maxam
+- Location: Calgary, Alberta, Canada. Works with clients worldwide.
+- Services: interactive websites, content and media, brand identity, 3D product configurators, architecture visualization, AI assistants, marketing.
+- Tagline: Get found. Get chosen.
+- Contact: simon0021maxam@gmail.com
+- Name meaning: "Rado" echoes the Latin radius (a ray of light) and means "gladly" in Slavic languages; "ya" is you.
+- Simon Maxam on LinkedIn: https://www.linkedin.com/in/simonmaxam/
+
+## Pages
+- [Home](https://radoya.com/): the main interactive site.
+- [About Radoya and Simon Maxam](https://radoya.com/about): who runs the company and what it does.
+- [Services](https://radoya.com/services): what Radoya builds, how a project goes, FAQ.

@@ -23,6 +23,7 @@ export default function Home() {
           (you): a ray of light on you. Radoya was created by Simon Maxam in Calgary.
         </p>
         <AboutLocales />
+        <a href="/about">About Radoya and its founder Simon Maxam, Calgary</a>
         <a href="/services">Radoya services: web design, marketing and 3D experiences in Calgary</a>
       </section>
     </>
