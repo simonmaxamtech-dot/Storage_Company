@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { detectLang, LANGS, type Lang } from './i18n'
 
 // Each theme is a complete atmosphere: background, text, the particles' lit colour,
 // the colour their shadows fall into, and an accent that a share of the grains carry.
@@ -55,6 +56,8 @@ function savedDesign(): boolean {
 }
 
 interface State {
+  lang: Lang
+  setLang: (l: Lang) => void
   clean: boolean
   setClean: (v: boolean) => void
   mode: ModeChoice
@@ -77,6 +80,16 @@ interface State {
 }
 
 export const useStore = create<State>((set) => ({
+  lang: 'en',
+  setLang: (lang) => {
+    try {
+      localStorage.setItem('radoya-lang', lang)
+    } catch {
+      // storage unavailable
+    }
+    applyLang(lang)
+    set({ lang })
+  },
   clean: DEFAULT_DESIGN === 'clean',
   setClean: (clean) => {
     try {
@@ -111,8 +124,17 @@ export const useStore = create<State>((set) => ({
   setGame: (game) => set({ game }),
 }))
 
+// Tell the browser which language the page is in, and which way it reads.
+function applyLang(lang: Lang) {
+  const rtl = LANGS.find((l) => l.code === lang)?.rtl === true
+  document.documentElement.lang = lang
+  document.documentElement.dir = rtl ? 'rtl' : 'ltr'
+}
+
 export function restoreMode() {
-  useStore.setState({ mode: savedMode(), clean: savedDesign() })
+  const lang = detectLang()
+  applyLang(lang)
+  useStore.setState({ mode: savedMode(), clean: savedDesign(), lang })
 }
 
 // High-frequency values live outside React state.

@@ -1,11 +1,14 @@
 'use client'
 
+import { useT } from '@/lib/i18n'
+
 import { useState } from 'react'
 import { haptic } from '@/lib/phone'
 import { sound } from '@/lib/sound'
 
 // A pill that opens into a small map. The map only loads when it is opened, so it costs nothing on first load.
 export default function MapPill({ place = 'Calgary, Alberta, Canada' }: { place?: string }) {
+  const t = useT()
   const [open, setOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const toggle = () => {
@@ -67,7 +70,7 @@ export default function MapPill({ place = 'Calgary, Alberta, Canada' }: { place?
           )}
         </button>
       </div>
-      <p className="mt-3 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>Based in Calgary, working with people everywhere.</p>
+      <p className="mt-3 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>{t('contact.based')}</p>
     </div>
   )
 }

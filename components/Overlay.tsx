@@ -8,6 +8,8 @@ import { hashText, sound, TRACKS } from '@/lib/sound'
 import Contact from './Contact'
 import Credentials, { type Cert } from './Credentials'
 import Gyro from './Gyro'
+import LangSwitch from './LangSwitch'
+import { useT, type Key } from '@/lib/i18n'
 import Inspect from './Inspect'
 import EdenLife from './EdenLife'
 import AboutSides from './AboutSides'
@@ -77,11 +79,11 @@ const NAV = [
 ]
 
 const CLEAN_NAV = [
-  { label: 'About', id: 'about', phone: false },
-  { label: 'Certificates', id: 'credentials', phone: false },
-  { label: 'Work', id: 'work', phone: false },
-  { label: 'Prices', id: 'pricing', phone: true },
-  { label: 'Contact', id: 'contact', phone: true },
+  { label: 'About', key: 'nav.about' as Key, id: 'about', phone: false },
+  { label: 'Certificates', key: 'nav.certificates' as Key, id: 'credentials', phone: false },
+  { label: 'Work', key: 'nav.work' as Key, id: 'work', phone: false },
+  { label: 'Prices', key: 'nav.prices' as Key, id: 'pricing', phone: true },
+  { label: 'Contact', key: 'nav.contact' as Key, id: 'contact', phone: true },
 ]
 
 const PROJECTS = [
@@ -93,6 +95,7 @@ const PROJECTS = [
     obj: 'pizza' as ObjKind,
     url: 'https://scalexpizza.vercel.app/',
     text: 'A pizza menu you can pick apart: a 3D pie, slices to pull out, and a tray that fills as you order.',
+    tkey: 'work.p1' as Key,
   },
   {
     name: 'KŌRA',
@@ -102,6 +105,7 @@ const PROJECTS = [
     obj: 'bowl' as ObjKind,
     url: 'https://korastudio-phi.vercel.app/',
     text: 'A noodle-bowl ordering experience built around a 3D bowl you can explore ingredient by ingredient.',
+    tkey: 'work.p2' as Key,
   },
   {
     name: 'SIMAX',
@@ -111,6 +115,7 @@ const PROJECTS = [
     obj: 'guitar' as ObjKind,
     url: 'https://simonmaxam.pages.dev/',
     text: 'My own corner of the web: websites, apps and interactive 3D, with a 3D guitar and songs you can listen to.',
+    tkey: 'work.p3' as Key,
   },
 ]
 
@@ -347,6 +352,7 @@ function SoundControl() {
 }
 
 export default function Overlay() {
+  const t = useT()
   const { ready, game, setGame, soundOn, setSoundOn, setTrack, clean } = useStore()
   const ids = clean ? CLEAN_IDS : SECTION_IDS
   const [active, setActive] = useState(0)
@@ -500,6 +506,7 @@ export default function Overlay() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/wordmark.png" width={1200} height={224} alt="Radoya" className="h-[28px] sm:h-[40px] w-auto" style={{ filter: 'var(--logo-filter)' }} />
         </button>
+        <div className="flex items-center gap-4 sm:gap-9">
         <nav aria-label="Primary" className="flex gap-5 text-[15px] font-bold sm:gap-9">
           {(clean ? CLEAN_NAV : NAV.map((n) => ({ ...n, phone: n.id !== 'play' }))).map((n) => {
             const on = ids[active] === n.id || (!clean && n.id === 'about' && ids[active] === 'credentials')
@@ -511,11 +518,13 @@ export default function Overlay() {
                 className={`relative py-1 transition-opacity hover:opacity-100 focus-visible:opacity-100 ${clean ? (n.phone ? '' : 'max-sm:hidden') : `${n.id === 'play' ? 'max-sm:hidden' : ''} ${n.id === 'pricing' ? 'max-lg:hidden' : ''}`}`}
                 style={{ opacity: on ? 1 : 0.6 }}
               >
-                {n.label}
+                {(n as { key?: Key }).key ? t((n as { key?: Key }).key as Key) : n.label}
               </button>
             )
           })}
         </nav>
+        <LangSwitch />
+        </div>
       </header>
 
       {/* Progress: the logo's own spots, one per section. */}
@@ -537,18 +546,20 @@ export default function Overlay() {
         <section data-section id="intro" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-32 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw] lg:pb-[7vh] lg:pt-[7vh]">
           {/* Left: what we actually do, in plain words. */}
           <div className="order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center" style={{ opacity: 'var(--intro)' }}>
-            <h1 data-live="hero" aria-label="Radoya, a creative and marketing agency in Calgary by Simon Maxam. Get found. Get chosen." className="font-pacalix text-[clamp(38px,min(6.4vw,11vh),118px)] max-sm:mt-0 max-sm:text-[clamp(42px,12.4vw,76px)] leading-[1] tracking-[0.015em]">
-              GET FOUND.<br />GET<br />CHOSEN.
+            <h1 data-live="hero" aria-label={t('hero.aria')} className="font-pacalix text-[clamp(38px,min(6.4vw,11vh),118px)] max-sm:mt-0 max-sm:text-[clamp(42px,12.4vw,76px)] leading-[1] tracking-[0.015em]">
+              {t('hero.title').split('|').map((line, i) => (
+                <span key={i}>{i > 0 && <br />}{line}</span>
+              ))}
             </h1>
             <p className="mt-6 max-w-[480px] text-[16px] font-bold leading-snug sm:text-[19px] max-lg:mx-auto" style={{ color: 'var(--muted)' }}>
-              A creative and marketing agency in Calgary.<span className="max-sm:hidden"> We build your website, brand and content so customers find you and pick you.</span>
+              {t('hero.sub')}<span className="max-sm:hidden">{t('hero.sub2')}</span>
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center max-sm:hidden">
-              <a href="mailto:simon0021maxam@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>Let&apos;s talk ↗</a>
+              <a href="mailto:simon0021maxam@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>{t('hero.talk')}</a>
               {clean ? (
                 <>
-                  <button onClick={() => go('credentials')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">Certificates</button>
-                  <button onClick={() => go('pricing')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">Prices</button>
+                  <button onClick={() => go('credentials')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">{t('nav.certificates')}</button>
+                  <button onClick={() => go('pricing')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">{t('nav.prices')}</button>
                 </>
               ) : (
                 <>

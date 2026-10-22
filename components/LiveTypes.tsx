@@ -57,6 +57,7 @@ export default function LiveTypes() {
 
   // The page's headlines change when the design is switched, so look again.
   const clean = useStore((s) => s.clean)
+  const lang = useStore((s) => s.lang)
   useEffect(() => {
     let raf = 0
     let tries = 0
@@ -67,7 +68,7 @@ export default function LiveTypes() {
     }
     find()
     return () => cancelAnimationFrame(raf)
-  }, [clean])
+  }, [clean, lang])
 
   // Active = within about half a screen of the viewport. Checked on scroll and resize; cheap for a handful of headlines.
   useEffect(() => {
@@ -115,9 +116,9 @@ export default function LiveTypes() {
         .filter((el) => (el === hero ? heroOn && active.has(el) : armed && !struggling && !lite() && mounted.has(el)))
         .map((el, i) =>
           el === hero ? (
-            <LiveMark key="hero" anchor={el} size={size} load={buildTextData} hideAnchor start={0.02} spread={0.6} onReady={heroReady} />
+            <LiveMark key={`hero-${lang}`} anchor={el} size={size} load={buildTextData} hideAnchor start={0.02} spread={0.6} onReady={heroReady} />
           ) : (
-            <LiveMark key={el.dataset.live || i} anchor={el} size={size} load={buildTextData} hideAnchor />
+            <LiveMark key={`${el.dataset.live || i}-${lang}`} anchor={el} size={size} load={buildTextData} hideAnchor />
           )
         )}
     </>

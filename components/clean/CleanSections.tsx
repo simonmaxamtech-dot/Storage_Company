@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { live } from '@/lib/store'
+import { useT, type Key } from '@/lib/i18n'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
 import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
@@ -74,6 +75,26 @@ function Shell({
   )
 }
 
+// "Plain part |accent part" -> plain text, then the accent in colour.
+function Pipe({ s }: { s: string }) {
+  const [a, b] = s.split('|')
+  return <>{a}<span style={{ color: 'var(--hot)' }}>{b}</span></>
+}
+
+// Lines split by |, the last word of the last line in colour.
+function Lines({ s }: { s: string }) {
+  const lines = s.split('|')
+  return (
+    <>
+      {lines.map((line, i) => {
+        if (i < lines.length - 1) return <span key={i}>{line}<br /></span>
+        const at = line.lastIndexOf(' ')
+        return <span key={i}>{line.slice(0, at + 1)}<span style={{ color: 'var(--hot)' }}>{line.slice(at + 1)}</span></span>
+      })}
+    </>
+  )
+}
+
 const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
 /* ── Certificates: one coloured card per program and per issuer ──────────── */
@@ -102,13 +123,14 @@ function Chips({ c }: { c: Cert }) {
 }
 
 export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
+  const t = useT()
   const [more, setMore] = useState(false)
   const open = (c: Cert, h = 8) => {
     onOpen(c)
     haptic(h)
   }
   return (
-    <Shell id="credentials" model lean kicker="Credentials" title={<>Certified by <span style={{ color: 'var(--hot)' }}>the best.</span></>} sub={`${TOTAL} certificates from the companies that build the internet.`}>
+    <Shell id="credentials" model lean kicker={t('certs.kicker')} title={<Pipe s={t('certs.title')} />} sub={`${TOTAL} ${t('certs.sub')}`}>
       <div className={`grid gap-4 sm:grid-cols-2 sm:gap-5 ${SWIPE}`}>
         {PROFESSIONAL.map((c) => (
           <button
@@ -123,30 +145,30 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
               <span>
                 <Mark id={c.issuer} size={44} />
                 <span className="mt-2.5 block text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--muted)' }}>
-                  {c.courses} courses · {c.date}
+                  {c.courses} {t('certs.courses')} · {c.date}
                 </span>
               </span>
               {OBJ[c.img] && <span className="max-sm:-mb-6 max-sm:-mt-2"><CertObject kind={OBJ[c.img]} size={96} /></span>}
             </span>
             <span className="pill-o px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]">
-              Professional Certificate
+              {t('certs.pro')}
             </span>
             <span className="block font-display text-[clamp(25px,2.5vw,36px)] leading-[1.02]">{c.title}</span>
             <span className="block max-w-[44ch] text-[15px] font-bold leading-snug max-sm:hidden" style={{ color: 'var(--muted)' }}>{c.text}</span>
             <span className="max-sm:hidden"><Chips c={c} /></span>
-            <span className="work-go mt-auto text-[14px] font-extrabold" style={{ color: 'var(--brand)' }}>See certificate ↗</span>
+            <span className="work-go mt-auto text-[14px] font-extrabold" style={{ color: 'var(--brand)' }}>{t('certs.see')}</span>
           </button>
         ))}
       </div>
 
-      <p className="mt-1 text-[12px] font-extrabold uppercase tracking-[0.18em] sm:hidden" style={{ color: 'var(--muted)' }}>Swipe for more →</p>
+      <p className="mt-1 text-[12px] font-extrabold uppercase tracking-[0.18em] sm:hidden" style={{ color: 'var(--muted)' }}>{t('certs.swipe')}</p>
       {/* Phones: the long list hides behind one button, so the page isn't a wall of badges. */}
       {!more && (
         <button onClick={() => setMore(true)} data-hover="Open" className="pill-o mt-6 px-5 py-2.5 text-[14px] font-extrabold sm:hidden">
-          All {TOTAL} certificates ↓
+          {t('certs.all')}
         </button>
       )}
-      <p className={`mb-5 mt-14 text-[13px] font-extrabold uppercase tracking-[0.2em] max-sm:mt-8 max-sm:mb-3 ${more ? '' : 'max-sm:hidden'}`} style={{ color: 'var(--hot)' }}>More certificates</p>
+      <p className={`mb-5 mt-14 text-[13px] font-extrabold uppercase tracking-[0.2em] max-sm:mt-8 max-sm:mb-3 ${more ? '' : 'max-sm:hidden'}`} style={{ color: 'var(--hot)' }}>{t('certs.more')}</p>
       <div className={`grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 ${more ? '' : 'max-sm:hidden'} ${SWIPE}`}>
         {ORDER.map((id) => {
           const list = COURSES.filter((c) => c.issuer === id)
@@ -196,6 +218,7 @@ export interface Project {
   obj: ObjKind
   url: string
   text: string
+  tkey?: Key
 }
 
 export interface Demo {
@@ -255,6 +278,7 @@ function DemoLab({ demos }: { demos: Demo[] }) {
 }
 
 export function CleanWork({ projects, demos }: { projects: Project[]; demos: Demo[] }) {
+  const t = useT()
   const [obj, setObj] = useState(250)
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)')
@@ -264,7 +288,7 @@ export function CleanWork({ projects, demos }: { projects: Project[]; demos: Dem
     return () => mq.removeEventListener('change', set)
   }, [])
   return (
-    <Shell id="work" clear model lean kicker="Work" title={<>Built, <span style={{ color: 'var(--hot)' }}>live.</span></>} sub="Three real projects, designed and built end to end, running right now.">
+    <Shell id="work" clear model lean kicker={t('work.kicker')} title={<Pipe s={t('work.title')} />} sub={t('work.sub')}>
       <div className="work-list flex flex-col gap-10 sm:gap-24">
         {projects.map((p, i) => (
           <Reveal key={p.name}>
@@ -287,9 +311,9 @@ export function CleanWork({ projects, demos }: { projects: Project[]; demos: Dem
                   0{i + 1} <span style={{ color: 'var(--muted)' }}>/ 0{projects.length} · {p.kind}</span>
                 </p>
                 <span className="mt-3 block font-display text-[clamp(44px,7vw,104px)] leading-[0.95]">{p.name.replace('Ō', 'O')}</span>
-                <p className="mx-auto mt-4 max-w-[480px] max-sm:hidden text-[16px] font-bold leading-snug sm:text-[19px] lg:mx-0" style={{ color: 'var(--muted)' }}>{p.text}</p>
+                <p className="mx-auto mt-4 max-w-[480px] max-sm:hidden text-[16px] font-bold leading-snug sm:text-[19px] lg:mx-0" style={{ color: 'var(--muted)' }}>{p.tkey ? t(p.tkey) : p.text}</p>
                 <span className="work-go mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-extrabold" style={{ background: 'var(--brand)', color: '#14080a' }}>
-                  Visit {p.host} ↗
+                  {t('work.visit')} {p.host} ↗
                 </span>
               </div>
             </a>
@@ -331,35 +355,36 @@ function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; 
 }
 
 export function CleanAbout() {
+  const t = useT()
   return (
     <Shell
       id="about"
       big
-      kicker="Founder"
+      kicker={t('about.kicker')}
       title={<>Simon<br />Maxam</>}
       sub={
         <>
-          <span className="sm:hidden">Websites, 3D and games, built by hand.</span>
-          <span className="max-sm:hidden">I build interactive 3D websites, products and games, and play guitar the same way I code: patient, then suddenly fast.</span>
+          <span className="sm:hidden">{t('about.sub.short')}</span>
+          <span className="max-sm:hidden">{t('about.sub')}</span>
         </>
       }
     >
       <Reveal>
-        <p className="text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>Creative and marketing agency</p>
+        <p className="text-[13px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>{t('about.agency')}</p>
         <p className="mt-5 font-pacalix text-[clamp(44px,8.4vw,132px)] leading-[0.95] tracking-[0.015em]">
-          Get found.<br />Get <span style={{ color: 'var(--hot)' }}>chosen.</span>
+          <Lines s={t('about.tag')} />
         </p>
         <p className="mt-8 max-w-[560px] text-[17px] font-bold leading-snug max-sm:hidden sm:text-[20px]" style={{ color: 'var(--muted)' }}>
-          We build websites, 3D and brands that people find, remember and pick over everyone else.
+          {t('about.body')}
         </p>
       </Reveal>
 
       <Reveal className="mt-16 max-sm:mt-8">
         <p className="max-w-[640px] text-[15px] max-sm:hidden font-bold leading-snug sm:text-[17px]" style={{ color: 'var(--muted)' }}>
-          <span style={{ color: 'var(--hot)' }}>Why Radoya?</span> &ldquo;Rado&rdquo; echoes the Latin <i>radius</i>, a ray of light, and means &ldquo;gladly&rdquo; in Slavic languages. &ldquo;Ya&rdquo; is you. Gladly shining a light on you, so people find you and choose you.
+          <span style={{ color: 'var(--hot)' }}>{t('about.why')}</span> {t('about.whyBody')}
         </p>
         <button onClick={() => go('work')} data-hover="Work" className="pill-o px-5 sm:mt-6 py-2.5 text-[14px] font-extrabold transition-transform hover:scale-105">
-          See what we built ↓
+          {t('about.see')}
         </button>
       </Reveal>
     </Shell>
@@ -368,12 +393,13 @@ export function CleanAbout() {
 
 /* ── Pricing ─────────────────────────────────────────────────────────────── */
 const STEPS = [
-  { n: '01', h: 'Talk', t: 'A free first call. You get a fixed quote in writing, usually within a day.' },
-  { n: '02', h: 'Build', t: '50% to start. You see a live preview link at every step, not just at the end.' },
-  { n: '03', h: 'Launch', t: '50% when you approve. You own the source, the design and the domain.' },
+  { n: '01', h: 'price.s1h' as Key, t: 'price.s1t' as Key },
+  { n: '02', h: 'price.s2h' as Key, t: 'price.s2t' as Key },
+  { n: '03', h: 'price.s3h' as Key, t: 'price.s3t' as Key },
 ]
 
 export function CleanPricing() {
+  const t = useT()
   // The scene behind this section is always the floating cloud, whatever plan you look at.
   useEffect(() => {
     live.plan = 3
@@ -382,7 +408,7 @@ export function CleanPricing() {
     }
   }, [])
   return (
-    <Shell id="pricing" clear wide lean kicker="Get a quote" title={<>Get your price <br /><span style={{ color: 'var(--hot)' }}>in one minute.</span></>} sub="Answer a few quick questions. Simon calls you back with a fixed price, in writing.">
+    <Shell id="pricing" clear wide lean kicker={t('price.kicker')} title={<>{t('price.title').split('|')[0]}<br /><span style={{ color: 'var(--hot)' }}>{t('price.title').split('|')[1]}</span></>} sub={t('price.sub')}>
         <QuoteChat />
 
         <div className="mt-14 grid grid-cols-3 gap-4 max-sm:mt-10 sm:gap-8">
@@ -390,23 +416,25 @@ export function CleanPricing() {
             <Reveal key={s.n} delay={i * 110}>
               <div className="pt-4" style={{ borderTop: '1.5px solid color-mix(in srgb, var(--hot) 45%, transparent)' }}>
                 <p className="text-[12px] font-extrabold uppercase tracking-[0.2em]" style={{ color: 'var(--hot)' }}>{s.n}</p>
-                <p className="mt-1.5 font-display text-[26px] leading-none sm:text-[30px]">{s.h}</p>
-                <p className="mt-2.5 text-[14.5px] font-bold leading-snug max-sm:hidden" style={{ color: 'var(--muted)' }}>{s.t}</p>
+                <p className="mt-1.5 font-display text-[26px] leading-none sm:text-[30px]">{t(s.h)}</p>
+                <p className="mt-2.5 text-[14.5px] font-bold leading-snug max-sm:hidden" style={{ color: 'var(--muted)' }}>{t(s.t)}</p>
               </div>
             </Reveal>
           ))}
         </div>
         <p className="mt-8 text-[13px] font-bold" style={{ color: 'var(--muted)' }}>
-          Canadian dollars, before tax.<span className="max-sm:hidden"> Hosting and your domain are paid at cost. No pressure: if we are not the right fit, we will tell you honestly.</span>
+          {t('price.note')}<span className="max-sm:hidden">{t('price.note2')}</span>
         </p>
     </Shell>
   )
 }
 
 /* ── Contact ─────────────────────────────────────────────────────────────── */
+// The English words go into the email to Simon; the label on the button is in the visitor's language.
 const KINDS = ['A website', '3D visuals', 'A product in 3D', 'A game', 'Architecture', 'Something strange']
 
 export function CleanContact({ email }: { email: string }) {
+  const t = useT()
   const [picked, setPicked] = useState<string[]>([])
   const brief = `Hi Radoya, I'd like to build ${picked.length ? picked.join(', ').toLowerCase() : 'something'}.`
   const send = () => {
@@ -416,13 +444,13 @@ export function CleanContact({ email }: { email: string }) {
     window.location.href = `mailto:${email}?subject=${encodeURIComponent('New project')}&body=${encodeURIComponent(brief)}`
   }
   return (
-    <Shell id="contact" clear model kicker="Contact" title={<>Reach <span style={{ color: 'var(--hot)' }}>us.</span></>}>
+    <Shell id="contact" clear model kicker={t('contact.kicker')} title={<Pipe s={t('contact.title')} />}>
       <div className="clean-card lg:max-w-[50%] lg:-ml-[6vw]" style={{ ['--brand' as string]: 'var(--hot)', padding: 'clamp(24px,3.4vw,48px)' } as CSSProperties}>
         <p className="font-pacalix text-[clamp(34px,7vw,56px)] leading-[0.98] lg:text-[clamp(36px,3.6vw,58px)]">
-          Let&apos;s build<br />it <span style={{ color: 'var(--hot)' }}>together.</span>
+          <Lines s={t('contact.card')} />
         </p>
         <div className="mt-7 flex flex-wrap gap-2">
-          {KINDS.map((k) => {
+          {KINDS.map((k, ki) => {
             const on = picked.includes(k)
             return (
               <button
@@ -436,7 +464,7 @@ export function CleanContact({ email }: { email: string }) {
                 className="rounded-full px-4 py-2 text-[14px] font-bold transition-all duration-300"
                 style={{ background: on ? 'var(--hot)' : 'transparent', color: on ? '#1a1200' : 'var(--ink)', boxShadow: on ? 'none' : 'inset 0 0 0 1.5px var(--line)' }}
               >
-                {k}
+                {t(`contact.k${ki + 1}` as Key)}
               </button>
             )
           })}
@@ -446,7 +474,7 @@ export function CleanContact({ email }: { email: string }) {
         </p>
         <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
           <button onClick={send} data-hover="Go" className="rounded-full px-8 py-4 text-[17px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--hot)', color: 'var(--bg)' }}>
-            Send it ↗
+            {t('contact.send')}
           </button>
           <a href={`mailto:${email}`} className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>{email}</a>
         </div>
@@ -458,19 +486,20 @@ export function CleanContact({ email }: { email: string }) {
 
 /* ── Footer: the wordmark at full width, each letter lifts as you pass over it ── */
 export function CleanFooter() {
+  const t = useT()
   const year = new Date().getFullYear()
   return (
     <footer className="relative px-6 pb-28 pt-20 sm:px-10 sm:pb-32 lg:pl-[8vw] lg:pr-[6vw]">
       <div className="mx-auto w-full max-w-[1100px]">
         <div className="flex flex-wrap items-center justify-between gap-4 pb-8" style={{ borderBottom: '1.5px solid var(--line)' }}>
           <p className="max-w-[420px] text-[15px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
-            Made by hand in Calgary, Canada, for people everywhere.
+            {t('foot.made')}
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] font-extrabold">
             <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="foot-link">Instagram</a>
             <a href={LINKEDIN_COMPANY} target="_blank" rel="noopener noreferrer" className="foot-link">LinkedIn</a>
-            <a href="/services" className="foot-link">Services</a>
-            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} data-hover="Top" className="foot-link">Back to top ↑</button>
+            <a href="/services" className="foot-link">{t('foot.services')}</a>
+            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} data-hover="Top" className="foot-link">{t('foot.top')}</button>
           </div>
         </div>
         <p aria-label="Radoya" className="foot-word select-none py-6 font-pacalix text-[clamp(56px,16.4vw,230px)] leading-[0.95]" style={{ color: 'var(--hot)' }}>
@@ -479,13 +508,13 @@ export function CleanFooter() {
           ))}
         </p>
         <p className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 pt-4 text-[13px] font-bold" style={{ borderTop: '1.5px solid var(--line)', color: 'var(--muted)' }}>
-          <span>© {year} Radoya. All rights reserved.</span>
+          <span>© {year} Radoya. {t('foot.rights')}</span>
           <span className="flex flex-wrap gap-x-5 gap-y-1">
-            <a href="/privacy" className="foot-link">Privacy Policy</a>
-            <a href="/privacy#cookies" className="foot-link">Use of Cookies</a>
-            <a href="/terms" className="foot-link">Terms of Use</a>
-            <a href="/legal" className="foot-link">Legal</a>
-            <a href="/site-map" className="foot-link">Site Map</a>
+            <a href="/privacy" className="foot-link">{t('foot.privacy')}</a>
+            <a href="/privacy#cookies" className="foot-link">{t('foot.cookies')}</a>
+            <a href="/terms" className="foot-link">{t('foot.terms')}</a>
+            <a href="/legal" className="foot-link">{t('foot.legal')}</a>
+            <a href="/site-map" className="foot-link">{t('foot.sitemap')}</a>
           </span>
         </p>
       </div>
