@@ -353,7 +353,8 @@ function SoundControl() {
 
 export default function Overlay() {
   const t = useT()
-  const textDir = useStore((s) => s.lang) === 'ar' || useStore((s) => s.lang) === 'fa' ? 'rtl' : 'ltr'
+  const curLang = useStore((s) => s.lang)
+  const textDir = curLang === 'ar' || curLang === 'fa' ? 'rtl' : 'ltr'
   const { ready, game, setGame, soundOn, setSoundOn, setTrack, clean } = useStore()
   const ids = clean ? CLEAN_IDS : SECTION_IDS
   const [active, setActive] = useState(0)
