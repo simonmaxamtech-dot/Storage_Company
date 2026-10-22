@@ -128,13 +128,17 @@ export default function Services() {
 
       <section aria-labelledby="pictures" className="mt-20">
         <h2 id="pictures" className="font-[family-name:var(--font-display)] text-[clamp(28px,4vw,48px)] font-black">Radoya in pictures</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-6">
           {[
-            ['radoya-beaver-logo.png', 'Radoya beaver logo, the symbol of the Radoya creative and marketing agency in Calgary'],
-            ['radoya-creative-marketing-agency-calgary.png', 'Radoya, a creative and marketing agency in Calgary. Get found. Get chosen.'],
-            ['radoya-services-calgary.png', 'Radoya services in Calgary: websites, branding, content, 3D and marketing'],
-          ].map(([f, alt]) => (
-            <figure key={f}>
+            ['radoya-scalex-pizza-3d-website-calgary.jpg', 'Scalex Pizza, an interactive 3D pizza website built by Radoya in Calgary', 'sm:col-span-3'],
+            ['radoya-kora-ramen-3d-website-calgary.jpg', 'KŌRA, a 3D ramen ordering website built by Radoya in Calgary', 'sm:col-span-3'],
+            ['radoya-beaver-logo.png', 'Radoya beaver logo in white, the symbol of the Radoya creative and marketing agency in Calgary', 'sm:col-span-2'],
+            ['radoya-beaver-logo-black-on-white.png', 'Radoya beaver logo in black on white, creative and marketing agency in Calgary', 'sm:col-span-2'],
+            ['radoya-beaver-logo-canada-red-white.png', 'Radoya beaver logo in the red and white of Canada, a Calgary, Canada agency', 'sm:col-span-2'],
+            ['radoya-creative-marketing-agency-calgary.png', 'Radoya, a creative and marketing agency in Calgary. Get found. Get chosen.', 'sm:col-span-3'],
+            ['radoya-services-calgary.png', 'Radoya services in Calgary: websites, branding, content, 3D and marketing', 'sm:col-span-3'],
+          ].map(([f, alt, span]) => (
+            <figure key={f} className={span}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={`/images/brand/${f}`} alt={alt} loading="lazy" className="w-full rounded-2xl" />
               <figcaption className="mt-2 text-[13px] font-semibold" style={{ color: 'var(--muted)' }}>{alt}</figcaption>
