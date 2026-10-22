@@ -132,9 +132,9 @@ export default function Services() {
           {[
             ['radoya-scalex-pizza-3d-website-calgary.jpg', 'Scalex Pizza, an interactive 3D pizza website built by Radoya in Calgary', 'sm:col-span-3'],
             ['radoya-kora-ramen-3d-website-calgary.jpg', 'KŌRA, a 3D ramen ordering website built by Radoya in Calgary', 'sm:col-span-3'],
-            ['radoya-beaver-logo.png', 'Radoya beaver logo in white, the symbol of the Radoya creative and marketing agency in Calgary', 'sm:col-span-2'],
+            ['radoya-beaver-logo-canada-red-white.png', 'Radoya beaver logo in the red and white of Canada, a Calgary, Canada agency', 'sm:col-span-4 sm:row-span-2'],
             ['radoya-beaver-logo-black-on-white.png', 'Radoya beaver logo in black on white, creative and marketing agency in Calgary', 'sm:col-span-2'],
-            ['radoya-beaver-logo-canada-red-white.png', 'Radoya beaver logo in the red and white of Canada, a Calgary, Canada agency', 'sm:col-span-2'],
+            ['radoya-beaver-logo.png', 'Radoya beaver logo in white, the symbol of the Radoya creative and marketing agency in Calgary', 'sm:col-span-2'],
             ['radoya-creative-marketing-agency-calgary.png', 'Radoya, a creative and marketing agency in Calgary. Get found. Get chosen.', 'sm:col-span-3'],
             ['radoya-services-calgary.png', 'Radoya services in Calgary: websites, branding, content, 3D and marketing', 'sm:col-span-3'],
           ].map(([f, alt, span]) => (
