@@ -126,6 +126,23 @@ export default function Services() {
         </dl>
       </section>
 
+      <section aria-labelledby="pictures" className="mt-20">
+        <h2 id="pictures" className="font-[family-name:var(--font-display)] text-[clamp(28px,4vw,48px)] font-black">Radoya in pictures</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {[
+            ['radoya-beaver-logo.png', 'Radoya beaver logo, the symbol of the Radoya creative and marketing agency in Calgary'],
+            ['radoya-creative-marketing-agency-calgary.png', 'Radoya, a creative and marketing agency in Calgary. Get found. Get chosen.'],
+            ['radoya-services-calgary.png', 'Radoya services in Calgary: websites, branding, content, 3D and marketing'],
+          ].map(([f, alt]) => (
+            <figure key={f}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/images/brand/${f}`} alt={alt} loading="lazy" className="w-full rounded-2xl" />
+              <figcaption className="mt-2 text-[13px] font-semibold" style={{ color: 'var(--muted)' }}>{alt}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
       <section className="mt-20 rounded-[32px] p-8 text-center sm:p-12" style={{ border: '1px solid var(--line)' }}>
         <h2 className="font-[family-name:var(--font-display)] text-[clamp(28px,4vw,48px)] font-black">Let&apos;s build something rare.</h2>
         <p className="mx-auto mt-3 max-w-[480px] text-[17px] font-semibold" style={{ color: 'var(--muted)' }}>Send a few lines about your idea. You will hear back within a day.</p>
