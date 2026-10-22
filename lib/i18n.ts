@@ -1,6 +1,7 @@
 import { useStore } from './store'
+import { MORE } from './i18n-more'
 
-export type Lang = 'en' | 'fr' | 'es' | 'de' | 'tr' | 'ar' | 'fa'
+export type Lang = 'en' | 'fr' | 'es' | 'de' | 'tr' | 'ar' | 'fa' | 'pt' | 'it' | 'ru' | 'zh' | 'hi' | 'ja'
 
 // The languages of the language switcher. Persian and Arabic read right to left.
 export const LANGS: readonly { code: Lang; name: string; short: string; rtl?: boolean }[] = [
@@ -11,6 +12,12 @@ export const LANGS: readonly { code: Lang; name: string; short: string; rtl?: bo
   { code: 'tr', name: 'Türkçe', short: 'TR' },
   { code: 'ar', name: 'العربية', short: 'AR', rtl: true },
   { code: 'fa', name: 'فارسی', short: 'FA', rtl: true },
+  { code: 'pt', name: 'Português', short: 'PT' },
+  { code: 'it', name: 'Italiano', short: 'IT' },
+  { code: 'ru', name: 'Русский', short: 'RU' },
+  { code: 'zh', name: '中文', short: 'ZH' },
+  { code: 'hi', name: 'हिन्दी', short: 'HI' },
+  { code: 'ja', name: '日本語', short: 'JA' },
 ]
 export const isLang = (v: unknown): v is Lang => LANGS.some((l) => l.code === v)
 
@@ -293,6 +300,7 @@ const L: Record<Exclude<Lang, 'en'>, Partial<Record<Key, string>>> = {
     'foot.rights': 'تمام حقوق محفوظ است.', 'foot.privacy': 'حریم خصوصی', 'foot.cookies': 'کوکی‌ها', 'foot.terms': 'شرایط استفاده', 'foot.legal': 'حقوقی', 'foot.sitemap': 'نقشه سایت',
     'lang.label': 'زبان',
   },
+  ...MORE,
 }
 
 export function translate(lang: Lang, key: Key): string {
