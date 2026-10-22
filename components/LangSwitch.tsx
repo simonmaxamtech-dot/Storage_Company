@@ -33,7 +33,7 @@ export default function LangSwitch() {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={`Language: ${cur.name}`}
-        className="flex items-center gap-1.5 rounded-full border px-3 py-1 text-[13px] font-extrabold transition-opacity hover:opacity-100"
+        className="flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[13px] font-extrabold transition-opacity hover:opacity-100"
         style={{ borderColor: 'color-mix(in srgb, var(--ink) 35%, transparent)', opacity: open ? 1 : 0.75 }}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -41,6 +41,9 @@ export default function LangSwitch() {
           <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" />
         </svg>
         {cur.short}
+        <svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor" aria-hidden style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>
+          <path d="M1 3l4 4 4-4z" />
+        </svg>
       </button>
       {open && (
         <ul
