@@ -6,6 +6,7 @@ import LiveMark from './LiveMark'
 import { lite, tier } from '@/lib/perf'
 import { live, useStore } from '@/lib/store'
 
+const LATIN = new Set(['en', 'fr', 'es', 'de', 'tr', 'pt', 'it'])
 const heroReady = () => {
   live.heroWait = false
 }
@@ -102,10 +103,11 @@ export default function LiveTypes() {
 
   // The hero headline is built straight away, held invisible, and released on the same frame as the beaver.
   const hero = els.find((el) => el.dataset.live === 'hero')
-  const heroOn = !!hero && !struggling && !lite()
+  const plainType = !LATIN.has(lang) // the headline font has no letters for these scripts, so they stay as plain text
+  const heroOn = !!hero && !struggling && !lite() && !plainType
   useEffect(() => {
-    if (hero && !lite()) live.heroWait = true
-  }, [hero])
+    if (hero && !lite() && !plainType) live.heroWait = true
+  }, [hero, plainType])
   useEffect(() => {
     if (struggling) live.heroWait = false
   }, [struggling])
@@ -113,7 +115,7 @@ export default function LiveTypes() {
   return (
     <>
       {els
-        .filter((el) => (el === hero ? heroOn && active.has(el) : armed && !struggling && !lite() && mounted.has(el)))
+        .filter((el) => (el === hero ? heroOn && active.has(el) : armed && !struggling && !lite() && !plainType && mounted.has(el)))
         .map((el, i) =>
           el === hero ? (
             <LiveMark key={`hero-${lang}`} anchor={el} size={size} load={buildTextData} hideAnchor start={0.02} spread={0.6} onReady={heroReady} />

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
+import { useCt } from '@/lib/i18n-certs'
 import CertObject, { type ObjKind } from './CertObject'
 
 export const OBJ: Record<string, ObjKind> = {
@@ -175,7 +176,7 @@ function Letters({ text, colors }: { text: string; colors?: string[] }) {
 export function Mark({ id, size = 40 }: { id: IssuerId; size?: number }) {
   const c = ISSUER[id].color
   const base = 'mark inline-flex items-center whitespace-nowrap font-display leading-none'
-  const style: CSSProperties = { fontSize: size }
+  const style: CSSProperties = { fontSize: size, direction: 'ltr' }
   switch (id) {
     case 'google':
       return (
@@ -273,10 +274,11 @@ function Seal({ id, color }: { id: string; color: string }) {
 // The skills line speaks the program's language: a line of Python for the automation one, dashboard filters for
 // the business one, a plain list for the rest.
 function Skills({ c }: { c: Cert }) {
+  const ct = useCt()
   const s = c.skills ?? []
   if (c.look === 'code')
     return (
-      <span className="mt-4 inline-block rounded-lg px-3 py-2 font-mono text-[13px] font-bold" style={{ background: 'color-mix(in srgb, var(--brand) 16%, transparent)' }}>
+      <span dir="ltr" className="mt-4 inline-block rounded-lg px-3 py-2 font-mono text-[13px] font-bold" style={{ background: 'color-mix(in srgb, var(--brand) 16%, transparent)' }}>
         <span style={{ color: 'var(--muted)' }}>&gt;&gt;&gt; </span>
         <span style={{ color: 'var(--brand2)' }}>import</span> {s.map((k) => k.toLowerCase()).join(', ')}
         <span className="code-caret" style={{ color: 'var(--brand2)' }}>▍</span>
@@ -288,19 +290,20 @@ function Skills({ c }: { c: Cert }) {
         {s.map((k, i) => (
           <span key={k} className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[12px] font-extrabold" style={{ boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 55%, transparent)' }}>
             <span className="inline-block h-[9px] w-[3px] rounded-sm" style={{ background: i % 2 ? 'var(--brand2)' : 'var(--brand)' }} />
-            {k}
+            {ct(k)}
           </span>
         ))}
       </span>
     )
   return (
     <span className="mt-4 block text-[13px] font-bold" style={{ color: 'var(--muted)' }}>
-      {s.join(' · ')}
+      {s.map(ct).join(' · ')}
     </span>
   )
 }
 
 function Lead({ c, onOpen }: { c: Cert; onOpen: (c: Cert) => void }) {
+  const ct = useCt()
   return (
     <button
       data-hover="Open"
@@ -317,21 +320,21 @@ function Lead({ c, onOpen }: { c: Cert; onOpen: (c: Cert) => void }) {
         <span className="flex items-center gap-4">
           <Mark id={c.issuer} size={26} />
           <span className="text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--muted)' }}>
-            {c.courses} courses · {c.date}
+            {c.courses} {ct('courses')} · {c.date}
           </span>
         </span>
         <span className="mt-3 inline-block rounded-full px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ background: 'var(--brand)', color: '#14080a' }}>
-          ★ Professional Certificate
+          ★ {ct('Professional Certificate')}
         </span>
-        <span className="mt-3 block font-display text-[clamp(28px,3.4vw,48px)] leading-[1.02]">{c.title}</span>
+        <span className="mt-3 block font-display text-[clamp(28px,3.4vw,48px)] leading-[1.02]">{ct(c.title)}</span>
         <span className="mt-3 block max-w-[52ch] text-[16px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
-          {c.text}
+          {c.text ? ct(c.text) : c.text}
         </span>
         <Skills c={c} />
       </span>
       <span className="col-span-2 flex items-center justify-between gap-4 sm:col-span-1 sm:flex-col sm:items-end sm:self-center">
         {OBJ[c.img] && <CertObject kind={OBJ[c.img]} size={150} />}
-        <span className="issuer-go text-[14px] font-bold">See certificate ↗</span>
+        <span className="issuer-go text-[14px] font-bold">{ct('See certificate')} ↗</span>
       </span>
     </button>
   )
@@ -351,6 +354,7 @@ function Medal({ label }: { label: string }) {
 }
 
 function IssuerGroup({ id, onOpen }: { id: IssuerId; onOpen: (c: Cert) => void }) {
+  const ct = useCt()
   const list = COURSES.filter((c) => c.issuer === id)
   const col = ISSUER[id].color
   return (
@@ -358,10 +362,10 @@ function IssuerGroup({ id, onOpen }: { id: IssuerId; onOpen: (c: Cert) => void }
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pb-4" style={{ borderBottom: '1.5px solid var(--line)' }}>
         <Mark id={id} size={30} />
         <span className="text-[13px] font-bold uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>
-          {ISSUER[id].line}
+          {ct(ISSUER[id].line)}
         </span>
         <span className="ml-auto text-[13px] font-bold" style={{ color: col }}>
-          {list.length} {list.length === 1 ? 'certificate' : 'certificates'}
+          {list.length} {ct(list.length === 1 ? 'certificate' : 'certificates')}
         </span>
       </div>
       <ul className="grid sm:grid-cols-2 sm:gap-x-8">
@@ -377,7 +381,7 @@ function IssuerGroup({ id, onOpen }: { id: IssuerId; onOpen: (c: Cert) => void }
               className="course-row group flex w-full items-baseline justify-between gap-4 py-3.5 text-left"
             >
               <span className="min-w-0">
-                <span className="block text-[18px] font-bold leading-tight">{c.short}</span>
+                <span className="block text-[18px] font-bold leading-tight">{ct(c.short ?? '')}</span>
                 <span className="mt-0.5 block truncate text-[13px] font-bold" style={{ color: 'var(--muted)' }}>
                   {c.title}
                 </span>
@@ -395,6 +399,7 @@ function IssuerGroup({ id, onOpen }: { id: IssuerId; onOpen: (c: Cert) => void }
 }
 
 export default function Credentials({ onOpen }: { onOpen: (c: Cert) => void }) {
+  const ct = useCt()
   const [more, setMore] = useState(false)
   const groups = more ? ORDER : ORDER.slice(0, FIRST)
 
@@ -423,7 +428,7 @@ export default function Credentials({ onOpen }: { onOpen: (c: Cert) => void }) {
 
       {/* The heavyweights: full multi-course programs. */}
       <p className="mt-20 text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--muted)' }}>
-        Professional certificates · full programs, not single classes
+        {ct('Professional certificates · full programs, not single classes')}
       </p>
       <div className="issuer-list mt-6">
         {PROFESSIONAL.map((c) => (
@@ -436,7 +441,7 @@ export default function Credentials({ onOpen }: { onOpen: (c: Cert) => void }) {
           <div key={r.title} data-react className="flex items-center gap-6 py-6" style={{ borderTop: '1.5px solid var(--line)' }}>
             <Medal label={r.place} />
             <div>
-              <p className="text-[13px] font-bold uppercase tracking-[0.12em]" style={{ color: 'var(--hot)' }}>Award{r.year ? ` · ${r.year}` : ''}</p>
+              <p className="text-[13px] font-bold uppercase tracking-[0.12em]" style={{ color: 'var(--hot)' }}>{ct('Award')}{r.year ? ` · ${r.year}` : ''}</p>
               <p className="mt-1 font-display text-[clamp(26px,3vw,40px)] leading-[1.05]">{r.title}</p>
               <p className="mt-1 text-[14px] font-bold" style={{ color: 'var(--muted)' }}>{r.line}</p>
             </div>
@@ -446,7 +451,7 @@ export default function Credentials({ onOpen }: { onOpen: (c: Cert) => void }) {
 
       {/* Specialist courses, by who issued them. */}
       <p className="mt-24 text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--muted)' }}>
-        Specialist courses
+        {ct('Specialist courses')}
       </p>
       <div className="mt-8 grid gap-14">
         {groups.map((id) => (
@@ -462,7 +467,7 @@ export default function Credentials({ onOpen }: { onOpen: (c: Cert) => void }) {
         className="mt-12 rounded-full px-6 py-3 text-[15px] font-bold transition-transform hover:scale-105"
         style={{ background: 'var(--ink)', color: 'var(--bg)' }}
       >
-        {more ? 'Show fewer' : `Show ${HIDDEN} more`}
+        {more ? ct('Show fewer') : `Show ${HIDDEN} more`}
       </button>
     </div>
   )

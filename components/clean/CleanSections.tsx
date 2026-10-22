@@ -6,6 +6,7 @@ import { useT, type Key } from '@/lib/i18n'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
 import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
+import { useCt } from '@/lib/i18n-certs'
 import { ISSUER, Mark, OBJ, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
 import QuoteChat from './QuoteChat'
 import MapPill from './MapPill'
@@ -101,10 +102,11 @@ const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavio
 const ORDER: IssuerId[] = ['london', 'siemens', 'github', 'microsoft', 'aws', 'adobe', 'linkedin']
 
 function Chips({ c }: { c: Cert }) {
+  const ct = useCt()
   const s = c.skills ?? []
   if (c.look === 'code')
     return (
-      <span className="inline-block rounded-lg px-3 py-2 font-mono text-[13px] font-bold" style={{ boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 45%, transparent)' }}>
+      <span dir="ltr" className="inline-block rounded-lg px-3 py-2 font-mono text-[13px] font-bold" style={{ boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 45%, transparent)' }}>
         <span style={{ color: 'var(--muted)' }}>&gt;&gt;&gt; </span>
         <span style={{ color: 'var(--brand2)' }}>import</span> {s.map((k) => k.toLowerCase()).join(', ')}
         <span className="code-caret" style={{ color: 'var(--brand2)' }}>▍</span>
@@ -115,7 +117,7 @@ function Chips({ c }: { c: Cert }) {
       {s.map((k, i) => (
         <span key={k} className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[12px] font-extrabold" style={{ boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 55%, transparent)' }}>
           <span className="inline-block h-[9px] w-[3px] rounded-sm" style={{ background: i % 2 && c.brand2 ? 'var(--brand2)' : 'var(--brand)' }} />
-          {k}
+          {ct(k)}
         </span>
       ))}
     </span>
@@ -124,6 +126,7 @@ function Chips({ c }: { c: Cert }) {
 
 export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
   const t = useT()
+  const ct = useCt()
   const [more, setMore] = useState(false)
   const open = (c: Cert, h = 8) => {
     onOpen(c)
@@ -153,8 +156,8 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
             <span className="pill-o px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em]">
               {t('certs.pro')}
             </span>
-            <span className="block font-display text-[clamp(25px,2.5vw,36px)] leading-[1.02]">{c.title}</span>
-            <span className="block max-w-[44ch] text-[15px] font-bold leading-snug max-sm:hidden" style={{ color: 'var(--muted)' }}>{c.text}</span>
+            <span className="block font-display text-[clamp(25px,2.5vw,36px)] leading-[1.02]">{ct(c.title)}</span>
+            <span className="block max-w-[44ch] text-[15px] font-bold leading-snug max-sm:hidden" style={{ color: 'var(--muted)' }}>{c.text ? ct(c.text) : c.text}</span>
             <span className="max-sm:hidden"><Chips c={c} /></span>
             <span className="work-go mt-auto text-[14px] font-extrabold" style={{ color: 'var(--brand)' }}>{t('certs.see')}</span>
           </button>
@@ -182,7 +185,7 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
                 <Mark id={id} size={44} />
                 <span className="font-pacalix text-[clamp(34px,3.4vw,52px)] leading-[0.85]" style={{ color: 'var(--brand)' }}>{String(list.length).padStart(2, '0')}</span>
               </div>
-              <p className="text-[13px] font-bold uppercase tracking-[0.14em] max-sm:hidden" style={{ color: 'var(--muted)' }}>{ISSUER[id].line}</p>
+              <p className="text-[13px] font-bold uppercase tracking-[0.14em] max-sm:hidden" style={{ color: 'var(--muted)' }}>{ct(ISSUER[id].line)}</p>
               <div className="mt-auto flex flex-wrap gap-2">
                 {list.map((c) => (
                   <button
@@ -192,7 +195,7 @@ export function CleanCerts({ onOpen }: { onOpen: (c: Cert) => void }) {
                     data-hover="Open"
                     className="cert-chip rounded-full px-3.5 py-1.5 text-[13px] font-bold"
                   >
-                    {c.short}
+                    {ct(c.short ?? '')}
                   </button>
                 ))}
               </div>
@@ -502,7 +505,7 @@ export function CleanFooter() {
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} data-hover="Top" className="foot-link">{t('foot.top')}</button>
           </div>
         </div>
-        <p aria-label="Radoya" className="foot-word select-none py-6 font-pacalix text-[clamp(56px,16.4vw,230px)] leading-[0.95]" style={{ color: 'var(--hot)' }}>
+        <p dir="ltr" aria-label="Radoya" className="foot-word select-none py-6 font-pacalix text-[clamp(56px,16.4vw,230px)] leading-[0.95]" style={{ color: 'var(--hot)' }}>
           {'Radoya'.split('').map((l, i) => (
             <span key={i} aria-hidden>{l}</span>
           ))}
