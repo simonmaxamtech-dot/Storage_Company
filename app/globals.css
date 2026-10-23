@@ -700,3 +700,7 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .chat-in, .chat-dot { animation: none; }
 }
+
+/* Arabic and Persian: boxes stay where they are in English, the words read right to left. */
+html[data-rtl] :is(h1, h2, h3, h4, p, li, blockquote, label, figcaption, summary, input, textarea) { direction: rtl; }
+html[data-rtl] :is(h1, h2, h3, h4, p, li)[dir='ltr'] { direction: ltr; }

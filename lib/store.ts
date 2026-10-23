@@ -128,7 +128,10 @@ export const useStore = create<State>((set) => ({
 function applyLang(lang: Lang) {
   const rtl = LANGS.find((l) => l.code === lang)?.rtl === true
   document.documentElement.lang = lang
-  document.documentElement.dir = rtl ? 'rtl' : 'ltr'
+  // The layout keeps the same places as English; only the text itself reads right to left (see globals.css).
+  document.documentElement.dir = 'ltr'
+  if (rtl) document.documentElement.setAttribute('data-rtl', '')
+  else document.documentElement.removeAttribute('data-rtl')
 }
 
 export function restoreMode() {
