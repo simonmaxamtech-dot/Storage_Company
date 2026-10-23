@@ -33,7 +33,7 @@ const CONTACT_EMAIL = 'simon0021maxam@gmail.com'
 
 const CLEAN_IDS = ['intro', 'about', 'credentials', 'work', 'pricing', 'contact']
 const SECTION_IDS = ['intro', 'eden', 'newton', 'idea', 'form', 'work', 'studio', 'beyond', 'panda', 'play', 'pricing', 'about', 'credentials', 'contact']
-// Left edge, wide screens only: my name runs down the side and fills with the theme colour as you scroll. A fully coloured name means you have reached the end.
+// Left edge, wide screens only: my name is not there at the top; it appears sharp, letter by letter, in the theme colour as you scroll. A fully coloured name means you have reached the end.
 function ScrollLine() {
   const name = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -57,12 +57,11 @@ function ScrollLine() {
         style={{
           writingMode: 'vertical-rl',
           rotate: '180deg',
-          backgroundImage: 'linear-gradient(to top, var(--hot) var(--p, 0%), color-mix(in srgb, var(--ink) 30%, transparent) var(--p, 0%))',
+          backgroundImage: 'linear-gradient(to top, var(--hot) var(--p, 0%), transparent var(--p, 0%))',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
           color: 'transparent',
           WebkitTextFillColor: 'transparent',
-          filter: 'drop-shadow(0 0 6px color-mix(in srgb, var(--hot) 45%, transparent))',
         }}
       >
         SIMON MAXAM
