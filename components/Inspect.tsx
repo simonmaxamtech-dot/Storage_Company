@@ -64,7 +64,8 @@ export default function Inspect() {
       const cs = getComputedStyle(cur)
       const fs = parseFloat(cs.fontSize)
       // Only the small reading text: skip our own lettering and anything display-sized.
-      if (OWN_FONT.test(cs.fontFamily) || fs > 30) return hide()
+      // The work cards (project names, big numbers) are the exception: those are measured too.
+      if (!cur.closest('#work') && (OWN_FONT.test(cs.fontFamily) || fs > 30)) return hide()
       const lh = cs.lineHeight === 'normal' ? Math.round(fs * 1.2) : Math.round(parseFloat(cs.lineHeight))
       const isText = !!cur.textContent?.trim()
       const col = hex(cs.color)
