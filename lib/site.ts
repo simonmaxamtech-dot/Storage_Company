@@ -1,5 +1,5 @@
 ﻿// Production domain. Override with NEXT_PUBLIC_SITE_URL when a custom domain is connected. No trailing slash.
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://Radoya.com').replace(/\/$/, '')
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://radoya.com').replace(/\/$/, '')
 export const SITE_NAME = 'Radoya'
 export const OWNER = 'Simon Maxam'
 // Every title and description says what we are and where: "Radoya creative and marketing agency, Calgary".

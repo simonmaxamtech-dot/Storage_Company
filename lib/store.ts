@@ -88,6 +88,15 @@ export const useStore = create<State>((set) => ({
       // storage unavailable
     }
     applyLang(lang)
+    // Keep the address in step with the language: English at /, the others at /es, /fr ... (only on the home page versions).
+    try {
+      const seg = window.location.pathname.split('/')[1]
+      if (window.location.pathname === '/' || LANGS.some((l) => l.code === seg && seg !== 'en')) {
+        window.history.replaceState(null, '', (lang === 'en' ? '/' : `/${lang}`) + window.location.hash)
+      }
+    } catch {
+      // history unavailable
+    }
     set({ lang })
   },
   clean: DEFAULT_DESIGN === 'clean',

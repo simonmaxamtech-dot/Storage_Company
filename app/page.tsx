@@ -1,8 +1,12 @@
-﻿import AboutLocales from '@/components/AboutLocales'
+import AboutLocales from '@/components/AboutLocales'
 import Scene from '@/components/Scene'
 import Objects from '@/components/Objects'
 import Cursor from '@/components/Cursor'
 import Overlay from '@/components/Overlay'
+import type { Metadata } from 'next'
+import { hreflangs } from '@/lib/seo-langs'
+
+export const metadata: Metadata = { alternates: { canonical: '/', languages: hreflangs() } }
 
 export default function Home() {
   return (

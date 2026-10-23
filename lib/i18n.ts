@@ -319,6 +319,9 @@ export const split = (s: string) => s.split('|')
 
 // The language to start in: what the person chose last time, else the browser's own language, else English.
 export function detectLang(): Lang {
+  // A language address like /es always wins: that page is the Spanish version.
+  const first = window.location.pathname.split('/')[1]
+  if (isLang(first) && first !== 'en') return first
   try {
     const saved = localStorage.getItem('radoya-lang')
     if (isLang(saved)) return saved
