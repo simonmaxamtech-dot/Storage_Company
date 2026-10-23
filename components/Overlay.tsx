@@ -9,6 +9,7 @@ import Contact from './Contact'
 import Credentials, { type Cert } from './Credentials'
 import Gyro from './Gyro'
 import LangSwitch from './LangSwitch'
+import LangBurst from './LangBurst'
 import { useT, type Key } from '@/lib/i18n'
 import Inspect from './Inspect'
 import EdenLife from './EdenLife'
@@ -543,6 +544,7 @@ export default function Overlay() {
         </div>
       </footer>
 
+      <LangBurst />
       <main className={clean ? 'clean-type' : undefined}>
         {/* INTRO: the wordmark is a live material; the snake does the moving. */}
         <section data-section id="intro" dir="ltr" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-32 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw] lg:pb-[7vh] lg:pt-[7vh]">

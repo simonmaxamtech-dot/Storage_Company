@@ -48,7 +48,7 @@ export default function LangSwitch() {
       {open && (
         <ul
           role="listbox"
-          className={`absolute ${cur.rtl ? 'left-0' : 'right-0'} top-full z-50 mt-2 max-h-[70vh] min-w-[150px] overflow-y-auto rounded-2xl border py-1 text-[15px] font-bold shadow-xl backdrop-blur-md`}
+          className={`absolute right-0 top-full z-50 mt-2 max-h-[70vh] min-w-[150px] overflow-y-auto rounded-2xl border py-1 text-[15px] font-bold shadow-xl backdrop-blur-md`}
           style={{ background: 'color-mix(in srgb, var(--bg) 92%, transparent)', borderColor: 'color-mix(in srgb, var(--ink) 25%, transparent)' }}
         >
           {LANGS.map((l) => (
