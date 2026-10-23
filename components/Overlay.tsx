@@ -39,15 +39,27 @@ function ScrollLine() {
   useEffect(() => {
     let raf = 0
     let p = 0
+    let max = 0
+    // Measuring the page height every frame forces the browser to re-lay-out the whole page; measure on resize and slow checks instead.
+    const measure = () => { max = document.documentElement.scrollHeight - innerHeight }
+    measure()
+    const slow = window.setInterval(measure, 1500)
+    window.addEventListener('resize', measure)
     const tick = () => {
-      const max = document.documentElement.scrollHeight - innerHeight
+      raf = requestAnimationFrame(tick)
+      if (document.hidden) return
       const t = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0
+      // At rest, do nothing: no style writes, no repaint.
+      if (Math.abs(t - p) < 0.0004) return
       p += (t - p) * 0.12
       if (name.current) name.current.style.setProperty('--p', `${(p * 100).toFixed(2)}%`)
-      raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    return () => {
+      cancelAnimationFrame(raf)
+      clearInterval(slow)
+      window.removeEventListener('resize', measure)
+    }
   }, [])
   return (
     <div aria-hidden className="pointer-events-none fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 lg:block">

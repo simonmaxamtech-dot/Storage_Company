@@ -110,7 +110,15 @@ export default function Cursor() {
     const onDown = () => (down = 1)
     const onUp = () => (down = 0)
 
+    let lastDraw = 0
     const tick = () => {
+      // Hidden tab: nothing to draw. 120/144 Hz screens: 60 draws a second is plenty for a cursor.
+      const nowT = performance.now()
+      if (document.hidden || nowT - lastDraw < 14) {
+        raf = requestAnimationFrame(tick)
+        return
+      }
+      lastDraw = nowT
       if (frame % 15 === 0) inkCol = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || inkCol
       if (frame++ % 15 === 0) col = getComputedStyle(document.documentElement).getPropertyValue('--cur').trim() || col
       x += (tx - x) * 0.6
