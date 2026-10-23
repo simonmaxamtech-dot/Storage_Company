@@ -79,8 +79,15 @@ interface State {
   setGame: (v: boolean) => void
 }
 
+// A language address like /es opens in that language from the very first render, so the page matches the server's HTML.
+function pathLang(): Lang {
+  if (typeof window === 'undefined') return 'en'
+  const first = window.location.pathname.split('/')[1]
+  return LANGS.some((l) => l.code === first) ? (first as Lang) : 'en'
+}
+
 export const useStore = create<State>((set) => ({
-  lang: 'en',
+  lang: pathLang(),
   setLang: (lang) => {
     try {
       localStorage.setItem('radoya-lang', lang)

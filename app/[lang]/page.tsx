@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Home from '../page'
+import HomeBody from '@/components/HomeBody'
 import { SEO, SEO_CODES, hreflangs } from '@/lib/seo-langs'
 import { SITE_NAME, SITE_URL } from '@/lib/site'
 
@@ -23,5 +23,5 @@ export function generateMetadata({ params }: { params: { lang: string } }): Meta
 // The same page as the English home, at its own address, opening in that language (the language is read from the address).
 export default function LangHome({ params }: { params: { lang: string } }) {
   if (!SEO[params.lang]) notFound()
-  return <Home />
+  return <HomeBody lang={params.lang} />
 }

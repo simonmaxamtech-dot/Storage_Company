@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "check:langs": "node check-langs.js",
+    "build": "next build && node scripts-postbuild.js",
     "start": "next start",
     "lint": "next lint"
   },

@@ -7,10 +7,10 @@ import { lite } from '@/lib/perf'
 // A little surprise when the language changes: grains fly in, settle into something from that language's world, then shrink into a small badge in the corner that stays in the site's colours until the language changes again. English has none.
 const EMBLEM: Record<string, string> = {
   en: '🍁',
-  fr: '🥖',
+  fr: '🥐',
   es: '💃',
   de: '🥨',
-  tr: '🧿',
+  tr: '☪️',
   ar: '🌙',
   fa: '🌹',
   pt: '🌊',
@@ -21,7 +21,7 @@ const EMBLEM: Record<string, string> = {
   ja: '🌸',
 }
 
-interface Grain { x: number; y: number; u: number; v: number; vx: number; vy: number; z: number; lum: number }
+interface Grain { x: number; y: number; u: number; v: number; vx: number; vy: number; z: number; lum: number; red: boolean }
 
 const ease = (t: number) => t * t * (3 - 2 * t)
 
@@ -80,6 +80,8 @@ export default function LangBurst() {
           vy: 0,
           z: Math.random() * 2 - 1,
           lum: (px[i] * 0.3 + px[i + 1] * 0.59 + px[i + 2] * 0.11) / 255,
+          // Strong reds in the picture (the pizza's pepperoni, a rose) stay red.
+          red: px[i] > 150 && px[i + 1] < 100 && px[i + 2] < 100,
         })
       }
     }
@@ -129,7 +131,7 @@ export default function LangBurst() {
         g.x += g.vx
         g.y += g.vy
         ctx.globalAlpha = fadeIn * base * (0.55 + 0.45 * g.lum) * (0.7 + 0.3 * g.z)
-        ctx.fillStyle = g.lum > 0.45 ? th.accent : th.particle
+        ctx.fillStyle = g.red ? '#e8392b' : g.lum > 0.45 ? th.accent : th.particle
         ctx.beginPath()
         ctx.arc(g.x, g.y, r * (1 + g.z * 0.35), 0, Math.PI * 2)
         ctx.fill()
