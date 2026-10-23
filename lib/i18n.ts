@@ -322,6 +322,8 @@ export function detectLang(): Lang {
   // A language address like /es always wins: that page is the Spanish version.
   const first = window.location.pathname.split('/')[1]
   if (isLang(first) && first !== 'en') return first
+  // The main address is the English home page, always (the same page for visitors and for Google). Other languages have their own addresses.
+  if (window.location.pathname === '/' || window.location.pathname === '') return 'en'
   try {
     const saved = localStorage.getItem('radoya-lang')
     if (isLang(saved)) return saved
