@@ -547,7 +547,7 @@ export default function Overlay() {
         {/* INTRO: the wordmark is a live material; the snake does the moving. */}
         <section data-section id="intro" dir="ltr" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-32 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw] lg:pb-[7vh] lg:pt-[7vh]">
           {/* Left: what we actually do, in plain words. */}
-          <div dir={textDir} className={`order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center ${textDir === 'rtl' ? 'lg:max-w-[min(820px,38vw)]' : ''}`} style={{ opacity: 'var(--intro)' }}>
+          <div dir={textDir} className={`order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center ${textDir === 'rtl' ? 'lg:max-w-[min(820px,36vw)] lg:text-left' : ''} ${['ar','fa','ru','zh','hi','ja'].includes(curLang) ? 'font-black [&_h1]:font-black [&_p]:font-extrabold' : ''}`} style={{ opacity: 'var(--intro)' }}>
             <h1 data-live="hero" aria-label={t('hero.aria')} className="font-pacalix text-[clamp(38px,min(6.4vw,11vh),118px)] max-sm:mt-0 max-sm:text-[clamp(42px,12.4vw,76px)] leading-[1] tracking-[0.015em]">
               {t('hero.title').split('|').map((line, i) => (
                 <span key={i}>{i > 0 && <br />}{line}</span>
