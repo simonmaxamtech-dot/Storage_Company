@@ -14,10 +14,11 @@ export const metadata: Metadata = {
 
 const SERVICES = [
   { h: 'Interactive websites', p: 'Sites that feel alive: motion, 3D and particles that respond as people scroll, built to load fast and rank in search.' },
-  { h: '3D product configurators', p: 'Let customers rotate, recolour and customise a product in the browser, then send the choice straight to you as an order or enquiry.' },
+  { h: '3D product configurators with checkout', p: 'Customers build their own product in 3D, such as a pizza, a piece of furniture or a custom jersey, see the price change live, and order or pay on the spot. The choice goes straight to you.' },
   { h: 'Architecture and space visualization', p: 'Walkable real-time 3D for buildings, interiors and sites, so clients can see a space before it is built.' },
   { h: 'Brand identity', p: 'A mark, a wordmark and a system that holds together on a screen, a card and a sign. We start from the idea behind the name.' },
-  { h: 'AI assistants', p: 'A helper trained on your own content that answers customer questions on your site, in your voice.' },
+  { h: 'AI sales assistants', p: 'A helper trained on your own content that answers customers in your voice 24/7, quotes from your price list, books appointments, follows up, and hands warm leads to you.' },
+  { h: 'Ready-made packages for local businesses', p: 'Restaurants, gyms, salons and contractors get a complete package: a 3D menu or product page, an AI assistant, Google Business setup and a monthly care plan. Built once, tailored to your brand, and ready to launch fast.' },
   { h: 'Dashboards and ordering', p: 'Clear data views and low-friction ordering flows, for the parts of a business that people use every day.' },
 ]
 
