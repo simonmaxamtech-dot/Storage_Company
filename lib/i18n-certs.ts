@@ -92,7 +92,143 @@ const fa: Record<string, string> = {
   'Show fewer': 'نمایش کمتر',
 }
 
-const CT: Record<string, Record<string, string>> = { ar, fa }
+// The rest of the languages: card descriptions, chips and group names. Titles with company names stay as they are.
+const KEYS = [
+  'Design and build secure, scalable systems in the cloud on AWS, from the basics to exam prep.',
+  'Build, fine-tune and deploy deep learning models and LLMs.',
+  'Automate real IT work with Python: scripting, Git, troubleshooting and systems at scale in the cloud.',
+  'Turn raw data into dashboards and decisions.',
+  'Architecture', 'Dashboards', 'Data modeling', 'Automation', 'Cloud',
+  'Cloud and generative AI', 'AI engineering', 'Automation and data', 'Data analysis',
+  'Engineering design in NX', 'Project management and collaboration', '3D, code, AI, data and business',
+  'Solutions Architect exam prep', 'Project management', 'Discover Acting', 'Revit to Unreal', 'Revit for MEP',
+  'Unreal lighting', 'Advanced C++', 'Advanced SEO', 'Machine learning', 'AI agents for security',
+  'Prompt engineering', 'Data analytics', 'Python for finance', 'Solution sales',
+]
+const pack = (v: string[]) => Object.fromEntries(KEYS.map((k, i) => [k, v[i]]))
+
+const ja = pack([
+  'AWS上で安全かつ拡張性のあるクラウドシステムを設計・構築。基礎から試験対策まで。',
+  'ディープラーニングモデルとLLMの構築、ファインチューニング、デプロイ。',
+  'Pythonで実際のIT業務を自動化：スクリプト、Git、トラブルシューティング、クラウドでの大規模システム。',
+  '生データをダッシュボードと意思決定に変える。',
+  'アーキテクチャ', 'ダッシュボード', 'データモデリング', '自動化', 'クラウド',
+  'クラウドと生成AI', 'AIエンジニアリング', '自動化とデータ', 'データ分析',
+  'NXでのエンジニアリング設計', 'プロジェクト管理とコラボレーション', '3D、コード、AI、データ、ビジネス',
+  'Solutions Architect試験対策', 'プロジェクト管理', '演技入門', 'RevitからUnrealへ', 'MEP向けRevit',
+  'Unrealのライティング', '上級C++', '上級SEO', '機械学習', 'セキュリティ向けAIエージェント',
+  'プロンプトエンジニアリング', 'データ分析', '金融のためのPython', 'ソリューション営業',
+])
+const zh = pack([
+  '在 AWS 上设计并构建安全、可扩展的云系统，从基础到考试备考。',
+  '构建、微调并部署深度学习模型和大语言模型。',
+  '用 Python 自动化真实的 IT 工作：脚本、Git、故障排查，以及云端大规模系统。',
+  '把原始数据变成仪表板和决策。',
+  '架构', '仪表板', '数据建模', '自动化', '云',
+  '云与生成式 AI', 'AI 工程', '自动化与数据', '数据分析',
+  'NX 工程设计', '项目管理与协作', '3D、代码、AI、数据与商业',
+  'Solutions Architect 考试备考', '项目管理', '表演入门', '从 Revit 到 Unreal', '面向机电的 Revit',
+  'Unreal 灯光', '高级 C++', '高级 SEO', '机器学习', '安全领域的 AI 代理',
+  '提示词工程', '数据分析', '金融 Python', '解决方案销售',
+])
+const ru = pack([
+  'Проектируйте и создавайте безопасные масштабируемые облачные системы на AWS: от основ до подготовки к экзамену.',
+  'Создавайте, дообучайте и запускайте модели глубокого обучения и LLM.',
+  'Автоматизируйте реальную ИТ-работу на Python: скрипты, Git, поиск неисправностей и крупные системы в облаке.',
+  'Превращайте сырые данные в дашборды и решения.',
+  'Архитектура', 'Дашборды', 'Моделирование данных', 'Автоматизация', 'Облако',
+  'Облако и генеративный ИИ', 'Инженерия ИИ', 'Автоматизация и данные', 'Анализ данных',
+  'Инженерное проектирование в NX', 'Управление проектами и совместная работа', '3D, код, ИИ, данные и бизнес',
+  'Подготовка к экзамену Solutions Architect', 'Управление проектами', 'Знакомство с актёрским мастерством', 'От Revit к Unreal', 'Revit для инженерных систем',
+  'Освещение в Unreal', 'C++ для продвинутых', 'SEO для продвинутых', 'Машинное обучение', 'ИИ-агенты для безопасности',
+  'Промпт-инжиниринг', 'Аналитика данных', 'Python для финансов', 'Продажи решений',
+])
+const hi = pack([
+  'AWS पर सुरक्षित और स्केलेबल क्लाउड सिस्टम डिज़ाइन और तैयार करें, बुनियादी बातों से परीक्षा की तैयारी तक।',
+  'डीप लर्निंग मॉडल और LLM बनाएं, फ़ाइन-ट्यून करें और डिप्लॉय करें।',
+  'Python से असली IT काम को ऑटोमेट करें: स्क्रिप्टिंग, Git, समस्या-निवारण और क्लाउड पर बड़े सिस्टम।',
+  'कच्चे डेटा को डैशबोर्ड और फ़ैसलों में बदलें।',
+  'आर्किटेक्चर', 'डैशबोर्ड', 'डेटा मॉडलिंग', 'ऑटोमेशन', 'क्लाउड',
+  'क्लाउड और जनरेटिव AI', 'AI इंजीनियरिंग', 'ऑटोमेशन और डेटा', 'डेटा विश्लेषण',
+  'NX में इंजीनियरिंग डिज़ाइन', 'प्रोजेक्ट प्रबंधन और सहयोग', '3D, कोड, AI, डेटा और बिज़नेस',
+  'Solutions Architect परीक्षा की तैयारी', 'प्रोजेक्ट प्रबंधन', 'अभिनय की शुरुआत', 'Revit से Unreal तक', 'MEP के लिए Revit',
+  'Unreal में लाइटिंग', 'एडवांस्ड C++', 'एडवांस्ड SEO', 'मशीन लर्निंग', 'सुरक्षा के लिए AI एजेंट',
+  'प्रॉम्प्ट इंजीनियरिंग', 'डेटा एनालिटिक्स', 'फ़ाइनेंस के लिए Python', 'सॉल्यूशन सेल्स',
+])
+const pt = pack([
+  'Projete e construa sistemas seguros e escaláveis na nuvem com AWS, dos fundamentos à preparação para o exame.',
+  'Crie, ajuste e implante modelos de deep learning e LLMs.',
+  'Automatize o trabalho real de TI com Python: scripts, Git, resolução de problemas e sistemas em escala na nuvem.',
+  'Transforme dados brutos em painéis e decisões.',
+  'Arquitetura', 'Painéis', 'Modelagem de dados', 'Automação', 'Nuvem',
+  'Nuvem e IA generativa', 'Engenharia de IA', 'Automação e dados', 'Análise de dados',
+  'Projeto de engenharia no NX', 'Gestão de projetos e colaboração', '3D, código, IA, dados e negócios',
+  'Preparação para o exame Solutions Architect', 'Gestão de projetos', 'Descubra a atuação', 'Do Revit ao Unreal', 'Revit para MEP',
+  'Iluminação no Unreal', 'C++ avançado', 'SEO avançado', 'Aprendizado de máquina', 'Agentes de IA para segurança',
+  'Engenharia de prompts', 'Análise de dados', 'Python para finanças', 'Venda de soluções',
+])
+const it = pack([
+  'Progetta e costruisci sistemi sicuri e scalabili nel cloud su AWS, dalle basi alla preparazione all’esame.',
+  'Crea, perfeziona e distribuisci modelli di deep learning e LLM.',
+  'Automatizza il lavoro IT reale con Python: script, Git, risoluzione dei problemi e sistemi su larga scala nel cloud.',
+  'Trasforma i dati grezzi in dashboard e decisioni.',
+  'Architettura', 'Dashboard', 'Modellazione dei dati', 'Automazione', 'Cloud',
+  'Cloud e IA generativa', 'Ingegneria dell’IA', 'Automazione e dati', 'Analisi dei dati',
+  'Progettazione ingegneristica in NX', 'Gestione dei progetti e collaborazione', '3D, codice, IA, dati e business',
+  'Preparazione all’esame Solutions Architect', 'Gestione dei progetti', 'Scopri la recitazione', 'Da Revit a Unreal', 'Revit per MEP',
+  'Illuminazione in Unreal', 'C++ avanzato', 'SEO avanzata', 'Machine learning', 'Agenti IA per la sicurezza',
+  'Prompt engineering', 'Analisi dei dati', 'Python per la finanza', 'Vendita di soluzioni',
+])
+const fr = pack([
+  'Concevez et construisez des systèmes cloud sûrs et évolutifs sur AWS, des bases à la préparation de l’examen.',
+  'Créez, affinez et déployez des modèles de deep learning et des LLM.',
+  'Automatisez le vrai travail informatique avec Python : scripts, Git, dépannage et systèmes à grande échelle dans le cloud.',
+  'Transformez des données brutes en tableaux de bord et en décisions.',
+  'Architecture', 'Tableaux de bord', 'Modélisation de données', 'Automatisation', 'Cloud',
+  'Cloud et IA générative', 'Ingénierie de l’IA', 'Automatisation et données', 'Analyse de données',
+  'Conception technique sur NX', 'Gestion de projet et collaboration', '3D, code, IA, données et affaires',
+  'Préparation à l’examen Solutions Architect', 'Gestion de projet', 'Découvrir le jeu d’acteur', 'De Revit à Unreal', 'Revit pour MEP',
+  'Éclairage dans Unreal', 'C++ avancé', 'SEO avancé', 'Apprentissage automatique', 'Agents IA pour la sécurité',
+  'Ingénierie de prompts', 'Analytique de données', 'Python pour la finance', 'Vente de solutions',
+])
+const es = pack([
+  'Diseña y construye sistemas seguros y escalables en la nube con AWS, desde lo básico hasta la preparación del examen.',
+  'Crea, ajusta y despliega modelos de deep learning y LLM.',
+  'Automatiza el trabajo real de TI con Python: scripts, Git, resolución de problemas y sistemas a gran escala en la nube.',
+  'Convierte datos en bruto en paneles y decisiones.',
+  'Arquitectura', 'Paneles', 'Modelado de datos', 'Automatización', 'Nube',
+  'Nube e IA generativa', 'Ingeniería de IA', 'Automatización y datos', 'Análisis de datos',
+  'Diseño de ingeniería en NX', 'Gestión de proyectos y colaboración', '3D, código, IA, datos y negocios',
+  'Preparación del examen Solutions Architect', 'Gestión de proyectos', 'Descubre la actuación', 'De Revit a Unreal', 'Revit para MEP',
+  'Iluminación en Unreal', 'C++ avanzado', 'SEO avanzado', 'Aprendizaje automático', 'Agentes de IA para seguridad',
+  'Ingeniería de prompts', 'Analítica de datos', 'Python para finanzas', 'Venta de soluciones',
+])
+const de = pack([
+  'Entwerfen und bauen Sie sichere, skalierbare Systeme in der Cloud auf AWS, von den Grundlagen bis zur Prüfungsvorbereitung.',
+  'Deep-Learning-Modelle und LLMs bauen, feinabstimmen und bereitstellen.',
+  'Echte IT-Arbeit mit Python automatisieren: Skripte, Git, Fehlersuche und große Systeme in der Cloud.',
+  'Aus Rohdaten Dashboards und Entscheidungen machen.',
+  'Architektur', 'Dashboards', 'Datenmodellierung', 'Automatisierung', 'Cloud',
+  'Cloud und generative KI', 'KI-Engineering', 'Automatisierung und Daten', 'Datenanalyse',
+  'Konstruktion in NX', 'Projektmanagement und Zusammenarbeit', '3D, Code, KI, Daten und Business',
+  'Prüfungsvorbereitung Solutions Architect', 'Projektmanagement', 'Schauspiel entdecken', 'Von Revit zu Unreal', 'Revit für MEP',
+  'Beleuchtung in Unreal', 'Fortgeschrittenes C++', 'Fortgeschrittenes SEO', 'Maschinelles Lernen', 'KI-Agenten für Sicherheit',
+  'Prompt Engineering', 'Datenanalytik', 'Python für Finanzen', 'Lösungsvertrieb',
+])
+const tr = pack([
+  'AWS üzerinde güvenli ve ölçeklenebilir bulut sistemleri tasarlayın ve kurun; temellerden sınav hazırlığına kadar.',
+  'Derin öğrenme modelleri ve LLM’leri oluşturun, ince ayarlayın ve yayına alın.',
+  'Gerçek BT işlerini Python ile otomatikleştirin: betikler, Git, sorun giderme ve bulutta büyük ölçekli sistemler.',
+  'Ham veriyi panolara ve kararlara dönüştürün.',
+  'Mimari', 'Paneller', 'Veri modelleme', 'Otomasyon', 'Bulut',
+  'Bulut ve üretken yapay zeka', 'Yapay zeka mühendisliği', 'Otomasyon ve veri', 'Veri analizi',
+  'NX’te mühendislik tasarımı', 'Proje yönetimi ve iş birliği', '3B, kod, yapay zeka, veri ve iş',
+  'Solutions Architect sınav hazırlığı', 'Proje yönetimi', 'Oyunculuğu keşfet', 'Revit’ten Unreal’e', 'MEP için Revit',
+  'Unreal’de aydınlatma', 'İleri C++', 'İleri SEO', 'Makine öğrenmesi', 'Güvenlik için yapay zeka ajanları',
+  'İstem mühendisliği', 'Veri analitiği', 'Finans için Python', 'Çözüm satışı',
+])
+
+const CT: Record<string, Record<string, string>> = { ar, fa, ja, zh, ru, hi, pt, it, fr, es, de, tr }
 
 // Translates a piece of certificate text for the current language.
 export function useCt() {
