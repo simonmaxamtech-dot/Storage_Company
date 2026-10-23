@@ -1,6 +1,5 @@
 ﻿import type { Metadata } from 'next'
 import LegalShell from '@/components/LegalShell'
-import { EMAIL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Terms of Use',
@@ -17,7 +16,7 @@ const BLOCKS = [
   { h: 'No guarantees', p: 'We work hard to keep the site correct and online, but it is provided as it is, without promises about uptime or that every detail is error free. To the extent the law allows, we are not liable for loss from using it.' },
   { h: 'Changes', p: 'We may update these terms as the site grows. The date of the latest update is the date this page was last published.' },
   { h: 'Governing law', p: 'These terms follow the laws of Alberta and the federal laws of Canada that apply there.' },
-  { h: 'Contact', p: `Questions about these terms: ${EMAIL}.` },
+  { h: 'Contact', p: "Questions about these terms: {EMAIL}." },
 ]
 
 export default function Terms() {

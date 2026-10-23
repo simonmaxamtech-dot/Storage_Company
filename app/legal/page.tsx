@@ -1,6 +1,5 @@
 ﻿import type { Metadata } from 'next'
 import LegalShell from '@/components/LegalShell'
-import { EMAIL, OWNER } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Legal',
@@ -9,13 +8,13 @@ export const metadata: Metadata = {
 }
 
 const BLOCKS = [
-  { h: 'Who we are', p: `Radoya is a creative and marketing agency founded by ${OWNER} in Calgary, Alberta, Canada. Contact: ${EMAIL}.` },
-  { h: 'Copyright', p: `Copyright © ${new Date().getFullYear()} Radoya. All rights reserved. No part of this site may be reproduced without written permission.` },
+  { h: 'Who we are', p: "Radoya is a creative and marketing agency founded by {OWNER} in Calgary, Alberta, Canada. Contact: {EMAIL}." },
+  { h: 'Copyright', p: "Copyright © {YEAR} Radoya. All rights reserved. No part of this site may be reproduced without written permission." },
   { h: 'Trademarks', p: 'Radoya and the Radoya logo and typeface are our marks. AWS, IBM, Google, Microsoft, GitHub, Siemens, Adobe, LinkedIn, University of London, TÜBİTAK, the University of Waterloo and any other names or logos shown are the property of their owners, used only to identify credentials and projects. We are not affiliated with or endorsed by them.' },
   { h: 'Certificates and awards', p: 'Certificates shown were earned by Simon Maxam and each links to the issuer’s own record where one exists.' },
   { h: 'Client work', p: 'Projects in the work section are shown with the permission of their owners. Their names, brands and content belong to them.' },
   { h: 'Fonts, software and hosting', p: 'The Radoya typeface was made for this brand. The site is built with open-source tools such as Next.js, React and Three.js, and runs on Cloudflare.' },
-  { h: 'Reporting a problem', p: `If something on the site looks wrong or infringes your rights, write to ${EMAIL} and we will fix it quickly.` },
+  { h: 'Reporting a problem', p: "If something on the site looks wrong or infringes your rights, write to {EMAIL} and we will fix it quickly." },
 ]
 
 export default function Legal() {

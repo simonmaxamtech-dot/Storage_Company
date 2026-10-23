@@ -1,6 +1,5 @@
 ﻿import type { Metadata } from 'next'
 import LegalShell from '@/components/LegalShell'
-import { EMAIL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy and Cookies',
@@ -14,7 +13,7 @@ const BLOCKS = [
   { h: 'When you contact us', p: 'The contact button opens your own email app with a draft. Nothing is sent until you press send there. If you write to us, we use your message only to reply to you, and keep it only as long as the conversation needs it. We never sell or share it.' },
   { h: 'Motion sensors', p: 'On phones, tilt and shake are optional. They run only after you tap to turn them on, are processed on your device, and are never recorded.' },
   { h: 'Links to other sites', p: 'Our pages link to sites we do not run (Instagram, LinkedIn, client projects). Their own policies apply once you leave.' },
-  { h: 'Your rights and questions', p: `You can ask what we hold about you, or ask us to delete it, at any time. Write to ${EMAIL} and you will get a real answer.` },
+  { h: 'Your rights and questions', p: "You can ask what we hold about you, or ask us to delete it, at any time. Write to {EMAIL} and you will get a real answer." },
 ]
 
 export default function Privacy() {

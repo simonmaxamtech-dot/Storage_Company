@@ -1,5 +1,6 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
 import LegalShell from '@/components/LegalShell'
+import SiteMapList from '@/components/SiteMapList'
 import { INSTAGRAM, LINKEDIN_COMPANY } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -18,18 +19,7 @@ const GROUPS = [
 export default function SiteMap() {
   return (
     <LegalShell eyebrow="Site Map" title="Everything, in one list.">
-      {GROUPS.map((g) => (
-        <section key={g.h} className="py-6" style={{ borderTop: '1px solid var(--line)' }}>
-          <h2 className="text-[21px] font-extrabold">{g.h}</h2>
-          <ul className="mt-3 grid gap-2 text-[17px] font-semibold sm:grid-cols-2">
-            {g.links.map(([l, h]) => (
-              <li key={l}>
-                <a href={h} className="underline decoration-2 underline-offset-4">{l}</a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+      <SiteMapList groups={GROUPS} />
     </LegalShell>
   )
 }

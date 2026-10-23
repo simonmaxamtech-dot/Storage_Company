@@ -5,6 +5,7 @@ import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
 import { CALLBACK_MINUTES, EMAIL, LEAD_ENDPOINT } from '@/lib/site'
 import { PLANS, fmt } from '../Pricing'
+import { usePg } from '@/lib/i18n-pages'
 
 // A short, friendly back-and-forth instead of a price list: what do you need, do you have a site, when, who are you.
 const NEEDS = ['A new website', 'Redo my website', 'Marketing and content', 'Brand and logo', '3D or something interactive', 'Not sure yet']
@@ -48,6 +49,7 @@ function Typing() {
 }
 
 function Chips({ options, picked, onPick, multi }: { options: string[]; picked: string[]; onPick: (o: string) => void; multi?: boolean }) {
+  const tp = usePg()
   return (
     <div className="chat-in flex flex-wrap justify-end gap-2" role={multi ? 'group' : 'radiogroup'}>
       {options.map((o) => {
@@ -61,7 +63,7 @@ function Chips({ options, picked, onPick, multi }: { options: string[]; picked: 
             className="rounded-full px-4 py-2.5 text-[15px] font-bold transition-all duration-300 hover:scale-[1.03]"
             style={{ background: on ? 'var(--hot)' : 'transparent', color: on ? '#1a1200' : 'var(--ink)', boxShadow: on ? 'none' : 'inset 0 0 0 1.5px var(--line)' }}
           >
-            {o}
+            {tp(o)}
           </button>
         )
       })}
@@ -70,6 +72,7 @@ function Chips({ options, picked, onPick, multi }: { options: string[]; picked: 
 }
 
 export default function QuoteChat() {
+  const tp = usePg()
   const [needs, setNeeds] = useState<string[]>([])
   const [have, setHave] = useState('')
   const [when, setWhen] = useState('')
@@ -148,9 +151,9 @@ export default function QuoteChat() {
   return (
     <div className="clean-card max-w-[780px]" style={{ ['--brand' as string]: 'var(--hot)', padding: 'clamp(18px,3vw,36px)' } as CSSProperties}>
       <div className="flex flex-col gap-3.5" aria-live="polite">
-        <Bot>Hi! 4 quick questions, then Simon calls you back with a fixed price.</Bot>
+        <Bot>{tp('Hi! 4 quick questions, then Simon calls you back with a fixed price.')}</Bot>
 
-        {(step > 0 || !typing) && <Bot>What do you need? Pick as many as you like.</Bot>}
+        {(step > 0 || !typing) && <Bot>{tp('What do you need? Pick as many as you like.')}</Bot>}
         {step === 0 && !typing && (
           <>
             <Chips
@@ -171,25 +174,25 @@ export default function QuoteChat() {
                 className="rounded-full px-6 py-3 text-[16px] font-extrabold transition-all disabled:opacity-30"
                 style={{ background: 'var(--ink)', color: 'var(--bg)' }}
               >
-                Next â†’
+                {tp('Next')} →
               </button>
             </div>
           </>
         )}
-        {step > 0 && <Me>{needs.join(', ')}</Me>}
+        {step > 0 && <Me>{needs.map((n) => tp(n)).join(', ')}</Me>}
 
         {step === 1 && typing && <Typing />}
-        {step > 1 || q(1) ? <Bot>Do you have a website right now?</Bot> : null}
+        {step > 1 || q(1) ? <Bot>{tp('Do you have a website right now?')}</Bot> : null}
         {q(1) && <Chips options={HAVE} picked={[have]} onPick={(o) => pick(setHave, o, 2)} />}
-        {step > 1 && <Me>{have}</Me>}
+        {step > 1 && <Me>{tp(have)}</Me>}
 
         {step === 2 && typing && <Typing />}
-        {step > 2 || q(2) ? <Bot>Nice. When would you like it live?</Bot> : null}
+        {step > 2 || q(2) ? <Bot>{tp('Nice. When would you like it live?')}</Bot> : null}
         {q(2) && <Chips options={WHEN} picked={[when]} onPick={(o) => pick(setWhen, o, 3)} />}
-        {step > 2 && <Me>{when}</Me>}
+        {step > 2 && <Me>{tp(when)}</Me>}
 
         {step === 3 && typing && <Typing />}
-        {step > 3 || q(3) ? <Bot>Great. What&rsquo;s your name?</Bot> : null}
+        {step > 3 || q(3) ? <Bot>{tp('Great. What’s your name?')}</Bot> : null}
         {q(3) && (
           <form
             className="chat-in flex justify-end gap-2"
@@ -204,22 +207,22 @@ export default function QuoteChat() {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Your name"
+              placeholder={tp('Your name')}
               autoComplete="given-name"
               maxLength={60}
-              aria-label="Your name"
+              aria-label={tp('Your name')}
               className="min-w-0 flex-1 rounded-full bg-transparent px-5 py-3 text-[16px] font-bold outline-none placeholder:opacity-50 sm:max-w-[320px]"
               style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)', color: 'var(--ink)' }}
             />
             <button type="submit" disabled={!name.trim()} className="rounded-full px-6 py-3 text-[16px] font-extrabold transition-all disabled:opacity-30" style={{ background: 'var(--hot)', color: '#1a1200' }}>
-              Next â†’
+              {tp('Next')} →
             </button>
           </form>
         )}
         {step > 3 && <Me>{name}</Me>}
 
         {step === 4 && typing && <Typing />}
-        {step > 4 || q(4) ? <Bot>Thanks, {name}. What&rsquo;s the best phone number for Simon to call you on?</Bot> : null}
+        {step > 4 || q(4) ? <Bot>{tp('Thanks, {name}. What’s the best phone number for Simon to call you on?', { name })}</Bot> : null}
         {q(4) && (
           <form
             className="chat-in flex flex-col items-end gap-2"
@@ -237,16 +240,16 @@ export default function QuoteChat() {
                 inputMode="tel"
                 autoComplete="tel"
                 maxLength={30}
-                aria-label="Your phone number"
+                aria-label={tp('Your phone number')}
                 className="min-w-0 flex-1 rounded-full bg-transparent px-5 py-3 text-[16px] font-bold outline-none placeholder:opacity-50 sm:max-w-[320px]"
                 style={{ boxShadow: 'inset 0 0 0 1.5px var(--line)', color: 'var(--ink)' }}
               />
               <button type="submit" disabled={!phoneOk} data-hover="Send" className="rounded-full px-6 py-3 text-[16px] font-extrabold transition-all disabled:opacity-30" style={{ background: 'var(--hot)', color: '#1a1200' }}>
-                Call me â†—
+                {tp('Call me')} ↗
               </button>
             </div>
             <p className="text-[12.5px] font-bold" style={{ color: 'var(--muted)' }}>
-              Only used to call you about this project. <a href="/privacy" className="underline underline-offset-2">Privacy</a>
+              {tp('Only used to call you about this project.')} <a href="/privacy" className="underline underline-offset-2">{tp('Privacy')}</a>
             </p>
           </form>
         )}
@@ -257,18 +260,18 @@ export default function QuoteChat() {
           <>
             {sent === 'draft' ? (
               <Bot>
-                One last step: your email app just opened with everything filled in. Press send and Simon will call you on {phone} within {CALLBACK_MINUTES} minutes.
+                {tp('One last step: your email app just opened with everything filled in. Press send and Simon will call you on {phone} within {min} minutes.', { phone, min: CALLBACK_MINUTES })}
               </Bot>
             ) : sent === 'sending' ? (
               <Typing />
             ) : (
               <Bot>
-                All done, {name}. Your details are with Simon, and he&rsquo;ll call you on <b>{phone}</b> within <b>{CALLBACK_MINUTES} minutes</b>.
+                {tp('All done, {name}. Your details are with Simon, and he’ll call you on {phone} within {min} minutes.', { name, phone, min: CALLBACK_MINUTES })}
               </Bot>
             )}
             {(sent === 'sent' || sent === 'draft') && (
               <Bot>
-                To give you an idea: projects start from <b>CA$ {fmt(price)}</b>. Simon will give you the exact fixed price on the call, in writing.
+                {tp('To give you an idea: projects start from CA$ {price}. Simon will give you the exact fixed price on the call, in writing.', { price: fmt(price) })}
               </Bot>
             )}
           </>
