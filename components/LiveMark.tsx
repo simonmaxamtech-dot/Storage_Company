@@ -292,7 +292,8 @@ export default function LiveMark({ anchor, size: S, load, start = 0, onReady, hi
     // Sit exactly where the element sits in the page, so it scrolls and resizes with the layout.
     const r = anchor.getBoundingClientRect()
     const cam = camera as THREE.PerspectiveCamera
-    const perPx = (2 * cam.position.z * Math.tan((cam.fov * Math.PI) / 360)) / size.height
+    // Measured at the depth the letters sit (0.5 in front), so they land exactly on the page text instead of 7% bigger.
+    const perPx = (2 * (cam.position.z - 0.5) * Math.tan((cam.fov * Math.PI) / 360)) / size.height
     g.position.set((r.left + r.width / 2 - size.width / 2) * perPx, -(r.top + r.height / 2 - size.height / 2) * perPx, 0.5)
     g.scale.setScalar(Math.max(r.width, 1) * perPx)
     // The live headline leans in 3D with the phone, inside the GPU, so the page never has to restyle.

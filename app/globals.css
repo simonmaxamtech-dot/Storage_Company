@@ -352,6 +352,18 @@ button {
   from { opacity: 0; transform: translateY(30px) scale(0.9); }
 }
 
+/* The page shows straight from the HTML, with a short fade, while the 3D gathers behind it. No transform here:
+   it would trap the fixed header. The hero text rises in just after. */
+.page-in {
+  animation: page-in 0.5s ease-out both;
+}
+@keyframes page-in {
+  from { opacity: 0; }
+}
+.hero-in {
+  animation: plan-in 0.8s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
 /* Plan details rise in when you switch plans. */
 .plan-in {
   animation: plan-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
