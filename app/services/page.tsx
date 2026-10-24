@@ -141,7 +141,7 @@ export default function Services() {
           ].map(([f, alt, span]) => (
             <figure key={f} className={span}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/images/brand/${f}`} alt={alt} loading="lazy" className="w-full rounded-2xl" />
+              <img src={`/images/brand/${f.replace(/.(png|jpg)$/, ".webp")}`} alt={alt} loading="lazy" className="w-full rounded-2xl" />
               <figcaption className="mt-2 text-[13px] font-semibold" style={{ color: 'var(--muted)' }}>{alt}</figcaption>
             </figure>
           ))}
