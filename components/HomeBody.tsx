@@ -1,5 +1,5 @@
 import AboutLocales from '@/components/AboutLocales'
-import Scene from '@/components/Scene'
+import Scene from '@/components/SceneLazy'
 import Objects from '@/components/Objects'
 import Cursor from '@/components/Cursor'
 import Overlay from '@/components/Overlay'
