@@ -47,7 +47,7 @@ export default function Cursor() {
     type PP = { lx: number; ly: number; c: number; s: number; x: number; y: number; d: number; vx: number; vy: number }
     const pandaPts: PP[] = []
     const img = new Image()
-    img.src = '/logo-panda.png'
+    img.src = '/logo-panda-cursor.webp'
     img.onload = () => {
       // The logo is white on black: the white is the animal, the black spots are holes in it.
       const N = 400
