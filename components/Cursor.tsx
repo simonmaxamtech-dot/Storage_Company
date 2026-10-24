@@ -1,6 +1,7 @@
 ﻿'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { live } from '@/lib/store'
 
 // The cursor is a short log of bark, drawn in grains. In the beaver section the Radoya beaver (made of the logo's grains) comes and eats it: beavers eat bark.
 
@@ -119,8 +120,10 @@ export default function Cursor() {
         return
       }
       lastDraw = nowT
-      if (frame % 15 === 0) inkCol = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || inkCol
-      if (frame++ % 15 === 0) col = getComputedStyle(document.documentElement).getPropertyValue('--cur').trim() || col
+      // Colours come straight from the live theme: reading them back from the page would force a restyle.
+      frame++
+      inkCol = live.theme.ink || inkCol
+      col = live.theme.light ? '#c8471b' : live.theme.accent || col
       x += (tx - x) * 0.6
       y += (ty - y) * 0.6
       open += (openTarget - open) * 0.18

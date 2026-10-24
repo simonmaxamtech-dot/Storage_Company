@@ -394,6 +394,11 @@ const CLEAN_PRICING_ROOM = 4
 const PLAN_TARGET: Room['target'][] = [3, 11, 5, 4]
 // Which background-built formation each target needs (the snake and the wireframe need none).
 const TARGET_FORMATION: (FormationName | null)[] = [null, 'spaces', 'apple', 'orbit', 'cloud', 'galaxy', 'tree', 'portrait', 'bamboo', 'cradle', 'peaks', null]
+// The shapes the Clean design can show. The others (and their model downloads) wait until the story design is opened.
+const CLEAN_NEEDS = new Set(
+  [...CLEAN_DESKTOP, ...CLEAN_STACKED].map((r) => r.target).concat(PLAN_TARGET).map((t) => TARGET_FORMATION[t]).filter(Boolean)
+)
+const wanted = (name: FormationName) => !useStore.getState().clean || CLEAN_NEEDS.has(name)
 
 function smooth(e0: number, e1: number, x: number) {
   const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0)))
@@ -471,7 +476,7 @@ export default function Particles() {
     let repairId = 0
     const timers: number[] = []
     // The model files start downloading right away, so the tree and the others are cached long before they are built.
-    ;['tree', 'cradle', 'apple'].forEach((m) => void fetch(`/models/${m}.bin`).catch(() => {}))
+    if (!useStore.getState().clean) ['tree', 'cradle', 'apple'].forEach((m) => void fetch(`/models/${m}.bin`).catch(() => {}))
     buildCore(S).then((core) => {
       if (cancelled) return
       const blank = () => dataTexture(new Float32Array(S * S * 4), S)
@@ -651,7 +656,8 @@ export default function Particles() {
               timers.push(window.setTimeout(run, 350))
               return
             }
-            if (!done.has(name) && !busy.has(name)) void fill(name, t, n)
+            // A shape this design never shows is skipped; the self-repair below builds it if the design changes.
+            if (!done.has(name) && !busy.has(name) && wanted(name)) void fill(name, t, n)
           }
           const delay = weak ? 1000 + i * 900 : 200 + i * 500
           timers.push(window.setTimeout(() => (ric ? ric(run, { timeout: 4000 }) : run()), delay))
@@ -668,7 +674,7 @@ export default function Particles() {
           const repair = window.setInterval(() => {
             if (cancelled || document.hidden || performance.now() - t0 < grace) return
             list.forEach(([name, t, n]) => {
-              if (!done.has(name) && !busy.has(name)) void fill(name, t, n)
+              if (!done.has(name) && !busy.has(name) && wanted(name)) void fill(name, t, n)
             })
           }, 6000)
           timers.push(repair)

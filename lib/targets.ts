@@ -388,7 +388,7 @@ async function samplePhoto(src: string, count: number, offsetX: number, height: 
 
 async function buildPortrait(count: number) {
   // The selfie cutout, big: his face and shoulders from darkness. The transparent background stays empty.
-  const f = await samplePhoto('/images/selfie-cut.png', count, 0, 6.4, [0.08, 0.2, 0.98, 1])
+  const f = await samplePhoto('/images/selfie-cut.webp', count, 0, 6.4, [0.08, 0.2, 0.98, 1])
   return f.out
 }
 
@@ -763,7 +763,7 @@ export interface Core {
 
 export async function buildCore(size: number): Promise<Core> {
   const count = size * size
-  const img = await loadImage('/snake.png')
+  const img = await loadImage('/snake.webp')
   const { snake, body, ring } = measureLogo(img, count)
   return { size, count, snake, body, ring, rand: randoms(count), scatter: buildScatter(count, 6, 3.6, 3.6, 3.5 / 6) }
 }

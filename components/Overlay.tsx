@@ -45,9 +45,11 @@ function ScrollLine() {
     measure()
     const slow = window.setInterval(measure, 1500)
     window.addEventListener('resize', measure)
+    // The name only shows on wide screens; on phones it is hidden, so it is not animated there at all.
+    const wide = window.matchMedia('(min-width: 1024px)')
     const tick = () => {
       raf = requestAnimationFrame(tick)
-      if (document.hidden) return
+      if (document.hidden || !wide.matches) return
       const t = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0
       // At rest, do nothing: no style writes, no repaint.
       if (Math.abs(t - p) < 0.0004) return
@@ -424,24 +426,39 @@ export default function Overlay() {
   useEffect(() => {
     let raf = 0
     let last = performance.now()
-    let force = true
+    // A colour variable on <html> makes the browser restyle the whole page, so each one is written only when its
+    // value really changes (the 3D-only colours fade on their own without touching the page).
+    const written: Record<string, string> = {}
+    const meta = document.querySelector('meta[name="theme-color"]')
+    // During a fade a colour only moves a shade at a time; steps under 4/255 are invisible, so they wait and
+    // the exact colour is written once the fade settles.
+    const far = (a: string | undefined, b: string) => {
+      if (!a || a.length !== 7 || b.length !== 7) return true
+      const x = parseInt(a.slice(1), 16)
+      const y = parseInt(b.slice(1), 16)
+      for (let s = 0; s < 24; s += 8) if (Math.abs(((x >> s) & 255) - ((y >> s) & 255)) >= 4) return true
+      return false
+    }
+    let settled = false
+    const put = (k: string, v: string) => {
+      if (written[k] === v) return false
+      if (!settled && !far(written[k], v)) return false
+      written[k] = v
+      document.documentElement.style.setProperty(k, v)
+      return true
+    }
     const tick = (now: number) => {
       const dt = Math.min(0.1, (now - last) / 1000)
       last = now
       live.scrollVel *= Math.exp(-dt * 3)
       live.shake *= Math.exp(-dt * 4)
-      if (stepTheme(idsRef.current, dt) || force) {
-        force = false
-        const m = live.theme
-        const r = document.documentElement.style
-        r.setProperty('--bg', m.bg)
-        r.setProperty('--ink', m.ink)
-        r.setProperty('--glow', m.glow)
-        r.setProperty('--hot', m.light ? '#c8471b' : m.name === 'Night' ? '#6fd3ff' : '#ff7a3d')
-        r.setProperty('--cur', m.light ? '#c8471b' : m.accent)
-        r.setProperty('--logo-filter', m.light ? 'invert(1)' : 'none')
-        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', m.bg)
-      }
+      settled = !stepTheme(idsRef.current, dt)
+      const m = live.theme
+      if (put('--bg', m.bg)) meta?.setAttribute('content', m.bg)
+      put('--ink', m.ink)
+      put('--glow', m.glow)
+      put('--hot', m.light ? '#c8471b' : m.name === 'Night' ? '#6fd3ff' : '#ff7a3d')
+      put('--logo-filter', m.light ? 'invert(1)' : 'none')
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
@@ -450,20 +467,28 @@ export default function Overlay() {
 
   useEffect(() => {
     const els = Array.from(document.querySelectorAll<HTMLElement>('[data-section]'))
+    // Section positions are measured when the layout changes, not on every scroll event (reading them mid-scroll
+    // makes the browser stop and re-lay-out the page).
+    let tops: number[] = []
+    const measure = () => { tops = els.map((el) => el.offsetTop) }
+    measure()
+    const ro = new ResizeObserver(() => { measure(); update() })
+    ro.observe(document.body)
+    const slow = window.setInterval(measure, 2000)
     const update = () => {
       const y = window.scrollY + window.innerHeight * 0.5
       let i = 0
-      els.forEach((el, k) => {
-        if (el.offsetTop <= y) i = k
+      tops.forEach((t, k) => {
+        if (t <= y) i = k
       })
       // The 3D form travels as a section's top rises to the top of the viewport, so it is settled on arrival.
       const top = window.scrollY
       let j = 0
-      els.forEach((el, k) => {
-        if (el.offsetTop <= top + 1) j = k
+      tops.forEach((t, k) => {
+        if (t <= top + 1) j = k
       })
-      const nxt = els[j + 1]
-      live.section = j + (nxt ? Math.min(1, Math.max(0, (top - els[j].offsetTop) / Math.max(1, nxt.offsetTop - els[j].offsetTop))) : 0)
+      const nxt = tops[j + 1]
+      live.section = j + (nxt !== undefined ? Math.min(1, Math.max(0, (top - tops[j]) / Math.max(1, nxt - tops[j]))) : 0)
       live.paused = false
       if (activeRef.current !== i) {
         activeRef.current = i
@@ -481,9 +506,10 @@ export default function Overlay() {
       live.lastInput = now
       update()
     }
+    const onResize = () => { measure(); update() }
     update()
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', update)
+    window.addEventListener('resize', onResize)
 
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('in')),
@@ -492,7 +518,9 @@ export default function Overlay() {
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
     return () => {
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', update)
+      window.removeEventListener('resize', onResize)
+      ro.disconnect()
+      clearInterval(slow)
       io.disconnect()
       live.paused = false
     }
