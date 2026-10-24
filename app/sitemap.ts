@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    { url: `${SITE_URL}/why-radoya`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/privacy`, lastModified, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${SITE_URL}/terms`, lastModified, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${SITE_URL}/legal`, lastModified, changeFrequency: 'yearly', priority: 0.2 },

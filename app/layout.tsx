@@ -1,6 +1,7 @@
 ﻿import type { Metadata, Viewport } from 'next'
 import { Nunito, Space_Grotesk } from 'next/font/google'
 import './globals.css'
+import AskAI from '@/components/AskAI'
 import { DESCRIPTION, INSTAGRAM, LINKEDIN, LINKEDIN_COMPANY, OWNER, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
 
 const display = Nunito({ subsets: ['latin', 'latin-ext'], weight: ['800', '900'], variable: '--font-display', display: 'swap' })
@@ -113,6 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {children}
+        <AskAI />
       </body>
     </html>
   )
