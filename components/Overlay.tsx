@@ -12,6 +12,7 @@ import LangSwitch from './LangSwitch'
 import LangBurst from './LangBurst'
 import { useT, type Key } from '@/lib/i18n'
 import Inspect from './Inspect'
+import AskAI from './AskAI'
 import EdenLife from './EdenLife'
 import AboutSides from './AboutSides'
 import HStrip from './HStrip'
@@ -369,7 +370,7 @@ export default function Overlay() {
   const t = useT()
   const curLang = useStore((s) => s.lang)
   const textDir = curLang === 'ar' || curLang === 'fa' ? 'rtl' : 'ltr'
-  const { ready, game, setGame, soundOn, setSoundOn, setTrack, clean } = useStore()
+  const { game, setGame, soundOn, setSoundOn, setTrack, clean } = useStore()
   const ids = clean ? CLEAN_IDS : SECTION_IDS
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState<number | null>(null)
@@ -531,7 +532,7 @@ export default function Overlay() {
   }
 
   return (
-    <div className={`relative z-10 transition-opacity duration-[900ms] ${ready ? 'opacity-100' : 'opacity-0'}`}>
+    <div className="page-in relative z-10">
       <div aria-hidden className="header-fade pointer-events-none fixed inset-x-0 top-0 z-30 h-[120px] sm:h-[140px]" />
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-5 sm:px-10 sm:py-7">
         <button
@@ -579,6 +580,7 @@ export default function Overlay() {
           <Inspect />
           <DesignSwitch />
           <Gyro />
+          <AskAI inline />
           <a href="mailto:simon0021maxam@gmail.com" className="max-sm:hidden rounded-full px-4 py-2 text-[14px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>simon0021maxam@gmail.com</a>
         </div>
       </footer>
@@ -588,7 +590,7 @@ export default function Overlay() {
         {/* INTRO: the wordmark is a live material; the snake does the moving. */}
         <section data-section id="intro" dir="ltr" className="relative flex min-h-[100svh] flex-col items-center justify-end gap-5 px-6 pb-[15vh] max-sm:pb-32 lg:grid lg:grid-cols-[1.12fr_1fr] lg:gap-6 lg:pl-[9vw] lg:pr-[5vw] lg:pb-[7vh] lg:pt-[7vh]">
           {/* Left: what we actually do, in plain words. */}
-          <div dir={textDir} className={`order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center ${textDir === 'rtl' ? 'lg:max-w-[min(820px,36vw)] lg:text-left' : ''} ${['ar','fa','ru','zh','hi','ja'].includes(curLang) ? 'font-black [&_h1]:font-black [&_p]:font-extrabold' : ''}`} style={{ opacity: 'var(--intro)' }}>
+          <div dir={textDir} className={`hero-in order-2 w-full max-w-[820px] max-lg:text-center lg:order-1 lg:self-center ${textDir === 'rtl' ? 'lg:max-w-[min(820px,36vw)] lg:text-left' : ''} ${['ar','fa','ru','zh','hi','ja'].includes(curLang) ? 'font-black [&_h1]:font-black [&_p]:font-extrabold' : ''}`}>
             <h1 data-live="hero" aria-label={t('hero.aria')} className={`font-pacalix text-[clamp(38px,min(6.4vw,11vh),118px)] max-sm:mt-0 ${['es', 'pt', 'de', 'fr', 'it', 'tr'].includes(curLang) ? 'max-sm:text-[clamp(34px,10.4vw,76px)]' : 'max-sm:text-[clamp(42px,12.4vw,76px)]'} leading-[1] tracking-[0.015em]`}>
               {t('hero.title').split('|').map((line, i) => (
                 <span key={i}>{i > 0 && <br />}{line}</span>
