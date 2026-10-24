@@ -38,7 +38,7 @@ export default function AskAI() {
   }
 
   return (
-    <div ref={box} className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <div ref={box} className="fixed bottom-[76px] right-4 z-[60] flex flex-col items-end gap-3 sm:bottom-20 sm:right-6">
       <div
         role="dialog"
         aria-label={`Ask an AI why ${ASK_BRAND}`}
