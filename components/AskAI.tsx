@@ -39,41 +39,61 @@ export default function AskAI() {
 
   return (
     <div ref={box} className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
-      {open && (
-        <div
-          role="dialog"
-          aria-label={`Ask an AI why ${ASK_BRAND}`}
-          className="w-[min(86vw,270px)] rounded-2xl p-3 shadow-2xl"
-          style={{ background: 'rgba(24,23,21,0.96)', border: '1px solid var(--line)', backdropFilter: 'blur(14px)' }}
-        >
-          <p className="px-2 pb-2 pt-1 font-mono text-[11px] uppercase tracking-[0.14em]" style={{ color: 'var(--muted)' }}>
-            ( Ask an AI why {ASK_BRAND} )
+      <div
+        role="dialog"
+        aria-label={`Ask an AI why ${ASK_BRAND}`}
+        aria-hidden={!open}
+        className="w-[min(88vw,300px)] origin-bottom-right overflow-hidden rounded-[26px] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] transition-all duration-300 ease-out"
+        style={{
+          background: 'var(--ink)',
+          color: '#08090b',
+          opacity: open ? 1 : 0,
+          transform: open ? 'none' : 'translateY(14px) scale(0.92)',
+          pointerEvents: open ? 'auto' : 'none',
+        }}
+      >
+        <div className="px-5 pb-3 pt-5">
+          <p className="font-[family-name:var(--font-display)] text-[30px] font-black leading-[0.95]">
+            Ask an AI
+            <br />
+            <span style={{ color: 'var(--hot)' }}>why {ASK_BRAND}.</span>
           </p>
-          <ul>
-            {ASK_TARGETS.map((t) => (
-              <li key={t.id}>
-                <button
-                  type="button"
-                  onClick={() => go(t)}
-                  className="flex w-full items-center gap-3 rounded-xl px-2 py-2.5 text-left text-[17px] font-bold transition-colors hover:bg-white/10"
-                >
-                  <span aria-hidden className="grid h-8 w-8 place-items-center text-[26px] leading-none" style={{ color: MARK[t.id].color }}>{MARK[t.id].glyph}</span>
-                  {t.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-          {note && <p role="status" className="px-2 pb-1 pt-2 text-[13px] font-semibold" style={{ color: 'var(--muted)' }}>{note}</p>}
         </div>
-      )}
+        <ul className="pb-2">
+          {ASK_TARGETS.map((t, n) => (
+            <li key={t.id}>
+              <button
+                type="button"
+                tabIndex={open ? 0 : -1}
+                onClick={() => go(t)}
+                className="group flex w-full items-center gap-3 px-5 py-3 text-left transition-colors duration-200 hover:bg-[var(--hot)]"
+                style={{ borderTop: '1px solid rgba(8,9,11,0.12)' }}
+              >
+                <span className="w-5 text-[12px] font-extrabold opacity-45">0{n + 1}</span>
+                <span className="flex-1 font-[family-name:var(--font-display)] text-[22px] font-black">{t.name}</span>
+                <span aria-hidden className="text-[22px] font-black transition-transform duration-200 group-hover:translate-x-1">→</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        {note && <p role="status" className="px-5 pb-4 text-[13px] font-bold">{note}</p>}
+      </div>
+
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="flex items-center gap-2 rounded-full px-4 py-2.5 text-[15px] font-extrabold transition-transform hover:scale-[1.04]"
-        style={{ background: 'rgba(14,14,13,0.88)', border: '1px solid var(--line)', backdropFilter: 'blur(10px)', color: 'var(--ink)' }}
+        className="group flex items-center gap-2.5 rounded-full py-2 pl-2 pr-5 font-[family-name:var(--font-display)] text-[17px] font-black transition-transform duration-200 hover:scale-[1.05]"
+        style={{ background: open ? 'var(--hot)' : 'var(--ink)', color: '#08090b', boxShadow: '0 12px 36px -10px rgba(255,122,61,0.55)' }}
       >
-        <span aria-hidden style={{ color: 'var(--hot)' }}>✦</span> Ask AI
+        <span
+          aria-hidden
+          className="relative grid h-8 w-8 place-items-center rounded-full text-[20px] leading-none text-white transition-transform duration-300"
+          style={{ background: 'radial-gradient(circle at 32% 28%, #ffb48a, var(--hot) 55%, #c4491a)', transform: open ? 'rotate(135deg)' : 'none' }}
+        >
+          +
+        </span>
+        Ask AI
       </button>
     </div>
   )
