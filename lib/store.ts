@@ -45,13 +45,8 @@ function savedMode(): ModeChoice {
 // Which design the site opens in the first time. Flip this one word to 'classic' to make the old design the default.
 export const DEFAULT_DESIGN: 'clean' | 'classic' = 'clean'
 
+// The Clean / Classic switch is gone from the page, so a design picked earlier is no longer remembered.
 function savedDesign(): boolean {
-  try {
-    const d = localStorage.getItem('pacalix-design')
-    if (d === 'clean' || d === 'classic') return d === 'clean'
-  } catch {
-    // storage unavailable
-  }
   return DEFAULT_DESIGN === 'clean'
 }
 

@@ -770,7 +770,7 @@ export default function Particles() {
     // Hold the intro until the wordmark is built too (or 3.5 s have passed), then start both on the same frame.
     if (!live.go) {
       const waited = performance.now() - (e.since ?? performance.now())
-      if (reduced || (waited > 400 && !live.heroWait) || waited > 3500) {
+      if (reduced || (waited > 100 && !live.heroWait) || waited > 3500) {
         live.go = true
         useStore.getState().setReady(true)
       }
@@ -778,7 +778,7 @@ export default function Particles() {
 
     // The intro runs on simulation time so the wordmark never arrives before the snake has formed.
     // On phones the dust drifts over the whole screen a little longer before it gathers, which buys the phone time to load.
-    const introT = reduced ? 9 : st.sim / (mobile ? 1.9 : 1.3)
+    const introT = reduced ? 9 : st.sim / (mobile ? 0.8 : 0.5)
     const introVar = Math.round(smooth(0.95, 1.55, introT) * 50) / 50
     if (introVar !== st.lastIntroVar) {
       st.lastIntroVar = introVar

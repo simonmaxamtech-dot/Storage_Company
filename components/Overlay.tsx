@@ -11,7 +11,6 @@ import Gyro from './Gyro'
 import LangSwitch from './LangSwitch'
 import LangBurst from './LangBurst'
 import { useT, type Key } from '@/lib/i18n'
-import Inspect from './Inspect'
 import AskAI from './AskAI'
 import EdenLife from './EdenLife'
 import AboutSides from './AboutSides'
@@ -263,37 +262,6 @@ function ThemePicker() {
           ))}
         </ul>
       )}
-    </div>
-  )
-}
-
-// Clean / Classic: the same site in two designs. The choice is remembered.
-function DesignSwitch() {
-  const clean = useStore((s) => s.clean)
-  const setClean = useStore((s) => s.setClean)
-  const pick = (v: boolean) => {
-    if (v === clean) return
-    setClean(v)
-    window.scrollTo(0, 0)
-    live.section = 0
-    sound.pluck(hashText(v ? 'clean' : 'classic'))
-  }
-  return (
-    <div role="group" aria-label="Design" className="pointer-events-auto flex items-center rounded-full p-[3px] text-[12px] font-extrabold backdrop-blur-md sm:text-[13px]" style={{ boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 28%, transparent)', background: 'color-mix(in srgb, var(--bg) 55%, transparent)' }}>
-      {[
-        { v: true, label: 'Clean' },
-        { v: false, label: 'Classic' },
-      ].map((o) => (
-        <button
-          key={o.label}
-          aria-pressed={clean === o.v}
-          onClick={() => pick(o.v)}
-          className="rounded-full px-3 py-1.5 transition-colors duration-300 sm:px-3.5"
-          style={{ background: clean === o.v ? 'var(--ink)' : 'transparent', color: clean === o.v ? 'var(--bg)' : 'var(--ink)', opacity: clean === o.v ? 1 : 0.75 }}
-        >
-          {o.label}
-        </button>
-      ))}
     </div>
   )
 }
@@ -577,8 +545,6 @@ export default function Overlay() {
       <footer className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex items-end justify-between gap-4 px-5 py-5 sm:px-10 sm:py-7">
         <SoundControl />
         <div className="pointer-events-auto flex items-center gap-3 sm:gap-6">
-          <Inspect />
-          <DesignSwitch />
           <Gyro />
           <AskAI inline />
           <a href="mailto:simon0021maxam@gmail.com" className="max-sm:hidden rounded-full px-4 py-2 text-[14px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>simon0021maxam@gmail.com</a>
