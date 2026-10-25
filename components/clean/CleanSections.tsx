@@ -10,6 +10,7 @@ import { useCt } from '@/lib/i18n-certs'
 import { ISSUER, Mark, OBJ, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
 import QuoteChat from './QuoteChat'
 import MapPill from './MapPill'
+import { TourCard, TourSteps } from './TourSection'
 import CertObject, { type ObjKind } from '../CertObject'
 
 // The Clean design: short sections, one accent colour each. Every section opens with a "stage" where the particle
@@ -389,6 +390,19 @@ export function CleanAbout() {
         <button onClick={() => go('work')} data-hover="Work" className="pill-o px-5 sm:mt-6 py-2.5 text-[14px] font-extrabold transition-transform hover:scale-105">
           {t('about.see')}
         </button>
+      </Reveal>
+    </Shell>
+  )
+}
+
+/* ── 3D home tour ────────────────────────────────────────────────────────── */
+export function CleanTour() {
+  const t = useT()
+  return (
+    <Shell id="tour" kicker={t('tour.kicker')} title={<Pipe s={t('tour.title')} />} sub={t('tour.sub')} lean>
+      <Reveal>
+        <TourCard />
+        <TourSteps />
       </Reveal>
     </Shell>
   )

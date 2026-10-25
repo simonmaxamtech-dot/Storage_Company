@@ -370,10 +370,11 @@ const ROOMS_STACKED: Room[] = [
   { x: 0, y: 1.6, s: 0.9, rz: 0, dim: 0.7, target: 10 },
 ]
 
-// The Clean design's rooms: hero, Simon's portrait, certificates (a mountain), work (a pavilion), pricing (the chosen plan), contact (the beaver again).
+// The Clean design's rooms: hero, Simon's portrait, the 3D tour (quiet, the tour is the picture), certificates (a mountain), work (a pavilion), pricing (the chosen plan), contact (the beaver again).
 const CLEAN_DESKTOP: Room[] = [
   { x: 3.1, y: 0.1, s: 0.8, rz: 0, dim: 1, target: 0 },
   { x: 3.3, y: 0.5, s: 0.95, rz: 0, dim: 0.9, target: 7 },
+  { x: 4.0, y: 1.7, s: 0.22, rz: 0, dim: 0.02, target: 3 },
   { x: 3.4, y: 1.7, s: 0.72, rz: 0, dim: 1, target: 5 },
   { x: 3.2, y: 1.8, s: 0.5, rz: 0, dim: 1, target: 11 },
   { x: 4.0, y: 1.7, s: 0.22, rz: 0, dim: 0.02, target: 3 },
@@ -382,6 +383,7 @@ const CLEAN_DESKTOP: Room[] = [
 const CLEAN_STACKED: Room[] = [
   { x: 0, y: 1.7, s: 0.9, rz: 0, dim: 1, target: 0 },
   { x: 0, y: 2.4, s: 1.05, rz: 0, dim: 0.9, target: 7 },
+  { x: 0, y: 3.2, s: 0.24, rz: 0, dim: 0.02, target: 3 },
   { x: 0, y: 2.35, s: 0.8, rz: 0, dim: 1, target: 5 },
   { x: 0, y: 2.35, s: 0.7, rz: 0, dim: 1, target: 11 },
   { x: 0, y: 3.2, s: 0.24, rz: 0, dim: 0.02, target: 3 },
@@ -390,7 +392,7 @@ const CLEAN_STACKED: Room[] = [
 
 // The pricing room shows the chosen plan: an apple, a tree, a planet, a galaxy.
 const PRICING_ROOM = 10
-const CLEAN_PRICING_ROOM = 4
+const CLEAN_PRICING_ROOM = 5
 const PLAN_TARGET: Room['target'][] = [3, 11, 5, 4]
 // Which background-built formation each target needs (the snake and the wireframe need none).
 const TARGET_FORMATION: (FormationName | null)[] = [null, 'spaces', 'apple', 'orbit', 'cloud', 'galaxy', 'tree', 'portrait', 'bamboo', 'cradle', 'peaks', null]

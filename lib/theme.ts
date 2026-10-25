@@ -14,6 +14,7 @@ export const SECTION_THEME: Record<string, Mode> = {
   play: 'void',
   pricing: 'ember',
   about: 'ember',
+  tour: 'night',
   credentials: 'void',
   contact: 'night',
 }

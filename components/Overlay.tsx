@@ -20,7 +20,7 @@ import CertObject, { type ObjKind } from './CertObject'
 import MountainLife from './MountainLife'
 import HoverWords from './HoverWords'
 import Pricing from './Pricing'
-import { CleanAbout, CleanCerts, CleanContact, CleanFooter, CleanPricing, CleanWork } from './clean/CleanSections'
+import { CleanAbout, CleanCerts, CleanContact, CleanFooter, CleanPricing, CleanTour, CleanWork } from './clean/CleanSections'
 import SnakeGame from './SnakeGame'
 import { WordDemo, GravityDemo, DaylightDemo } from './demos/Playground'
 import PizzaShowcase from './demos/Pizza'
@@ -31,7 +31,7 @@ import { ConfiguratorDemo, DashboardDemo, OrderDemo, GlobeDemo, AssistantDemo } 
 import { PHONE, PHONE_HREF } from '@/lib/site'
 const CONTACT_EMAIL = 'simon0021maxam@gmail.com'
 
-const CLEAN_IDS = ['intro', 'about', 'credentials', 'work', 'pricing', 'contact']
+const CLEAN_IDS = ['intro', 'about', 'tour', 'credentials', 'work', 'pricing', 'contact']
 const SECTION_IDS = ['intro', 'eden', 'newton', 'idea', 'form', 'work', 'studio', 'beyond', 'panda', 'play', 'pricing', 'about', 'credentials', 'contact']
 // Left edge, wide screens only: my name is not there at the top; it appears sharp, letter by letter, in the theme colour as you scroll. A fully coloured name means you have reached the end.
 function ScrollLine() {
@@ -94,6 +94,7 @@ const NAV = [
 
 const CLEAN_NAV = [
   { label: 'About', key: 'nav.about' as Key, id: 'about', phone: false },
+  { label: '3D tours', key: 'nav.tour' as Key, id: 'tour', phone: false },
   { label: 'Certificates', key: 'nav.certificates' as Key, id: 'credentials', phone: false },
   { label: 'Work', key: 'nav.work' as Key, id: 'work', phone: false },
   { label: 'Prices', key: 'nav.prices' as Key, id: 'pricing', phone: true },
@@ -587,6 +588,7 @@ export default function Overlay() {
         {clean ? (
           <>
             <CleanAbout />
+            <CleanTour />
             <CleanCerts onOpen={setCert} />
             <CleanWork projects={PROJECTS} demos={[DEMOS[4], DEMOS[5], DEMOS[0]]} />
             <CleanPricing />
