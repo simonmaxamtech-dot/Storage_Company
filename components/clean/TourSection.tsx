@@ -7,7 +7,8 @@ import { sound } from '@/lib/sound'
 
 // The 3D home tour. The tour itself is a separate little site served from /tour; it is only fetched when someone
 // presses the button, so this section costs the page one small picture until then.
-const SRC = '/tour/?embed'
+// (Next's dev server would hand "/tour/" to the language pages, so while developing we point at the file itself.)
+const SRC = process.env.NODE_ENV === 'development' ? '/tour/index.html?embed' : '/tour/?embed'
 
 function go(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
