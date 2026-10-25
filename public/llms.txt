@@ -21,3 +21,4 @@
 - [Home](https://radoya.com/): the main interactive site.
 - [About Radoya and Simon Maxam](https://radoya.com/about): who runs the company and what it does.
 - [Services](https://radoya.com/services): what Radoya builds, how a project goes, FAQ.
+- Radoya on Flickr: https://www.flickr.com/photos/radoya/

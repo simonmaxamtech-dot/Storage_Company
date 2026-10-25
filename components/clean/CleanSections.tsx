@@ -5,7 +5,7 @@ import { live } from '@/lib/store'
 import { useT, type Key } from '@/lib/i18n'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
-import { INSTAGRAM, LINKEDIN_COMPANY, TIKTOK, gmailCompose } from '@/lib/site'
+import { INSTAGRAM, LINKEDIN_COMPANY, TIKTOK, FLICKR, gmailCompose } from '@/lib/site'
 import { useCt } from '@/lib/i18n-certs'
 import { ISSUER, Mark, OBJ, PROFESSIONAL, COURSES, TOTAL, type Cert, type IssuerId } from '../Credentials'
 import QuoteChat from './QuoteChat'
@@ -517,6 +517,7 @@ export function CleanFooter() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[14px] font-extrabold">
             <a href={gmailCompose()} target="_blank" rel="noopener noreferrer" className="foot-link">Email us</a>
             <a href={TIKTOK} target="_blank" rel="noopener noreferrer" className="foot-link">TikTok</a>
+            <a href={FLICKR} target="_blank" rel="noopener noreferrer" className="foot-link">Flickr</a>
             <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="foot-link">Instagram</a>
             <a href={LINKEDIN_COMPANY} target="_blank" rel="noopener noreferrer" className="foot-link">LinkedIn</a>
             <a href="/services" className="foot-link">{t('foot.services')}</a>

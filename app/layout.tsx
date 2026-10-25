@@ -2,7 +2,7 @@
 import { Nunito, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import AskAI from '@/components/AskAI'
-import { DESCRIPTION, INSTAGRAM, LINKEDIN, LINKEDIN_COMPANY, OWNER, SITE_NAME, SITE_URL, TIKTOK, TITLE } from '@/lib/site'
+import { DESCRIPTION, INSTAGRAM, LINKEDIN, LINKEDIN_COMPANY, OWNER, SITE_NAME, SITE_URL, FLICKR, TIKTOK, TITLE } from '@/lib/site'
 
 const display = Nunito({ subsets: ['latin', 'latin-ext'], weight: ['800', '900'], variable: '--font-display', display: 'swap' })
 const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' })
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 }
 
 // Every Radoya profile links back to the site and to each other; listing them here is how search engines connect the brand to them.
-const ORG_SAME_AS: string[] = [LINKEDIN_COMPANY, INSTAGRAM, TIKTOK]
+const ORG_SAME_AS: string[] = [LINKEDIN_COMPANY, INSTAGRAM, TIKTOK, FLICKR]
 const PERSON_SAME_AS = [LINKEDIN]
 
 const jsonLd = {

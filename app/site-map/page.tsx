@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import LegalShell from '@/components/LegalShell'
 import SiteMapList from '@/components/SiteMapList'
-import { INSTAGRAM, LINKEDIN_COMPANY, TIKTOK } from '@/lib/site'
+import { INSTAGRAM, LINKEDIN_COMPANY, TIKTOK, FLICKR } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Site Map',
@@ -13,7 +13,7 @@ const GROUPS = [
   { h: 'The 3D site', links: [['Home', '/'], ['About', '/#about'], ['Certifications', '/#credentials'], ['Work and live demos', '/#work'], ['Prices', '/#pricing'], ['Contact', '/#contact']] },
   { h: 'Studio', links: [['Services', '/services']] },
   { h: 'Legal', links: [['Privacy Policy', '/privacy'], ['Use of Cookies', '/privacy#cookies'], ['Terms of Use', '/terms'], ['Legal', '/legal']] },
-  { h: 'Elsewhere', links: [['TikTok', TIKTOK], ['Instagram', INSTAGRAM], ['LinkedIn', LINKEDIN_COMPANY]] },
+  { h: 'Elsewhere', links: [['TikTok', TIKTOK], ['Flickr', FLICKR], ['Instagram', INSTAGRAM], ['LinkedIn', LINKEDIN_COMPANY]] },
 ]
 
 export default function SiteMap() {

@@ -21,6 +21,7 @@ export const CALLBACK_MINUTES = 15
 export const INSTAGRAM = 'https://www.instagram.com/radoyahq/'
 export const LINKEDIN = 'https://www.linkedin.com/in/simonmaxam/'
 export const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/raduyahq'
+export const FLICKR = 'https://www.flickr.com/photos/radoya/'
 export const TIKTOK = 'https://www.tiktok.com/@radoyahq'
 // One tap to write to us: opens the visitor's Gmail already addressed to Simon with a subject (mailto: still works for other mail apps).
 export const mailto = (subject = 'Hello Radoya') => `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}`
