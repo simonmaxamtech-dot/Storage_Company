@@ -2,7 +2,7 @@
 import { Nunito, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import AskAI from '@/components/AskAI'
-import { DESCRIPTION, INSTAGRAM, LINKEDIN, LINKEDIN_COMPANY, OWNER, SITE_NAME, SITE_URL, TITLE } from '@/lib/site'
+import { DESCRIPTION, INSTAGRAM, LINKEDIN, LINKEDIN_COMPANY, OWNER, SITE_NAME, SITE_URL, TIKTOK, TITLE } from '@/lib/site'
 
 const display = Nunito({ subsets: ['latin', 'latin-ext'], weight: ['800', '900'], variable: '--font-display', display: 'swap' })
 const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' })
@@ -41,9 +41,8 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: '/favicon.ico', sizes: '48x48' }, { url: '/icon-48.png', sizes: '48x48', type: 'image/png' }, { url: '/icon-192.png', sizes: '192x192', type: 'image/png' }, { url: '/icon-512.png', sizes: '512x512', type: 'image/png' }], apple: '/apple-icon.png' },
 }
 
-// The Instagram and LinkedIn company pages still carry the old name, so they are not claimed as Radoya's own profiles
-// here. Once Radoya accounts exist, add their links to ORG_SAME_AS: that is how search engines connect a brand to its profiles.
-const ORG_SAME_AS: string[] = [LINKEDIN_COMPANY, INSTAGRAM]
+// Every Radoya profile links back to the site and to each other; listing them here is how search engines connect the brand to them.
+const ORG_SAME_AS: string[] = [LINKEDIN_COMPANY, INSTAGRAM, TIKTOK]
 const PERSON_SAME_AS = [LINKEDIN]
 
 const jsonLd = {
@@ -71,8 +70,8 @@ const jsonLd = {
       logo: `${SITE_URL}/logo-panda.png`,
       image: `${SITE_URL}/logo-panda.png`,
       description: DESCRIPTION,
-      email: 'simon0021maxam@gmail.com',
-      contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'simon0021maxam@gmail.com', availableLanguage: ['en', 'fr'], areaServed: 'Worldwide' },
+      email: 'simonmaxam.tech@gmail.com',
+      contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'simonmaxam.tech@gmail.com', availableLanguage: ['en', 'fr'], areaServed: 'Worldwide' },
       sameAs: ORG_SAME_AS,
       founder: { '@id': `${SITE_URL}/#simon` },
       address: { '@type': 'PostalAddress', addressLocality: 'Calgary', addressRegion: 'AB', addressCountry: 'CA' },
@@ -87,7 +86,7 @@ const jsonLd = {
       url: `${SITE_URL}/`,
       jobTitle: 'Founder and CEO',
       alternateName: ['Simon Maxam Radoya', 'Simon Maxam Calgary'],
-      email: 'simon0021maxam@gmail.com',
+      email: 'simonmaxam.tech@gmail.com',
       sameAs: PERSON_SAME_AS,
       worksFor: { '@id': `${SITE_URL}/#org` },
       homeLocation: { '@type': 'Place', name: 'Calgary, Alberta, Canada' },

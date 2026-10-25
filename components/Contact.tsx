@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { live } from '@/lib/store'
 import { haptic } from '@/lib/phone'
 import { hashText, sound } from '@/lib/sound'
-import { INSTAGRAM, LINKEDIN_COMPANY, PHONE, PHONE_HREF } from '@/lib/site'
+import { INSTAGRAM, LINKEDIN_COMPANY, TIKTOK, PHONE, PHONE_HREF } from '@/lib/site'
 
 const KINDS = ['A website', '3D visuals', 'A product in 3D', 'A game', 'Architecture', 'Something strange']
 const RING = 'SAY HELLO · START A PROJECT · IDEAS BUILT IN 3D · Radoya · '
@@ -203,6 +203,7 @@ export default function Contact({ email }: { email: string }) {
               {email ? email : 'Direct email coming soon'}
             </span>
             <a href={PHONE_HREF} className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>{PHONE}</a>
+            <a href={TIKTOK} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>TikTok</a>
             <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>Instagram</a>
             <a href={LINKEDIN_COMPANY} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold underline decoration-2 underline-offset-4" style={{ color: 'var(--muted)' }}>LinkedIn</a>
           </div>

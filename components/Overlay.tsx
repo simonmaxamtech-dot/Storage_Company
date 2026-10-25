@@ -29,7 +29,7 @@ import { ConfiguratorDemo, DashboardDemo, OrderDemo, GlobeDemo, AssistantDemo } 
 
 // Add a real address here; until then the contact section says details are coming.
 import { PHONE, PHONE_HREF } from '@/lib/site'
-const CONTACT_EMAIL = 'simon0021maxam@gmail.com'
+const CONTACT_EMAIL = 'simonmaxam.tech@gmail.com'
 
 const CLEAN_IDS = ['intro', 'about', 'tour', 'credentials', 'work', 'pricing', 'contact']
 const SECTION_IDS = ['intro', 'eden', 'newton', 'idea', 'form', 'work', 'studio', 'beyond', 'panda', 'play', 'pricing', 'about', 'credentials', 'contact']
@@ -548,7 +548,7 @@ export default function Overlay() {
         <div className="pointer-events-auto flex items-center gap-3 sm:gap-6">
           <Gyro />
           <AskAI inline />
-          <a href="mailto:simon0021maxam@gmail.com" className="max-sm:hidden rounded-full px-4 py-2 text-[14px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>simon0021maxam@gmail.com</a>
+          <a href="mailto:simonmaxam.tech@gmail.com" className="max-sm:hidden rounded-full px-4 py-2 text-[14px] font-extrabold transition-transform hover:scale-105" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>simonmaxam.tech@gmail.com</a>
         </div>
       </footer>
 
@@ -567,7 +567,7 @@ export default function Overlay() {
               {t('hero.sub')}<span className="max-sm:hidden">{t('hero.sub2')}</span>
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-7 text-[14px] font-extrabold uppercase tracking-[0.18em] max-lg:justify-center max-sm:hidden">
-              <a href="mailto:simon0021maxam@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>{t('hero.talk')}</a>
+              <a href="mailto:simonmaxam.tech@gmail.com" className="border-b-2 pb-1 transition-opacity hover:opacity-70" style={{ borderColor: 'var(--ink)' }}>{t('hero.talk')}</a>
               {clean ? (
                 <>
                   <button onClick={() => go('credentials')} className="pb-1 opacity-70 transition-opacity hover:opacity-100">{t('nav.certificates')}</button>
@@ -756,7 +756,7 @@ export default function Overlay() {
             <Pricing />
             <p data-react className="mt-8 text-[17px] font-bold leading-snug" style={{ color: 'var(--muted)' }}>
               Every project is different. Tell us what you need and we will talk it through together, then settle the price that fits your work.{' '}
-              <a href="mailto:simon0021maxam@gmail.com" className="underline decoration-2 underline-offset-4" style={{ color: 'var(--hot)' }}>simon0021maxam@gmail.com</a>{' · '}
+              <a href="mailto:simonmaxam.tech@gmail.com" className="underline decoration-2 underline-offset-4" style={{ color: 'var(--hot)' }}>simonmaxam.tech@gmail.com</a>{' · '}
               <a href={PHONE_HREF} className="underline decoration-2 underline-offset-4" style={{ color: 'var(--hot)' }}>{PHONE}</a>
             </p>
           </div>

@@ -1,5 +1,5 @@
 ﻿import type { Metadata } from 'next'
-import { EMAIL, INSTAGRAM, LINKEDIN_COMPANY, SITE_URL } from '@/lib/site'
+import { EMAIL, INSTAGRAM, LINKEDIN_COMPANY, TIKTOK, SITE_URL } from '@/lib/site'
 
 const PATH = '/services'
 const PAGE_TITLE = 'Services: Web Design, Marketing, 3D and Brand in Calgary'
@@ -159,6 +159,7 @@ export default function Services() {
       <footer className="mt-16 flex flex-wrap items-center justify-between gap-4 text-[14px] font-bold" style={{ color: 'var(--muted)' }}>
         <a href="/" className="underline decoration-2 underline-offset-4">← Back to the 3D site</a>
         <span className="flex gap-5">
+          <a href={TIKTOK} target="_blank" rel="noopener noreferrer" className="underline decoration-2 underline-offset-4">TikTok</a>
           <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="underline decoration-2 underline-offset-4">Instagram</a>
           <a href={LINKEDIN_COMPANY} target="_blank" rel="noopener noreferrer" className="underline decoration-2 underline-offset-4">LinkedIn</a>
         </span>
